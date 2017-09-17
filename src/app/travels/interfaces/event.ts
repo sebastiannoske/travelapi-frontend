@@ -1,2 +1,2 @@
-import { Travel } from './_index';
-export type Event = Travel[];
+import { Destination } from './_index';
+export type Event = Destination[];

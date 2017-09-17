@@ -1,6 +1,6 @@
 export interface TravelType {
-  cost: String;
-  id: Number;
-  passenger: Number;
-  travel_id: Number;
+    cost: string;
+    id: number;
+    passenger: number;
+    travel_id: number;
 }

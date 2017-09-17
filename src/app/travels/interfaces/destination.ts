@@ -1,7 +1,7 @@
 import { Travel } from './_index';
 export interface Destination {
-  date: String;
-  event_id: Number;
-  name: String;
-  travel: Travel[];
+    date: string;
+    event_id: number;
+    name: string;
+    travel: Travel[];
 }

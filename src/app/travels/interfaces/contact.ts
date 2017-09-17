@@ -1,6 +1,6 @@
 export interface Contact {
-  id: Number;
-  name: String;
-  organisation: String;
-  travel_id: Number;
+  id: number;
+  name: string;
+  organisation: string;
+  travel_id: number;
 }

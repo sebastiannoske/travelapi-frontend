@@ -1,4 +1,4 @@
 export interface TransportationMean {
-  id: Number;
-  name: String;
+  id: number;
+  name: string;
 }

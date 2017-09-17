@@ -8,11 +8,12 @@ import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './page-not-found.component';
 import { MainComponent } from './travels/main/main.component';
 import { EventDataService } from './travels/event-data.service';
+import { EventRepository } from './travels/event-repository.service';
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent, MainComponent],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule],
-  providers: [EventDataService],
+  providers: [EventDataService, EventRepository],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
