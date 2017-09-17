@@ -1,4 +1,16 @@
-<p>
-  main works!
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link" [ngClass]="{'disabled': !eventHead.offers_total}" routerLinkActive="active" [routerLink]="['offers']">Angebote <span class="badge badge-light">{{eventHead.offers_total}}</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [ngClass]="{'disabled': !eventHead.requests_total}" routerLinkActive="active" [routerLink]="['requests']">Gesuche <span class="badge badge-light">{{eventHead.requests_total}}</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLinkActive="active" [routerLink]="['new']">Fahrt/Gesuch eintragen</a>
+    </li>
+  </ul>
+</nav>
+<div class="container-fluid">
   <router-outlet></router-outlet>
-</p>
+</div>

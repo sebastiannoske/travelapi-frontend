@@ -11,12 +11,14 @@ import {
 } from '@angular/router';
 import { EventHead } from './interfaces/_index';
 import { EventRepository } from './event-repository.service';
+import { EventDataService } from './event-data.service';
 
 @Injectable()
 export class EventResolver implements Resolve<EventHead> {
     constructor(
         private _router: Router,
-        private _eventRepository: EventRepository
+        private _eventRepository: EventRepository,
+        private _eventDataService: EventDataService
     ) {}
 
     resolve(
@@ -29,11 +31,12 @@ export class EventResolver implements Resolve<EventHead> {
             this._router.navigate(['/']);
             return Observable.of(null);
         }
-        this._eventRepository.setup(id);
-        return this._eventRepository.event
+        return this._eventDataService
+            .fetchEvent(id)
             .map(event => {
                 if (event) {
-                    return event;
+                    this._eventRepository.event = event;
+                    return this._eventRepository.eventHead;
                 }
                 console.log(`Event was not found: ${id}`);
                 this._router.navigate(['/']);

@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { EventHead } from '../interfaces/_index';
+
 @Component({
     selector: 'app-main',
     templateUrl: './main.component.html',
     styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
-    private _event: any;
-
+    eventHead: EventHead;
     constructor(private _route: ActivatedRoute) {}
 
     ngOnInit(): void {
-        this._event = this._route.snapshot.data['event'];
-        //console.log(this._event);
+        this.eventHead = this._route.snapshot.data['eventHead'];
     }
 }
