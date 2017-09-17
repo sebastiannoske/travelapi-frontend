@@ -1,0 +1,39 @@
+<table class="table table-striped table-hover table-responsive">
+  <thead>
+    <tr>
+      <th>Plz</th>
+      <th>Abfahrtsort</th>
+      <th>Verkehrsmittel</th>
+      <th>Aktionsort</th>
+      <th>Entfernung</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let travel of pagedTravels">
+      <td>{{travel.postcode}}</td>
+      <td>{{travel.city}}</td>
+      <td>{{travel.transportation_mean.name}}</td>
+      <td>{{travel.destination.name}}</td>
+      <td>111</td>
+    </tr>
+  </tbody>
+</table>
+<nav>
+  <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+    <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+      <a class="page-link" (click)="setPage(1)">First</a>
+    </li>
+    <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+      <a class="page-link" (click)="setPage(pager.currentPage - 1)">Previous</a>
+    </li>
+    <li *ngFor="let page of pager.pages" class="page-item" [ngClass]="{active:pager.currentPage === page}">
+      <a class="page-link" (click)="setPage(page)">{{page}}</a>
+    </li>
+    <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+      <a class="page-link" (click)="setPage(pager.currentPage + 1)">Next</a>
+    </li>
+    <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+      <a class="page-link" (click)="setPage(pager.totalPages)">Last</a>
+    </li>
+  </ul>
+</nav>
