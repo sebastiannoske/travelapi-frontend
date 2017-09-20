@@ -36,17 +36,16 @@ export class EventDataService {
                 headers: this._headers
             })
             .map((event: EventRaw) => {
-                const test = event.data.map(destination =>
-                    destination.travel.map((travel, index) => {
-                        travel.destination = {
-                            date: destination.date,
-                            event_id: destination.event_id,
-                            name: destination.name
-                        };
-                        return travel;
-                    })
+                event.data.forEach(destination =>
+                    destination.travel.forEach(
+                        travel =>
+                            (travel.destination = {
+                                date: destination.date,
+                                event_id: destination.event_id,
+                                name: destination.name
+                            })
+                    )
                 );
-                console.log(test);
                 return event.data;
             })
             .catch(this.handleError);

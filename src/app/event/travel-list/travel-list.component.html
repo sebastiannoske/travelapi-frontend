@@ -9,7 +9,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let travel of pagedTravels">
+    <tr *ngFor="let travel of travels | pagination:pager">
       <td>{{travel.postcode}}</td>
       <td>{{travel.city}}</td>
       <td>{{travel.transportation_mean.name}}</td>

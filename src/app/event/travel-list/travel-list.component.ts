@@ -11,8 +11,7 @@ import { Travel, EventPager } from '../interfaces/_index';
 })
 export class TravelListComponent implements OnInit {
     travels: Travel[];
-    pagedTravels: Travel[];
-    pager: EventPager = {};
+    pager: EventPager;
 
     constructor(
         private _eventRepository: EventRepository,
@@ -25,20 +24,13 @@ export class TravelListComponent implements OnInit {
             this._route.snapshot.data['type'] === 'offer'
                 ? this._eventRepository.offers
                 : this._eventRepository.requests;
-        this.setPage(1);
+        this.pager = this._pagination.getPager(this.travels.length, 1);
     }
 
-    setPage(page: number) {
+    public setPage(page: number) {
         if (page < 1 || page > this.pager.totalPages) {
             return;
         }
-        // get pager object from service
         this.pager = this._pagination.getPager(this.travels.length, page);
-
-        // get current page of items
-        this.pagedTravels = this.travels.slice(
-            this.pager.startIndex,
-            this.pager.endIndex + 1
-        );
     }
 }

@@ -6,7 +6,7 @@ import { EventPager } from './interfaces/_index';
 export class EventPagination {
     constructor() {}
 
-    getPager(
+    public getPager(
         totalItems: number,
         currentPage: number = 1,
         pageSize: number = 10
