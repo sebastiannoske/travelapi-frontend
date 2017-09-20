@@ -12,6 +12,7 @@ import { Travel, EventPager } from '../interfaces/_index';
 export class TravelListComponent implements OnInit {
     travels: Travel[];
     pager: EventPager;
+    filter: string;
 
     constructor(
         private _eventRepository: EventRepository,

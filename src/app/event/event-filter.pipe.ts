@@ -1,12 +1,33 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { Travel } from './interfaces/_index';
 
 @Pipe({
-  name: 'eventFilter'
+    name: 'filter',
+    pure: false
 })
 export class EventFilterPipe implements PipeTransform {
+    transform(travels: Travel[], filter: string): any {
+        if (!filter) {
+            return travels;
+        }
+        filter = filter.toLowerCase();
+        return travels.filter(travel => {
+            //do
+            return true;
+        });
+    }
 
-  transform(value: any, args?: any): any {
-    return null;
-  }
-
+    private filterByString(filter) {
+        if (filter) {
+            filter = filter.toLowerCase();
+        }
+        return value => {
+            return (
+                !filter ||
+                (value
+                    ? ('' + value).toLowerCase().indexOf(filter) !== -1
+                    : false)
+            );
+        };
+    }
 }
