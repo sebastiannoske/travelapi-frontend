@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import * as _ from 'lodash';
 
 import { EventDataService } from './event-data.service';
 
@@ -31,5 +32,21 @@ export class EventRepository {
     }
     public get offers(): Travel[] {
         return this.travels.filter(travel => travel.offer);
+    }
+    public getDestinations(travels?: Travel[]): Destination[] {
+        if (travels) {
+            return _.uniqWith(
+                travels.map(travel => travel.destination),
+                _.isEqual
+            );
+        }
+        return this._event.map(destination => {
+            return {
+                date: destination.date,
+                event_id: destination.event_id,
+                id: destination.id,
+                name: destination.name
+            };
+        });
     }
 }

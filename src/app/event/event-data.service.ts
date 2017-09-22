@@ -42,6 +42,7 @@ export class EventDataService {
                             (travel.destination = {
                                 date: destination.date,
                                 event_id: destination.event_id,
+                                id: destination.id,
                                 name: destination.name
                             })
                     )

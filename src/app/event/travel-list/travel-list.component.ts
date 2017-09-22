@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EventRepository } from '../event-repository.service';
 import { EventPagination } from '../event-pagination.service';
-import { Travel, EventPager } from '../interfaces/_index';
+import { Travel, EventPager, Destination } from '../interfaces/_index';
 
 @Component({
     selector: 'app-travel-list',
@@ -11,9 +11,11 @@ import { Travel, EventPager } from '../interfaces/_index';
 })
 export class TravelListComponent implements OnInit {
     travels: Travel[];
-    filter: string;
+    destinations: Destination[];
+    textFilter: string;
+    destinationFilter: null | Destination;
 
-    public get pager() {
+    public get pager(): EventPager {
         return this._pagination.pager;
     }
 
@@ -29,9 +31,10 @@ export class TravelListComponent implements OnInit {
                 ? this._eventRepository.offers
                 : this._eventRepository.requests;
         this._pagination.setPager(this.travels.length, 1);
+        this.destinations = this._eventRepository.getDestinations(this.travels);
     }
 
-    public setPage(page: number) {
+    public setPage(page: number): void {
         if (page < 1 || page > this.pager.totalPages) {
             return;
         }

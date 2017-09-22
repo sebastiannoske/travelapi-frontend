@@ -15,6 +15,7 @@ import { TravelNewComponent } from './event/travel-new/travel-new.component';
 import { EventFilterPipe } from './event/event-filter.pipe';
 import { FormsModule } from '@angular/forms';
 import { EventPaginationPipe } from './event/event-pagination.pipe';
+import { BsDropdownModule } from 'ngx-bootstrap';
 
 @NgModule({
     declarations: [
@@ -26,7 +27,13 @@ import { EventPaginationPipe } from './event/event-pagination.pipe';
         EventFilterPipe,
         EventPaginationPipe
     ],
-    imports: [BrowserModule, HttpClientModule, AppRoutingModule, FormsModule],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        AppRoutingModule,
+        FormsModule,
+        BsDropdownModule.forRoot()
+    ],
     providers: [EventDataService, EventRepository, EventPagination],
     bootstrap: [AppComponent]
 })
