@@ -4,13 +4,19 @@ import { EventPager } from './interfaces/_index';
 
 @Injectable()
 export class EventPagination {
+    private _pager: EventPager;
+
     constructor() {}
 
-    public getPager(
+    public get pager() {
+        return this._pager;
+    }
+
+    public setPager(
         totalItems: number,
         currentPage: number = 1,
         pageSize: number = 10
-    ): EventPager {
+    ): void {
         // calculate total pages
         const totalPages = Math.ceil(totalItems / pageSize);
 
@@ -41,7 +47,7 @@ export class EventPagination {
         const pages = _.range(startPage, endPage + 1);
 
         // return object with all pager properties required by the view
-        return {
+        this._pager = {
             totalItems: totalItems,
             currentPage: currentPage,
             pageSize: pageSize,

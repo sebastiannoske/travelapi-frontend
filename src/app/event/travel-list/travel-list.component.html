@@ -14,7 +14,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let travel of travels | filter:filter | slice:pager.startIndex:pager.endIndex+1">
+      <tr *ngFor="let travel of travels | filter:filter | pagination:pager">
         <td>{{travel.postcode}}</td>
         <td>{{travel.city}}</td>
         <td>{{travel.transportation_mean.name}}</td>

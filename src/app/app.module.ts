@@ -14,6 +14,7 @@ import { TravelListComponent } from './event/travel-list/travel-list.component';
 import { TravelNewComponent } from './event/travel-new/travel-new.component';
 import { EventFilterPipe } from './event/event-filter.pipe';
 import { FormsModule } from '@angular/forms';
+import { EventPaginationPipe } from './event/event-pagination.pipe';
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import { FormsModule } from '@angular/forms';
         MainComponent,
         TravelListComponent,
         TravelNewComponent,
-        EventFilterPipe
+        EventFilterPipe,
+        EventPaginationPipe
     ],
     imports: [BrowserModule, HttpClientModule, AppRoutingModule, FormsModule],
     providers: [EventDataService, EventRepository, EventPagination],

@@ -11,8 +11,11 @@ import { Travel, EventPager } from '../interfaces/_index';
 })
 export class TravelListComponent implements OnInit {
     travels: Travel[];
-    pager: EventPager;
     filter: string;
+
+    public get pager() {
+        return this._pagination.pager;
+    }
 
     constructor(
         private _eventRepository: EventRepository,
@@ -25,13 +28,13 @@ export class TravelListComponent implements OnInit {
             this._route.snapshot.data['type'] === 'offer'
                 ? this._eventRepository.offers
                 : this._eventRepository.requests;
-        this.pager = this._pagination.getPager(this.travels.length, 1);
+        this._pagination.setPager(this.travels.length, 1);
     }
 
     public setPage(page: number) {
         if (page < 1 || page > this.pager.totalPages) {
             return;
         }
-        this.pager = this._pagination.getPager(this.travels.length, page);
+        this._pagination.setPager(this.pager.totalItems, page);
     }
 }
