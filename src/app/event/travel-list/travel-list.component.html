@@ -1,4 +1,4 @@
-<div class="container-fluid mt-4">
+<div class="container-fluid mt-4" *eventAssign="let travelsFiltered be travels | filter:textFilter:destinationFilter">
   <div class="btn-group mb-4" dropdown>
     <button dropdownToggle type="button" class="btn btn-secondary dropdown-toggle">
           {{destinationFilter ? destinationFilter.name : 'Demoziel auswählen'}}<span class="caret"></span>
@@ -27,7 +27,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let travel of travels | filter:textFilter:destinationFilter | pagination:pager">
+      <tr *ngFor="let travel of travelsFiltered | pagination:pager">
         <td>{{travel.postcode}}</td>
         <td>{{travel.city}}</td>
         <td>{{travel.transportation_mean.name}}</td>
@@ -36,7 +36,7 @@
       </tr>
     </tbody>
   </table>
-  <div *ngIf="(travels | filter:textFilter:destinationFilter).length === 0" class="alert alert-danger" role="alert">
+  <div *ngIf="travelsFiltered.length === 0" class="alert alert-danger" role="alert">
     Keine Fahrten gefunden
   </div>
   <nav>

@@ -16,6 +16,7 @@ import { EventFilterPipe } from './event/event-filter.pipe';
 import { FormsModule } from '@angular/forms';
 import { EventPaginationPipe } from './event/event-pagination.pipe';
 import { BsDropdownModule } from 'ngx-bootstrap';
+import { EventAssignDirective } from './event/event-assign.directive';
 
 @NgModule({
     declarations: [
@@ -25,7 +26,8 @@ import { BsDropdownModule } from 'ngx-bootstrap';
         TravelListComponent,
         TravelNewComponent,
         EventFilterPipe,
-        EventPaginationPipe
+        EventPaginationPipe,
+        EventAssignDirective
     ],
     imports: [
         BrowserModule,
