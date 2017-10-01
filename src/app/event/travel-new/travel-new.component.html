@@ -1,3 +1,9 @@
-<p>
-  travel-new works!
-</p>
+<form novalidate (ngSubmit)="save()" [formGroup]="travelForm">
+  <input class="form-control" id="firstNameId" type="text" placeholder="First Name (required)" formControlName="firstName"
+  />
+  <button class="btn btn-primary" type="submit" [disabled]="!travelForm.valid">Save</button>
+</form>
+<br>Dirty: {{ travelForm.dirty }}
+<br>Touched: {{ travelForm.touched }}
+<br>Valid: {{ travelForm.valid }}
+<br>Value: {{ travelForm.value | json }}

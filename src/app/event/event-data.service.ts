@@ -12,7 +12,7 @@ import { Event, EventRaw } from './interfaces/_index';
 
 @Injectable()
 export class EventDataService {
-    private _eventsUrl = './assets/api/events/';
+    private _eventsUrl = 'https://mfz.g20-protestwelle.de/api/events/';
     private _headers: HttpHeaders;
 
     constructor(private _http: HttpClient) {
@@ -23,19 +23,20 @@ export class EventDataService {
         return new HttpHeaders()
             .set(
                 'Authorization',
-                'Bearer Z1eGeEnFkGmrHeZthoTb8EJqKbb7DuRohcSeAoBzHlSn9Atf3QVujgbIHMSf'
+                'Bearer 0V9DJlwyVotPAiff09GU4usRUK1e93AYwb6Mgf06ihodeWvR5VB7d7Ik4oRe'
             )
             .append('Content-Type', 'application/x-www-form-urlencoded')
             .append('Accept', 'application/json');
     }
 
     public fetchEvent(id: number): Observable<Event> {
-        const url = `${this._eventsUrl}${id}.json`;
+        const url = `${this._eventsUrl}${id}/travel`;
         return this._http
             .get<EventRaw>(url, {
                 headers: this._headers
             })
             .map((event: EventRaw) => {
+                console.log(event);
                 event.data.forEach(destination =>
                     destination.travel.forEach(
                         travel =>

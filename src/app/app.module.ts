@@ -13,7 +13,7 @@ import { EventRepository } from './event/event-repository.service';
 import { TravelListComponent } from './event/travel-list/travel-list.component';
 import { TravelNewComponent } from './event/travel-new/travel-new.component';
 import { EventFilterPipe } from './event/event-filter.pipe';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { EventPaginationPipe } from './event/event-pagination.pipe';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { EventAssignDirective } from './event/event-assign.directive';
@@ -34,6 +34,7 @@ import { EventAssignDirective } from './event/event-assign.directive';
         HttpClientModule,
         AppRoutingModule,
         FormsModule,
+        ReactiveFormsModule,
         BsDropdownModule.forRoot()
     ],
     providers: [EventDataService, EventRepository, EventPagination],
