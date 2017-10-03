@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { EventRepository } from '../event-repository.service';
 import { EventPagination } from '../event-pagination.service';
 import { Travel, EventPager, Destination } from '../interfaces/_index';
-import { FormControl } from '@angular/forms';
+
 
 @Component({
     selector: 'app-travel-list',

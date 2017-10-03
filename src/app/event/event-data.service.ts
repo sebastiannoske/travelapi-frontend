@@ -36,7 +36,6 @@ export class EventDataService {
                 headers: this._headers
             })
             .map((event: EventRaw) => {
-                console.log(event);
                 event.data.forEach(destination =>
                     destination.travel.forEach(
                         travel =>

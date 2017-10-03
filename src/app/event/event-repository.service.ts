@@ -4,7 +4,13 @@ import * as _ from 'lodash';
 
 import { EventDataService } from './event-data.service';
 
-import { Event, EventHead, Travel, Destination } from './interfaces/_index';
+import {
+    Event,
+    EventHead,
+    Travel,
+    Destination,
+    TransportationMean
+} from './interfaces/_index';
 
 @Injectable()
 export class EventRepository {
@@ -48,5 +54,11 @@ export class EventRepository {
                 name: destination.name
             };
         });
+    }
+    public getTransportationMeans(): TransportationMean[] {
+        return _.uniqWith(
+            this.travels.map(travel => travel.transportation_mean),
+            _.isEqual
+        );
     }
 }

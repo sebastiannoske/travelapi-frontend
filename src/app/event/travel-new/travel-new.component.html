@@ -3,7 +3,7 @@
     <div formArrayName="steps">
 
       <!-- FormArray Step 0 -->
-      <div [formGroupName]="0" *ngIf="activeStep===0">
+      <div [formGroupName]="0" *ngIf="steps.current===0" [@viewChange]="slide">
 
         <div>
           <div class="form-check form-check-inline">
@@ -18,33 +18,98 @@
           </div>
         </div>
 
-        <button class="btn btn-secondary" (click)="activeStep=1" [disabled]="!travelForm.get('steps.0').valid">Next</button>
+        <button class="btn btn-secondary" (click)="steps.next" [disabled]="!travelForm.get('steps.0').valid">Next</button>
 
       </div>
 
       <!-- FormArray Step 1 -->
-      <div [formGroupName]="1" *ngIf="activeStep===1">
-        <input class="form-control" [ngClass]="{'is-invalid':validateText(travelForm.get('steps.1.userName'))}" type="text" placeholder="Name *"
+      <div [formGroupName]="1" *ngIf="steps.current===1" [@viewChange]="slide">
+        <h3>Account für die Mitfahrbörse anlegen.</h3>
+        <input class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.1.userName'))}" type="text" placeholder="Name *"
           formControlName="userName" />
-        <input class="form-control" [ngClass]="{'is-invalid':validateText(travelForm.get('steps.1.userAddress'))}" type="text" placeholder="Strasse *"
+        <input class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.1.userAddress'))}" type="text" placeholder="Strasse *"
           formControlName="userAddress" />
-        <input class="form-control" [ngClass]="{'is-invalid':validateText(travelForm.get('steps.1.userPostCode'))}" type="text" placeholder="Postleitzahl *"
+        <input class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.1.userPostCode'))}" type="text" placeholder="Postleitzahl *"
           formControlName="userPostCode" />
-        <input class="form-control" [ngClass]="{'is-invalid':validateText(travelForm.get('steps.1.userCity'))}" type="text" placeholder="Ort *"
+        <input class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.1.userCity'))}" type="text" placeholder="Ort *"
           formControlName="userCity" />
-        <input class="form-control" [ngClass]="{'is-invalid':validateText(travelForm.get('steps.1.userPhoneNumber'))}" type="text"
-          placeholder="Telefon *" formControlName="userPhoneNumber" />
+        <input class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.1.userPhoneNumber'))}" type="text" placeholder="Telefon *"
+          formControlName="userPhoneNumber" />
+        <div formGroupName="userEmail">
+          <input class="form-control" [ngClass]="{'is-invalid':travelForm.get('steps.1.userEmail.email').validDebounced}" type="email"
+            placeholder="Email *" formControlName="email" />
+          <input class="form-control" [ngClass]="{'is-invalid':travelForm.get('steps.1.userEmail').errors||validate(travelForm.get('steps.1.userEmail.confirmEmail'))}"
+            type="email" placeholder="Emailadresse wiederholen *" formControlName="confirmEmail" />
+        </div>
 
-        <button class="btn btn-secondary" (click)="activeStep=0" [disabled]="!travelForm.get('steps.1').valid">Next</button>
+        <button class="btn btn-secondary" (click)="steps.next" [disabled]="!travelForm.get('steps.1').valid">Next</button>
 
       </div>
 
-      <!-- <button class="btn btn-primary" type="submit" [disabled]="!travelForm.valid">Save</button> -->
+      <!-- FormArray Step 2 -->
+      <div [formGroupName]="2" *ngIf="steps.current===2" [@viewChange]="slide">
+        <h3>Kontaktdaten hinterlegen.</h3>
+        <input class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.2.organisation'))}" type="text" placeholder="Organisation"
+          formControlName="organisation" />
+        <input class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.2.contactName'))}" type="text" placeholder="Name *"
+          formControlName="contactName" />
+        <input class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.2.phoneNumber'))}" type="text" placeholder="Telefon *"
+          formControlName="phoneNumber" />
+        <input class="form-control" [ngClass]="{'is-invalid':travelForm.get('steps.2.contactEmail').validDebounced}" type="email"
+          placeholder="Email *" formControlName="contactEmail" />
+
+        <button class="btn btn-secondary" (click)="steps.next" [disabled]="!travelForm.get('steps.2').valid">Next</button>
+
+      </div>
+
+      <!-- FormArray Step 3 -->
+      <div [formGroupName]="3" *ngIf="steps.current===3" [@viewChange]="slide">
+        <h3>Abfahrtsort auswählen</h3>
+        <input class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.3.streetAddress'))}" type="text" placeholder="Strasse *"
+          formControlName="streetAddress" />
+        <input class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.3.postcode'))}" type="text" placeholder="Postleitzahl *"
+          formControlName="postcode" />
+        <input class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.3.city'))}" type="text" placeholder="Ort *"
+          formControlName="city" />
+
+        <button class="btn btn-secondary" (click)="steps.next" [disabled]="!travelForm.get('steps.3').valid">Next</button>
+
+      </div>
+
+      <!-- FormArray Step 4 -->
+      <div [formGroupName]="4" *ngIf="steps.current===4" [@viewChange]="slide">
+        <h3>Mitfahrgelegenheit anbieten</h3>
+        <select class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.4.destinationId'))}" formControlName="destinationId">
+            <option value=null disabled selected hidden>Ziel *</option>
+            <option *ngFor="let destination of destinations" value="{{destination.id}}">{{destination.name}}</option>
+          </select>
+        <select class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.4.transportationMeanId'))}" formControlName="transportationMeanId">
+              <option value=null disabled selected hidden>Verkehrsmittel *</option>
+              <option *ngFor="let transportationMean of transportationMeans" value="{{transportationMean.id}}">{{transportationMean.name}}</option>
+            </select>
+        <input class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.4.departureTime'))}" type="text" placeholder="Abfahrt *"
+          formControlName="departureTime" />
+        <textarea class="form-control" rows="4" placeholder="Beschreibung" formControlName="description"></textarea>
+
+        <button class="btn btn-secondary" (click)="steps.next" [disabled]="!travelForm.get('steps.4').valid">Next</button>
+
+      </div>
+
+      <div *ngIf="steps.current===5" [@viewChange]="slide">
+        <h3>Zusammenfassung</h3>
+        <pre>{{ travelForm.value | json }}</pre>
+        <button class="btn btn-primary" type="submit" [disabled]="!travelForm.valid">Save</button>
+      </div>
+
+      <!--  -->
 
     </div>
   </form>
 </div>
-<br>Dirty: {{ travelForm.dirty }}
-<br>Touched: {{ travelForm.touched }}
-<br>Valid: {{ travelForm.valid }}
-<br>Value: {{ travelForm.value | json }}
+<div class="container-fluid mt-4">
+  <b>Form</b>
+  <br>Dirty: {{ travelForm.dirty }}
+  <br>Touched: {{ travelForm.touched }}
+  <br>Valid: {{ travelForm.valid }}
+
+</div>
