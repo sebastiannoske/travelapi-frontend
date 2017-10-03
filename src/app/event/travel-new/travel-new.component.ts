@@ -19,6 +19,7 @@ import 'rxjs/add/operator/debounceTime';
 import { EventRepository } from '../event-repository.service';
 import { TravelSubmission, FormViewState } from '../classes/_index';
 import { TransportationMean, Destination } from '../interfaces/_index';
+// import * as moment from 'moment';
 
 @Component({
     selector: 'app-travel-new',
@@ -49,7 +50,7 @@ export class TravelNewComponent implements OnInit {
     constructor(
         private _fb: FormBuilder,
         private _eventRepository: EventRepository
-    ) {}
+    ) { }
 
     ngOnInit(): void {
         this.destinations = this._eventRepository.getDestinations();
@@ -113,6 +114,10 @@ export class TravelNewComponent implements OnInit {
                 (<any>control).validDebounced = !control.valid;
             });
         });
+    }
+
+    onChange(src: string) {
+        console.log(src);
     }
 
     save(): void {
