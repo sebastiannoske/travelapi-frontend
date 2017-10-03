@@ -18,6 +18,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { EventPaginationPipe } from './event/event-pagination.pipe';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { EventAssignDirective } from './event/event-assign.directive';
+import { MdDatepickerModule } from '@angular/material';
+
 
 @NgModule({
     declarations: [
@@ -37,6 +39,7 @@ import { EventAssignDirective } from './event/event-assign.directive';
         FormsModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
+        MdDatepickerModule,
         BsDropdownModule.forRoot()
     ],
     providers: [EventDataService, EventRepository, EventPagination],
