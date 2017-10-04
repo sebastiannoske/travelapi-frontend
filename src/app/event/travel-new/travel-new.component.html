@@ -118,25 +118,35 @@
             </select>
 
         <md-form-field>
-          <input mdInput [mdDatepicker]="myDatepicker" [ngClass]="{'is-invalid':validate(travelForm.get('steps.4.departureTime'))}" placeholder="Abfahrt *"
-          formControlName="departureTime">
+          <input mdInput [mdDatepicker]="myDatepicker" [ngClass]="{'is-invalid':validate(travelForm.get('steps.4.departureDate'))}" placeholder="Abfahrt *"
+          formControlName="departureDate" >
           <md-datepicker-toggle mdSuffix [for]="myDatepicker"></md-datepicker-toggle>
           <md-datepicker #myDatepicker></md-datepicker>
         </md-form-field>
+
+        <select class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.4.departureHour'))}" formControlName="departureHour">
+          <option value=null disabled selected hidden>Abfahrt Stunden *</option>
+          <option *ngFor="let hour of departureHours" value="{{hour.value}}">{{hour.value}}</option>
+        </select>
+
+        <select class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.4.departureMinute'))}" formControlName="departureMinute">
+          <option value=null disabled selected hidden>Abfahrt Minuten *</option>
+          <option *ngFor="let minute of departureMinutes" value="{{minute.value}}">{{minute.value}}</option>
+        </select>
 
         <md-form-field>
           <textarea mdInput class="form-control" rows="4" placeholder="Beschreibung" formControlName="description"></textarea>
         </md-form-field>
 
         <button class="btn btn-secondary" (click)="steps.next" [disabled]="!travelForm.get('steps.4').valid">Next</button>
-        <pre>{{ travelForm.get('steps.4').value | json }}</pre>
+        <pre>{{ travelForm.get('steps.4.departureDate').value }}</pre>
 
       </div>
 
       <div *ngIf="steps.current===5" [@viewChange]="slide">
         <h3>Zusammenfassung</h3>
         <pre>{{ travelForm.value | json }}</pre>
-        <button class="btn btn-primary" type="submit" [disabled]="!travelForm.valid">Save</button>
+        <button class="btn btn-primary" type="submit" [disabled]="!travelForm.valid" (click)='save()'>Save</button>
       </div>
 
       <!--  -->

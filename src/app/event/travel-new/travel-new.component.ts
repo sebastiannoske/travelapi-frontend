@@ -19,7 +19,9 @@ import 'rxjs/add/operator/debounceTime';
 import { EventRepository } from '../event-repository.service';
 import { TravelSubmission, FormViewState } from '../classes/_index';
 import { TransportationMean, Destination } from '../interfaces/_index';
-// import * as moment from 'moment';
+import { DateAdapter, NativeDateAdapter } from '@angular/material';
+
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-travel-new',
@@ -46,15 +48,30 @@ export class TravelNewComponent implements OnInit {
     transportationMeans: TransportationMean[];
     destinations: Destination[];
     steps: FormViewState;
+    departureHours: any[];
+    departureMinutes: any[];
+
     test = false;
     constructor(
         private _fb: FormBuilder,
-        private _eventRepository: EventRepository
-    ) { }
+        private _eventRepository: EventRepository,
+        private _dateAdapter: DateAdapter<NativeDateAdapter>
+    ) {
+        _dateAdapter.setLocale('de-DE');
+    }
 
     ngOnInit(): void {
         this.destinations = this._eventRepository.getDestinations();
         this.transportationMeans = this._eventRepository.getTransportationMeans();
+        this.departureHours = [];
+        for (let i = 0; i < 24; i++ ) {
+            this.departureHours.push({value: i});
+        }
+        this.departureMinutes = [];
+        for (let i = 0; i < 12; i++ ) {
+            this.departureMinutes.push({value: i * 5});
+        }
+
         this.travelForm = this._fb.group({
             steps: this._fb.array([
                 this._fb.group({
@@ -91,7 +108,9 @@ export class TravelNewComponent implements OnInit {
                 this._fb.group({
                     destinationId: [null, Validators.required],
                     transportationMeanId: [null, Validators.required],
-                    departureTime: ['', Validators.required],
+                    departureDate: ['', Validators.required],
+                    departureHour: [null, Validators.required],
+                    departureMinute: [null, Validators.required],
                     description: ''
                 })
             ])
@@ -123,6 +142,10 @@ export class TravelNewComponent implements OnInit {
     save(): void {
         console.log(this.travelForm);
         console.log('Saved: ' + JSON.stringify(this.travelForm.value));
+        const departureDate = moment(this.travelForm.value.steps[4].departureDate);
+        departureDate.add(this.travelForm.value.steps[4].departureHour, 'hours');
+        departureDate.add(this.travelForm.value.steps[4].departureMinute, 'minutes');
+        console.log(departureDate.format('YYYY-MM-DD hh:mm:ss'));
     }
 
     validate(formControl: FormControl): boolean {
