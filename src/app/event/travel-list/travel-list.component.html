@@ -16,46 +16,122 @@
     <div class="input-group-addon">⚙️</div>
     <input type="text" [(ngModel)]="textFilter" class="form-control" placeholder="Tabelle individuell filtern">
   </div>
-  <table class="table table-striped table-hover table-responsive">
-    <thead>
-      <tr>
-        <th>Plz</th>
-        <th>Abfahrtsort</th>
-        <th>Verkehrsmittel</th>
-        <th>Aktionsort</th>
-        <th>Entfernung</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let travel of travelsFiltered | pagination:pager">
-        <td>{{travel.postcode}}</td>
-        <td>{{travel.city}}</td>
-        <td>{{travel.transportation_mean.name}}</td>
-        <td>{{travel.destination.name}}</td>
-        <td>111</td>
-      </tr>
-    </tbody>
-  </table>
-  <div *ngIf="travelsFiltered.length === 0" class="alert alert-danger" role="alert">
-    Keine Fahrten gefunden
+  <div class="travel-wrap">
+    <div class="row table-head">
+      <div class="col-md-2">Plz</div>
+      <div class="col-md-3">Abfahrtsort</div>
+      <div class="col-md-2">Verkehrsmittel</div>
+      <div class="col-md-3">Aktionsort</div>
+      <div class="col-md-2">Entfernung</div>
+    </div>
+
+    <div *ngFor="let travel of travelsFiltered | pagination:pager" (click)='(currentDetailsTravelId === travel.id) ? currentDetailsTravelId = 0 : currentDetailsTravelId = travel.id' class="travel-row-wrap">
+      <div class="row">
+        <div class="col-md-2">{{travel.postcode}}</div>
+        <div class="col-md-3">{{travel.city}}</div>
+        <div class="col-md-2">{{travel.transportation_mean.name}}</div>
+        <div class="col-md-3">{{travel.destination.name}}</div>
+        <div class="col-md-2">111</div>
+      </div>
+      <div *ngIf='currentDetailsTravelId === travel.id' class="details-wrap" [@viewChange]="state">
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Details zur Fahrt</h2>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <span>Von</span>
+          </div>
+          <div class="col-md-9">
+            <span>{{travel.street_address}}, {{travel.postcode}}, {{travel.city}}</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <span>Nach</span>
+          </div>
+          <div class="col-md-9">
+            <span>{{travel.destination.name}} ({{travel.destination.date | amParse:'YYYY-MM-DD' | amDateFormat:'DD.MM.YYYY'}})</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <span>Verkehrsmittel</span>
+          </div>
+          <div class="col-md-9">
+            <span>{{travel.transportation_mean.name}}</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <span>ungefähre Abfahrtszeit</span>
+          </div>
+          <div class="col-md-9">
+            <span>{{travel.departure_time | amParse:'YYYY-MM-DD hh:mm:ss' | amDateFormat:'D.MMMM YYYY, H:mm'}} Uhr</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <span>Beschreibung</span>
+          </div>
+          <div class="col-md-9">
+            <span>{{travel.description}}</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Kontaktdetails</h2>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <span>Name</span>
+          </div>
+          <div class="col-md-9">
+            <span>{{travel.contact.name}}</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <span>Organisation</span>
+          </div>
+          <div class="col-md-9">
+            <span>{{travel.contact.organisation}}</span>
+          </div>
+        </div>
+          
+      </div>
+    </div>
+
+    <div *ngIf="travelsFiltered.length === 0" class="alert alert-danger" role="alert">
+      Keine Fahrten gefunden
+    </div>
+    <nav>
+      <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+          <a class="page-link" (click)="setPage(1)">First</a>
+        </li>
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+          <a class="page-link" (click)="setPage(pager.currentPage - 1)">Previous</a>
+        </li>
+        <li *ngFor="let page of pager.pages" class="page-item" [ngClass]="{active:pager.currentPage === page}">
+          <a class="page-link" (click)="setPage(page)">{{page}}</a>
+        </li>
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <a class="page-link" (click)="setPage(pager.currentPage + 1)">Next</a>
+        </li>
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <a class="page-link" (click)="setPage(pager.totalPages)">Last</a>
+        </li>
+      </ul>
+    </nav>
   </div>
-  <nav>
-    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-      <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
-        <a class="page-link" (click)="setPage(1)">First</a>
-      </li>
-      <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
-        <a class="page-link" (click)="setPage(pager.currentPage - 1)">Previous</a>
-      </li>
-      <li *ngFor="let page of pager.pages" class="page-item" [ngClass]="{active:pager.currentPage === page}">
-        <a class="page-link" (click)="setPage(page)">{{page}}</a>
-      </li>
-      <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-        <a class="page-link" (click)="setPage(pager.currentPage + 1)">Next</a>
-      </li>
-      <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-        <a class="page-link" (click)="setPage(pager.totalPages)">Last</a>
-      </li>
-    </ul>
-  </nav>
-</div>

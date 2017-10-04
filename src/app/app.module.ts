@@ -19,6 +19,7 @@ import { EventPaginationPipe } from './event/event-pagination.pipe';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { EventAssignDirective } from './event/event-assign.directive';
 import { MdNativeDateModule, MdDatepickerModule, MdInputModule } from '@angular/material';
+import { MomentModule } from 'angular2-moment';
 
 @NgModule({
     declarations: [
@@ -41,6 +42,7 @@ import { MdNativeDateModule, MdDatepickerModule, MdInputModule } from '@angular/
         MdNativeDateModule,
         MdDatepickerModule,
         MdInputModule,
+        MomentModule,
         BsDropdownModule.forRoot()
     ],
     providers: [EventDataService, EventRepository, EventPagination],
