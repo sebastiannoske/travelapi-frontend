@@ -1,5 +1,6 @@
 export class FormViewState {
     public last: number;
+    public indices: number[];
     private _current: number;
     private _maxViews: number;
     public get current(): number {
@@ -16,5 +17,6 @@ export class FormViewState {
     constructor(viewsCount: number) {
         this._maxViews = viewsCount;
         this._current = 0;
+        this.indices = Array.from(Array(this._maxViews + 1), (_, x) => x + 1);
     }
 }

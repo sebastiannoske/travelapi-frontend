@@ -43,15 +43,14 @@ import * as moment from 'moment';
     ]
 })
 export class TravelNewComponent implements OnInit {
-    travel: TravelSubmission = new TravelSubmission();
+    travel: TravelSubmission;
     travelForm: FormGroup;
     transportationMeans: TransportationMean[];
     destinations: Destination[];
     steps: FormViewState;
-    departureHours: any[];
-    departureMinutes: any[];
+    departureHours: number[];
+    departureMinutes: number[];
 
-    test = false;
     constructor(
         private _fb: FormBuilder,
         private _eventRepository: EventRepository,
@@ -63,14 +62,8 @@ export class TravelNewComponent implements OnInit {
     ngOnInit(): void {
         this.destinations = this._eventRepository.getDestinations();
         this.transportationMeans = this._eventRepository.getTransportationMeans();
-        this.departureHours = [];
-        for (let i = 0; i < 24; i++ ) {
-            this.departureHours.push({value: i});
-        }
-        this.departureMinutes = [];
-        for (let i = 0; i < 12; i++ ) {
-            this.departureMinutes.push({value: i * 5});
-        }
+        this.departureHours = Array.from(Array(24).keys());
+        this.departureMinutes = Array.from(Array(12), (_, x) => x * 5);
 
         this.travelForm = this._fb.group({
             steps: this._fb.array([
@@ -115,6 +108,7 @@ export class TravelNewComponent implements OnInit {
                 })
             ])
         });
+
         this.debounceValidation(
             this.travelForm.get('steps.1.userEmail.email'),
             this.travelForm.get('steps.2.contactEmail')
@@ -135,17 +129,47 @@ export class TravelNewComponent implements OnInit {
         });
     }
 
-    onChange(src: string) {
-        console.log(src);
+    convertDatetime(date: string, hour: string, minute: string): string {
+        return moment(this.travelForm.value.steps[4].departureDate)
+            .add(this.travelForm.value.steps[4].departureHour, 'hours')
+            .add(this.travelForm.value.steps[4].departureMinute, 'minutes')
+            .format('YYYY-MM-DD hh:mm:ss');
     }
 
     save(): void {
-        console.log(this.travelForm);
-        console.log('Saved: ' + JSON.stringify(this.travelForm.value));
-        const departureDate = moment(this.travelForm.value.steps[4].departureDate);
-        departureDate.add(this.travelForm.value.steps[4].departureHour, 'hours');
-        departureDate.add(this.travelForm.value.steps[4].departureMinute, 'minutes');
-        console.log(departureDate.format('YYYY-MM-DD hh:mm:ss'));
+        const travelFormData = this.travelForm.value.steps;
+        this.travel = new TravelSubmission(
+            {
+                city: travelFormData[3].city,
+                contactEmail: travelFormData[2].contactEmail,
+                contactName: travelFormData[2].contactName,
+                cost: 0,
+                departureTime: this.convertDatetime(
+                    this.travelForm.value.steps[4].departureDate,
+                    this.travelForm.value.steps[4].departureHour,
+                    this.travelForm.value.steps[4].departureMinute
+                ),
+                description: travelFormData[4].description,
+                lat: 0,
+                link: '',
+                long: 0,
+                organisation: travelFormData[2].organisation,
+                phoneNumber: travelFormData[2].phoneNumber,
+                passenger: 1,
+                postcode: travelFormData[3].postcode,
+                streetAddress: travelFormData[3].streetAddress,
+                transportationMeanId: travelFormData[4].transportationMeanId,
+                travelType: travelFormData[0].travelType,
+                userAddress: travelFormData[1].userAddress,
+                userEmail: travelFormData[1].userEmail.email,
+                userCity: travelFormData[1].userCity,
+                userName: travelFormData[1].userName,
+                userPhoneNumber: travelFormData[1].userPhoneNumber,
+                userPostCode: travelFormData[1].userPostCode
+            },
+            travelFormData[4].destinationId
+        );
+        this._eventRepository.addSubmission(this.travel);
     }
 
     validate(formControl: FormControl): boolean {
@@ -166,7 +190,48 @@ export class TravelNewComponent implements OnInit {
         return { match: true };
     }
 
-    public get slide(): string {
+    populateTestData(): void {
+        this.travelForm.setValue({
+            steps: [
+                { travelType: 'offer' },
+                {
+                    userName: 'John Doe',
+                    userAddress: 'Am Kotti 0',
+                    userPostCode: '12345',
+                    userCity: 'Berlin',
+                    userPhoneNumber: '+49 123 456789',
+                    userEmail: {
+                        email: 'travelapi-frontend-mock@getnada.com',
+                        confirmEmail: 'travelapi-frontend-mock@getnada.com'
+                    }
+                },
+                {
+                    organisation: 'Mock GbR',
+                    contactName: 'John Doe',
+                    phoneNumber: '+49 123 456789',
+                    contactEmail: 'travelapi-frontend-mock@getnada.com'
+                },
+                {
+                    streetAddress: 'Am Kotti 0',
+                    postcode: '12345',
+                    city: 'Berlin'
+                },
+                {
+                    destinationId: this.destinations.find(() => true).id,
+                    transportationMeanId: this.transportationMeans.find(
+                        () => true
+                    ).id,
+                    departureDate: '2017-12-31T23:00:00.000Z',
+                    departureHour: '12',
+                    departureMinute: '0',
+                    description:
+                        'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate'
+                }
+            ]
+        });
+    }
+
+    get slide(): string {
         if (isNaN(this.steps.last)) {
             return;
         }
