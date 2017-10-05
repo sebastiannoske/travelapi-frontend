@@ -27,7 +27,7 @@ export class EventDataService {
                 'Authorization',
                 'Bearer 0V9DJlwyVotPAiff09GU4usRUK1e93AYwb6Mgf06ihodeWvR5VB7d7Ik4oRe'
             )
-            .append('Content-Type', 'application/x-www-form-urlencoded')
+            .append('Content-Type', 'application/json')
             .append('Accept', 'application/json');
     }
 
