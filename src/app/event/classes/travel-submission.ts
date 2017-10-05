@@ -1,26 +1,29 @@
 export class TravelSubmission {
     constructor(
-        public city?: string,
-        public contactEmail?: string,
-        public contactName?: string,
-        public cost?: number,
-        public departureTime?: string,
-        public description?: string,
-        public lat?: number,
-        public link?: string,
-        public long?: number,
-        public organisation?: string,
-        public phoneNumber?: string,
-        public passenger?: number,
-        public postcode?: string,
-        public streetAddress?: string,
-        public transportationMeanId?: number,
-        public travelType?: 'offer' | 'request',
-        public userAddress?: string,
-        public userEmail?: string,
-        public userCity?: string,
-        public userName?: string,
-        public userPhoneNumber?: string,
-        public userPostCode?: string
+        public submitData: {
+            city?: string;
+            contactEmail?: string;
+            contactName?: string;
+            cost?: number;
+            departureTime?: string;
+            description?: string;
+            lat?: number;
+            link?: string;
+            long?: number;
+            organisation?: string;
+            phoneNumber?: string;
+            passenger?: number;
+            postcode?: string;
+            streetAddress?: string;
+            transportationMeanId?: number;
+            travelType?: 'offer' | 'request';
+            userAddress?: string;
+            userEmail?: string;
+            userCity?: string;
+            userName?: string;
+            userPhoneNumber?: string;
+            userPostCode?: string;
+        },
+        public destinationId: number
     ) {}
 }

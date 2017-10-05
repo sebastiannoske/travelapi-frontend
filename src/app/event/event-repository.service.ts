@@ -11,12 +11,13 @@ import {
     Destination,
     TransportationMean
 } from './interfaces/_index';
+import { TravelSubmission } from './classes/_index';
 
 @Injectable()
 export class EventRepository {
     private _event: Event;
 
-    constructor() {}
+    constructor(private _eventDataService: EventDataService) {}
 
     public set event(event: Event) {
         this._event = event;
@@ -60,5 +61,13 @@ export class EventRepository {
             this.travels.map(travel => travel.transportation_mean),
             _.isEqual
         );
+    }
+
+    public addSubmission(travelSubmission: TravelSubmission): string {
+        const request = this._eventDataService
+            .submitTravel(travelSubmission)
+            .subscribe(response => console.log(response));
+
+        return '';
     }
 }

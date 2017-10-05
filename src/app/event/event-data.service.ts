@@ -5,14 +5,16 @@ import {
     HttpHeaders
 } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { Event, EventRaw } from './interfaces/_index';
+import { TravelSubmission } from './classes/_index';
 
 @Injectable()
 export class EventDataService {
-    private _eventsUrl = 'https://mfz.g20-protestwelle.de/api/events/';
+    private _eventsUrl = 'https://mfz.g20-protestwelle.de/api';
     private _headers: HttpHeaders;
 
     constructor(private _http: HttpClient) {
@@ -30,7 +32,7 @@ export class EventDataService {
     }
 
     public fetchEvent(id: number): Observable<Event> {
-        const url = `${this._eventsUrl}${id}/travel`;
+        const url = `${this._eventsUrl}/events/${id}/travel`;
         return this._http
             .get<EventRaw>(url, {
                 headers: this._headers
@@ -61,5 +63,20 @@ export class EventDataService {
         }
         console.error(errorMessage);
         return Observable.throw(errorMessage);
+    }
+
+    public submitTravel(travelSubmission: TravelSubmission): Observable<any> {
+        const url = `${this
+            ._eventsUrl}/destinations/${travelSubmission.destinationId}/travel`;
+
+        console.log(url);
+        console.log(travelSubmission.submitData);
+
+        return this._http
+            .post(url, travelSubmission.submitData, {
+                headers: this._headers
+            })
+            .do(data => console.log('createTravel: ' + JSON.stringify(data)))
+            .catch(this.handleError);
     }
 }
