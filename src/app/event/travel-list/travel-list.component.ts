@@ -19,14 +19,14 @@ import {
     animations: [
         trigger('viewChange', [
             transition('void => *', [
-                style({ transform: 'translateX(-15px) scale(.95)', height: 0, marginTop: 0, marginBottom: 0, opacity: '0' }),
+                style({ transform: 'translateX(-15px) scale(.95)', height: 0, opacity: '0' }),
                 animate('.4s ease', style({
-                    transform: 'translateY(0) scale(1)', height: '*', marginTop: '15px', marginBottom: '15px', opacity: '1'
+                    transform: 'translateY(0) scale(1)', height: '*', opacity: '1'
                 }))
             ]),
             transition('* => void', [
                 animate('.3s ease',
-                    style({ height: 0, marginTop: 0, marginBottom: 0, opacity: 0,  transform: 'translateX(-15px) scale(.95)' }))
+                    style({ height: 0, opacity: 0,  transform: 'translateX(-15px) scale(.95)' }))
             ])
         ])
     ]

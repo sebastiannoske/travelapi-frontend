@@ -8,6 +8,18 @@
 
         & > .row {
             padding: 20px 0;
+            transition: .15s ease background-color;
+            background-color: #fff;
+            cursor: pointer;
+            border-top: 1px solid rgba(219,219,219,1);
+
+            &:last-child {
+                border-bottom: 1px solid rgba(219,219,219,1);
+            }
+
+            &:hover, &.show-details {
+                background-color: rgba(219,219,219,1) !important;
+            }
         }
         
         &:nth-child(even) {
@@ -17,7 +29,19 @@
         }
 
         .details-wrap {
-            margin: 15px 0;
+            margin: 0 65px;
+
+            section {
+                position: relative;
+                display: block;
+                padding: 65pX 0;
+                border-bottom: 1px solid #979797;
+            }
+
+            .close-botton-wrap {
+                padding: 35px 0 70px;
+                text-align: right;
+            }
         }
     }
 }

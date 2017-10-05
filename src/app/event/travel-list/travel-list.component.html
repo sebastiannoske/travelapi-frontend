@@ -25,8 +25,8 @@
       <div class="col-md-2">Entfernung</div>
     </div>
 
-    <div *ngFor="let travel of travelsFiltered | pagination:pager" (click)='(currentDetailsTravelId === travel.id) ? currentDetailsTravelId = 0 : currentDetailsTravelId = travel.id' class="travel-row-wrap">
-      <div class="row">
+    <div *ngFor="let travel of travelsFiltered | pagination:pager" class="travel-row-wrap">
+      <div class="row" [class.show-details]='currentDetailsTravelId === travel.id' (click)='(currentDetailsTravelId === travel.id) ? currentDetailsTravelId = 0 : currentDetailsTravelId = travel.id'>
         <div class="col-md-2">{{travel.postcode}}</div>
         <div class="col-md-3">{{travel.city}}</div>
         <div class="col-md-2">{{travel.transportation_mean.name}}</div>
@@ -34,79 +34,89 @@
         <div class="col-md-2">111</div>
       </div>
       <div *ngIf='currentDetailsTravelId === travel.id' class="details-wrap" [@viewChange]="state">
-        <div class="row">
-          <div class="col-md-12">
-            <h2>Details zur Fahrt</h2>
+        <section>
+          <div class="row">
+            <div class="col-md-12">
+              <h2>Details zur Fahrt</h2>
+            </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="col-md-3">
-            <span>Von</span>
+          <div class="row">
+            <div class="col-md-3">
+              <span>Von</span>
+            </div>
+            <div class="col-md-9">
+              <span>{{travel.street_address}}, {{travel.postcode}}, {{travel.city}}</span>
+            </div>
           </div>
-          <div class="col-md-9">
-            <span>{{travel.street_address}}, {{travel.postcode}}, {{travel.city}}</span>
-          </div>
-        </div>
 
-        <div class="row">
-          <div class="col-md-3">
-            <span>Nach</span>
+          <div class="row">
+            <div class="col-md-3">
+              <span>Nach</span>
+            </div>
+            <div class="col-md-9">
+              <span>{{travel.destination.name}} ({{travel.destination.date | amParse:'YYYY-MM-DD' | amDateFormat:'DD.MM.YYYY'}})</span>
+            </div>
           </div>
-          <div class="col-md-9">
-            <span>{{travel.destination.name}} ({{travel.destination.date | amParse:'YYYY-MM-DD' | amDateFormat:'DD.MM.YYYY'}})</span>
-          </div>
-        </div>
 
-        <div class="row">
-          <div class="col-md-3">
-            <span>Verkehrsmittel</span>
+          <div class="row">
+            <div class="col-md-3">
+              <span>Verkehrsmittel</span>
+            </div>
+            <div class="col-md-9">
+              <span>{{travel.transportation_mean.name}}</span>
+            </div>
           </div>
-          <div class="col-md-9">
-            <span>{{travel.transportation_mean.name}}</span>
-          </div>
-        </div>
 
-        <div class="row">
-          <div class="col-md-3">
-            <span>ungefähre Abfahrtszeit</span>
+          <div class="row">
+            <div class="col-md-3">
+              <span>ungefähre Abfahrtszeit</span>
+            </div>
+            <div class="col-md-9">
+              <span>{{travel.departure_time | amParse:'YYYY-MM-DD hh:mm:ss' | amDateFormat:'D.MMMM YYYY, H:mm'}} Uhr</span>
+            </div>
           </div>
-          <div class="col-md-9">
-            <span>{{travel.departure_time | amParse:'YYYY-MM-DD hh:mm:ss' | amDateFormat:'D.MMMM YYYY, H:mm'}} Uhr</span>
-          </div>
-        </div>
 
-        <div class="row">
-          <div class="col-md-3">
-            <span>Beschreibung</span>
+          <div class="row">
+            <div class="col-md-3">
+              <span>Beschreibung</span>
+            </div>
+            <div class="col-md-9">
+              <span>{{travel.description}}</span>
+            </div>
           </div>
-          <div class="col-md-9">
-            <span>{{travel.description}}</span>
-          </div>
-        </div>
+      </section>
 
-        <div class="row">
-          <div class="col-md-12">
-            <h2>Kontaktdetails</h2>
+        <section>
+          <div class="row">
+            <div class="col-md-12">
+              <h2>Kontaktdetails</h2>
+            </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="col-md-3">
-            <span>Name</span>
+          <div class="row">
+            <div class="col-md-3">
+              <span>Name</span>
+            </div>
+            <div class="col-md-9">
+              <span>{{travel.contact.name}}</span>
+            </div>
           </div>
-          <div class="col-md-9">
-            <span>{{travel.contact.name}}</span>
-          </div>
-        </div>
 
-        <div class="row">
-          <div class="col-md-3">
-            <span>Organisation</span>
+          <div class="row">
+            <div class="col-md-3">
+              <span>Organisation</span>
+            </div>
+            <div class="col-md-9">
+              <span>{{travel.contact.organisation}}</span>
+            </div>
           </div>
-          <div class="col-md-9">
-            <span>{{travel.contact.organisation}}</span>
-          </div>
+        </section>
+
+        <div class="close-botton-wrap">
+
+            <a role="button" class="btn-black" (click)='currentDetailsTravelId = 0'>Schließen</a>
+
         </div>
           
       </div>

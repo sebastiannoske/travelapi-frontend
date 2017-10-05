@@ -1,3 +1,19 @@
 @import "variables";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "../node_modules/bootstrap/scss/bootstrap";
+
+.btn-black {
+    padding: 15px 20px;
+    background-color: #000;
+    color: #fff !important;
+    text-transform: uppercase;
+    border: 1px solid #000;
+    display: inline-block;
+    transition: .15s ease color, .15s ease background-color;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #fff;
+        color: #000 !important;   
+    }
+}
