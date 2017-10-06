@@ -1,5 +1,4 @@
 :host() {
-
     md-form-field {
         display: block;
     }
@@ -7,5 +6,8 @@
     input.form-control:focus {
         border: none !important;
         box-shadow: none !important;
+    }
+    agm-map {
+        height: 300px;
     }
 }

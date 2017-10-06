@@ -101,9 +101,12 @@
       <div [formGroupName]="3" *ngIf="steps.current===3" [@viewChange]="slide">
         <h3>Abfahrtsort auswählen</h3>
         <md-form-field>
-          <input mdInput appGoogleAutoComplete (notifyForAddressData)='googlePlacesAddressHandler($event)' class='form-control form-inline focus' type="search" placeholder="Suche eine Adresse"/>
+          <input mdInput appGoogleAutoComplete (notifyForAddressData)='googlePlacesAddressHandler($event)' class='form-control form-inline focus'
+            type="search" placeholder="Suche eine Adresse" />
         </md-form-field>
-
+        <agm-map [latitude]="51" [longitude]="9" [zoom]="5">
+          <agm-marker [latitude]="position.lat" [longitude]="position.lng"></agm-marker>
+        </agm-map>
         <md-form-field>
           <input mdInput class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.3.streetAddress'))}" type="text"
             placeholder="Strasse *" formControlName="streetAddress" />

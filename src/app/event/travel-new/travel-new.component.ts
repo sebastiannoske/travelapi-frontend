@@ -50,6 +50,7 @@ export class TravelNewComponent implements OnInit {
     steps: FormViewState;
     departureHours: number[];
     departureMinutes: number[];
+    position: { lat: number; lng: number };
 
     constructor(
         private _fb: FormBuilder,
@@ -64,6 +65,7 @@ export class TravelNewComponent implements OnInit {
         this.transportationMeans = this._eventRepository.getTransportationMeans();
         this.departureHours = Array.from(Array(24).keys());
         this.departureMinutes = Array.from(Array(12), (_, x) => x * 5);
+        this.position = { lat: 51, lng: 9 };
 
         this.travelForm = this._fb.group({
             steps: this._fb.array([
@@ -96,7 +98,9 @@ export class TravelNewComponent implements OnInit {
                 this._fb.group({
                     streetAddress: ['', Validators.required],
                     postcode: ['', Validators.required],
-                    city: ['', Validators.required]
+                    city: ['', Validators.required],
+                    lat: null,
+                    long: null
                 }),
                 this._fb.group({
                     destinationId: [null, Validators.required],
@@ -150,8 +154,8 @@ export class TravelNewComponent implements OnInit {
                     this.travelForm.value.steps[4].departureMinute
                 ),
                 description: travelFormData[4].description,
-                lat: 0,
-                link: '',
+                lat: travelFormData[3].lat,
+                link: travelFormData[3].long,
                 long: 0,
                 organisation: travelFormData[2].organisation,
                 phoneNumber: travelFormData[2].phoneNumber,
@@ -214,7 +218,9 @@ export class TravelNewComponent implements OnInit {
                 {
                     streetAddress: 'Am Kotti 0',
                     postcode: '12345',
-                    city: 'Berlin'
+                    city: 'Berlin',
+                    lat: 51,
+                    long: 9
                 },
                 {
                     destinationId: this.destinations.find(() => true).id,
@@ -224,8 +230,7 @@ export class TravelNewComponent implements OnInit {
                     departureDate: '2017-12-31T23:00:00.000Z',
                     departureHour: '12',
                     departureMinute: '0',
-                    description:
-                        `Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
+                    description: `Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
                         Aenean massa.Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
                         Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
                         Donec pede justo, fringilla vel, aliquet nec, vulputate`
@@ -242,8 +247,17 @@ export class TravelNewComponent implements OnInit {
     }
 
     googlePlacesAddressHandler(event: any): void {
-        this.travelForm.get('steps.3.streetAddress').patchValue(event.addressFields.street + '' + event.addressFields.streetNumber);
-        this.travelForm.get('steps.3.postcode').patchValue(event.addressFields.postcode);
-        this.travelForm.get('steps.3.city').patchValue(event.addressFields.city);
+        this.travelForm
+            .get('steps.3.streetAddress')
+            .patchValue(
+                `${event.addressFields.street} ${event.addressFields
+                    .streetNumber}`
+            );
+        this.travelForm
+            .get('steps.3.postcode')
+            .patchValue(event.addressFields.postcode);
+        this.travelForm
+            .get('steps.3.city')
+            .patchValue(event.addressFields.city);
     }
 }
