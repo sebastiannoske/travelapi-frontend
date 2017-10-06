@@ -20,6 +20,11 @@ import { BsDropdownModule } from 'ngx-bootstrap';
 import { EventAssignDirective } from './event/event-assign.directive';
 import { MdNativeDateModule, MdDatepickerModule, MdInputModule } from '@angular/material';
 import { MomentModule } from 'angular2-moment';
+// maps stuff
+import { AgmCoreModule } from '@agm/core';
+import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
+import { GoogleAutoCompleteDirective } from './event/travel-new/google-auto-complete.directive';
+
 
 @NgModule({
     declarations: [
@@ -30,7 +35,8 @@ import { MomentModule } from 'angular2-moment';
         TravelNewComponent,
         EventFilterPipe,
         EventPaginationPipe,
-        EventAssignDirective
+        EventAssignDirective,
+        GoogleAutoCompleteDirective
     ],
     imports: [
         BrowserModule,
@@ -43,6 +49,11 @@ import { MomentModule } from 'angular2-moment';
         MdDatepickerModule,
         MdInputModule,
         MomentModule,
+        Ng4GeoautocompleteModule.forRoot(),
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyDS1rNqI3ZCpJu0fd8Rkyo5SAi8EPIna5g',
+            libraries: ['places']
+        }),
         BsDropdownModule.forRoot()
     ],
     providers: [EventDataService, EventRepository, EventPagination],

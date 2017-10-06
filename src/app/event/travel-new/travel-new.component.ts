@@ -225,7 +225,10 @@ export class TravelNewComponent implements OnInit {
                     departureHour: '12',
                     departureMinute: '0',
                     description:
-                        'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate'
+                        `Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
+                        Aenean massa.Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+                        Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+                        Donec pede justo, fringilla vel, aliquet nec, vulputate`
                 }
             ]
         });
@@ -236,5 +239,11 @@ export class TravelNewComponent implements OnInit {
             return;
         }
         return this.steps.current < this.steps.last ? 'leftin' : 'rightin';
+    }
+
+    googlePlacesAddressHandler(event: any): void {
+        this.travelForm.get('steps.3.streetAddress').patchValue(event.addressFields.street + '' + event.addressFields.streetNumber);
+        this.travelForm.get('steps.3.postcode').patchValue(event.addressFields.postcode);
+        this.travelForm.get('steps.3.city').patchValue(event.addressFields.city);
     }
 }
