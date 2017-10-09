@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild  } from '@angular/core';
 import {
     trigger,
     state,
@@ -20,6 +20,7 @@ import { EventRepository } from '../event-repository.service';
 import { TravelSubmission, FormViewState } from '../classes/_index';
 import { TransportationMean, Destination } from '../interfaces/_index';
 import { DateAdapter, NativeDateAdapter } from '@angular/material';
+import { AgmMap, GoogleMapsAPIWrapper } from '@agm/core';
 
 import * as moment from 'moment';
 
@@ -27,6 +28,7 @@ import * as moment from 'moment';
     selector: 'app-travel-new',
     templateUrl: './travel-new.component.html',
     styleUrls: ['./travel-new.component.scss'],
+    providers: [GoogleMapsAPIWrapper],
     animations: [
         trigger('viewChange', [
             state('rightin', style({ transform: 'translateY(0)' })),
@@ -43,6 +45,7 @@ import * as moment from 'moment';
     ]
 })
 export class TravelNewComponent implements OnInit {
+    @ViewChild(AgmMap) myMap: AgmMap;
     travel: TravelSubmission;
     travelForm: FormGroup;
     transportationMeans: TransportationMean[];
@@ -51,11 +54,13 @@ export class TravelNewComponent implements OnInit {
     departureHours: number[];
     departureMinutes: number[];
     position: { lat: number; lng: number };
+    mapZoom: number;
 
     constructor(
         private _fb: FormBuilder,
         private _eventRepository: EventRepository,
-        private _dateAdapter: DateAdapter<NativeDateAdapter>
+        private _dateAdapter: DateAdapter<NativeDateAdapter>,
+        private _GoogleMapsAPIWrapper: GoogleMapsAPIWrapper
     ) {
         _dateAdapter.setLocale('de-DE');
     }
@@ -66,6 +71,7 @@ export class TravelNewComponent implements OnInit {
         this.departureHours = Array.from(Array(24).keys());
         this.departureMinutes = Array.from(Array(12), (_, x) => x * 5);
         this.position = { lat: 51, lng: 9 };
+        this.mapZoom = 5;
 
         this.travelForm = this._fb.group({
             steps: this._fb.array([
@@ -247,6 +253,18 @@ export class TravelNewComponent implements OnInit {
     }
 
     googlePlacesAddressHandler(event: any): void {
+        this.position = { lat: event.lat, lng: event.lng };
+        this.mapZoom = 16;
+        this.myMap.triggerResize(true);
+
+        this.travelForm
+        .get('steps.3.lat')
+        .patchValue(event.lat);
+
+        this.travelForm
+        .get('steps.3.long')
+        .patchValue(event.lng);
+
         this.travelForm
             .get('steps.3.streetAddress')
             .patchValue(

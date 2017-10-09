@@ -13,13 +13,13 @@
             cursor: pointer;
             border-top: 1px solid rgba(219,219,219,1);
 
-            &:last-child {
-                border-bottom: 1px solid rgba(219,219,219,1);
-            }
-
             &:hover, &.show-details {
                 background-color: rgba(219,219,219,1) !important;
             }
+        }
+
+        &:last-child > .row {
+            border-bottom: 1px solid rgba(219,219,219,1);
         }
         
         &:nth-child(even) {

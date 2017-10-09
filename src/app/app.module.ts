@@ -18,7 +18,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { EventPaginationPipe } from './event/event-pagination.pipe';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { EventAssignDirective } from './event/event-assign.directive';
-import { MdNativeDateModule, MdDatepickerModule, MdInputModule } from '@angular/material';
+import { MatNativeDateModule, MatDatepickerModule, MatInputModule } from '@angular/material';
 import { MomentModule } from 'angular2-moment';
 // maps stuff
 import { AgmCoreModule } from '@agm/core';
@@ -45,9 +45,9 @@ import { GoogleAutoCompleteDirective } from './event/travel-new/google-auto-comp
         FormsModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
-        MdNativeDateModule,
-        MdDatepickerModule,
-        MdInputModule,
+        MatNativeDateModule,
+        MatDatepickerModule,
+        MatInputModule,
         MomentModule,
         Ng4GeoautocompleteModule.forRoot(),
         AgmCoreModule.forRoot({

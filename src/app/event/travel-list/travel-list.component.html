@@ -1,6 +1,6 @@
 <div class="container-fluid mt-4" *eventAssign="let travelsFiltered be travels | filter:textFilter:destinationFilter">
   <div class="btn-group mb-4" dropdown>
-    <button dropdownToggle type="button" class="btn btn-secondary dropdown-toggle">
+    <button dropdownToggle type="button" class="btn dropdown-toggle">
           {{destinationFilter ? destinationFilter.name : 'Demoziel auswählen'}}<span class="caret"></span>
         </button>
     <ul *dropdownMenu class="dropdown-menu" role="menu">
@@ -12,6 +12,17 @@
       </li>
     </ul>
   </div>
+
+  <div id="map-wrap">
+    <div>
+      <agm-map [latitude]="51.948" [longitude]="10.2652" [zoom]="6">
+        <!-- <agm-marker [latitude]="position.lat" [longitude]="position.lng" [markerDraggable]='true'></agm-marker> -->
+        
+        <agm-marker *ngFor='let travel of travelsFiltered' [latitude]="travel.lat" [longitude]="travel.long"></agm-marker>
+      </agm-map>
+    </div>
+  </div>
+
   <div class="input-group">
     <div class="input-group-addon">⚙️</div>
     <input type="text" [(ngModel)]="textFilter" class="form-control" placeholder="Tabelle individuell filtern">

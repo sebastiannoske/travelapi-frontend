@@ -25,7 +25,7 @@ export class EventDataService {
         return new HttpHeaders()
             .set(
                 'Authorization',
-                'Bearer 0V9DJlwyVotPAiff09GU4usRUK1e93AYwb6Mgf06ihodeWvR5VB7d7Ik4oRe'
+                'Bearer sUrv1fKJWWEsTMgoVTkOZc1bVQkiDj9tWlqN4jSBPrGxRKkb3tFSCMqH3mlE'
             )
             .append('Content-Type', 'application/json')
             .append('Accept', 'application/json');

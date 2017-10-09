@@ -54,6 +54,7 @@ export class TravelListComponent implements OnInit {
             this._route.snapshot.data['type'] === 'offer'
                 ? this._eventRepository.offers
                 : this._eventRepository.requests;
+                console.log(this.travels);
         this.state = '';
         this.currentDetailsTravelId = 0;
         this._pagination.setPager(this.travels.length, 1);
