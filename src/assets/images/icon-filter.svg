@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="12px" viewBox="0 0 18 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+    <title>Icon 24px</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="MITFAHRGELEGENHEITEN-#DESK-#1ZIEL" transform="translate(-684.000000, -828.000000)">
+            <g id="LEGENDE-/-FILTER-_-ALTERNATIV-Copy-2" transform="translate(139.000000, 794.000000)">
+                <g id="SUCHE" transform="translate(522.000000, 14.047852)">
+                    <g id="SUCHLEISTE" transform="translate(20.000000, 15.571289)">
+                        <g id="ic_filter_list">
+                            <g id="Icon-24px">
+                                <path d="M10,15.5712891 L14,15.5712891 L14,13.8411458 L10,13.8411458 L10,15.5712891 L10,15.5712891 Z M3,5.19042969 L3,6.92057292 L21,6.92057292 L21,5.19042969 L3,5.19042969 L3,5.19042969 Z M6,11.245931 L18,11.245931 L18,9.51578776 L6,9.51578776 L6,11.245931 L6,11.245931 Z" id="Shape" fill="#9B9B9B"></path>
+                                <polygon id="Shape" points="0 0 24 0 24 20.7617187 0 20.7617187"></polygon>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

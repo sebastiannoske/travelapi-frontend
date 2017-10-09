@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="11px" height="19px" viewBox="0 0 11 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+    <title>Icon 24px</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="MITFAHRGELEGENHEITEN-#DESK-#1ZIEL" transform="translate(-417.000000, -825.000000)">
+            <g id="LEGENDE-/-FILTER-_-ALTERNATIV-Copy-2" transform="translate(139.000000, 794.000000)">
+                <g id="FUSSWEG-Copy" transform="translate(261.000000, 18.000000)">
+                    <g id="ic_directions_walk" transform="translate(12.000000, 12.000000)">
+                        <g id="Icon-24px">
+                            <polygon id="Shape" points="0 0 20 0 20 20 0 20"></polygon>
+                            <path d="M11.25,4.58333333 C12.1666667,4.58333333 12.9166667,3.83333333 12.9166667,2.91666667 C12.9166667,2 12.1666667,1.25 11.25,1.25 C10.3333333,1.25 9.58333333,2 9.58333333,2.91666667 C9.58333333,3.83333333 10.3333333,4.58333333 11.25,4.58333333 L11.25,4.58333333 Z M8.16666667,7.41666667 L5.83333333,19.1666667 L7.58333333,19.1666667 L9.08333333,12.5 L10.8333333,14.1666667 L10.8333333,19.1666667 L12.5,19.1666667 L12.5,12.9166667 L10.75,11.25 L11.25,8.75 C12.3333333,10 14,10.8333333 15.8333333,10.8333333 L15.8333333,9.16666667 C14.25,9.16666667 12.9166667,8.33333333 12.25,7.16666667 L11.4166667,5.83333333 C11.0833333,5.33333333 10.5833333,5 10,5 C9.75,5 9.58333333,5.08333333 9.33333333,5.08333333 L5,6.91666667 L5,10.8333333 L6.66666667,10.8333333 L6.66666667,8 L8.16666667,7.41666667 L8.16666667,7.41666667 Z" id="Shape" fill="#FFFFFF"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

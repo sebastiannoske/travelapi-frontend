@@ -1,4 +1,4 @@
-<div class="container-fluid mt-4" *eventAssign="let travelsFiltered be travels | filter:textFilter:destinationFilter">
+<div class="container-fluid" *eventAssign="let travelsFiltered be travels | filter:textFilter:destinationFilter">
   <div class="btn-group mb-4" dropdown>
     <button dropdownToggle type="button" class="btn dropdown-toggle">
           {{destinationFilter ? destinationFilter.name : 'Demoziel auswählen'}}<span class="caret"></span>
@@ -18,7 +18,7 @@
       <agm-map [latitude]="51.948" [longitude]="10.2652" [zoom]="6">
         <!-- <agm-marker [latitude]="position.lat" [longitude]="position.lng" [markerDraggable]='true'></agm-marker> -->
         
-        <agm-marker *ngFor='let travel of travelsFiltered' [latitude]="travel.lat" [longitude]="travel.long"></agm-marker>
+        <agm-marker *ngFor='let travel of travelsFiltered' [latitude]="travel.lat" [longitude]="travel.long" [iconUrl]='"./assets/images/pin_" + travel.transportation_mean.id + ".png"'></agm-marker>
       </agm-map>
     </div>
   </div>

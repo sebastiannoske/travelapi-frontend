@@ -1,8 +1,8 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-          <ul class="nav">
+        <nav class="navbar navbar-expand-lg">
+          <ul class="nav clearfix">
             <li class="nav-item">
               <a class="nav-link" [ngClass]="{'disabled': !eventHead.offers_total}" routerLinkActive="active" [routerLink]="['offers']">Angebote <span class="badge badge-light">{{eventHead.offers_total}}</span></a>
             </li>
