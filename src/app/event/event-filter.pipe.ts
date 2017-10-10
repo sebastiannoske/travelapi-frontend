@@ -9,12 +9,15 @@ export class EventFilterPipe implements PipeTransform {
     transform(
         travels: Travel[],
         textFilter: string,
-        destinationFilter: Destination
+        destinationFilter: Destination,
+        transportationMeanFilter: number[]
     ): Travel[] {
-        return this.filterByText(
-            this.filterByDestination(travels, destinationFilter),
-            textFilter
-        );
+        const pipeline = [
+            t => this.filterByDestination(t, destinationFilter),
+            t => this.filterByTransportationMean(t, transportationMeanFilter),
+            t => this.filterByText(t, textFilter)
+        ];
+        return pipeline.reduce((xs, f) => f(xs), travels);
     }
 
     private filterByDestination(
@@ -29,7 +32,23 @@ export class EventFilterPipe implements PipeTransform {
         });
     }
 
-    private filterByText(travels: Travel[], textFilter): Travel[] {
+    private filterByTransportationMean(
+        travels: Travel[],
+        transportationMeanFilter: number[]
+    ): Travel[] {
+        if (!transportationMeanFilter) {
+            return travels;
+        }
+        return travels.filter(travel => {
+            return (
+                transportationMeanFilter.indexOf(
+                    travel.transportation_mean.id
+                ) !== -1
+            );
+        });
+    }
+
+    private filterByText(travels: Travel[], textFilter: string): Travel[] {
         if (!textFilter) {
             return travels;
         }

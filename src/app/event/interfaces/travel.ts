@@ -11,8 +11,9 @@ export interface Travel {
     postcode: string;
     request: null | TravelType;
     stopover: any[];
-    street_adress: string;
+    street_address: string;
     transportation_mean: TransportationMean;
     url_token: string;
     destination?: Destination;
+    description?: string;
 }

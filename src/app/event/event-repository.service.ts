@@ -57,10 +57,38 @@ export class EventRepository {
         });
     }
     public getTransportationMeans(): TransportationMean[] {
-        return _.uniqWith(
-            this.travels.map(travel => travel.transportation_mean),
-            _.isEqual
-        );
+        // return _.uniqWith(
+        //     this.travels.map(travel => travel.transportation_mean),
+        //     _.isEqual
+        // );
+
+        // TODO replace with server data
+        return [
+            {
+                id: 1,
+                name: 'Auto'
+            },
+            {
+                id: 2,
+                name: 'Bus'
+            },
+            {
+                id: 3,
+                name: 'Zug'
+            },
+            {
+                id: 4,
+                name: 'Fahrrad'
+            },
+            {
+                id: 5,
+                name: 'Fußgänger'
+            },
+            {
+                id: 6,
+                name: 'Sonstige'
+            }
+        ];
     }
 
     public addSubmission(travelSubmission: TravelSubmission): Observable<any> {
