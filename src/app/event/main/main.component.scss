@@ -1,5 +1,12 @@
 :host() {
 
+    .navbar {
+        @media ( max-width: 992px ) {
+            padding-left: 1px;
+            padding-right: 1px;
+        }
+    }
+
     .nav {
         display: block;
         border-bottom: 1px solid rgba(151,151,151,1);

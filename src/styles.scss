@@ -1,4 +1,5 @@
 @import "variables";
+@import "/assets/fonts/fontello.css";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import url('https://fonts.googleapis.com/css?family=Heebo');
@@ -74,6 +75,66 @@ body {
             position: relative;
             width: 100%;
             height: 100%;;
+        }
+    }
+}
+
+.step-nav-wrap {
+    & > .btn {
+        color: #fff;
+        background-color: #000;
+        box-shadow: 0 3px 5px 0px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        border-radius: 20px;
+        width: 40px;
+        height: 40px;
+        transition: .15s ease color, .15s ease background-color;
+
+        & > i {
+            color: #000;
+            font-size: 18px;
+            transition: .15s ease color;
+
+            &:before {
+                margin: 0;
+            }
+        }
+
+        &:not(:last-child) {
+            margin-right: 6px;
+        }
+
+        @media ( min-width: 412px ) {
+            border-radius: 22px;
+            width: 44px;
+            height: 44px;
+
+            &:not(:last-child) {
+                margin-right: 20px;
+            }
+        }
+
+        &.active {
+            cursor: default;
+
+            & > i {
+                color: #fff;
+            }
+        }
+
+        &.active-filter {
+            background-color: #fff;
+
+            & > i {
+                color: #000;
+            }
+        }
+
+        &:disabled {
+            color: #000;
+            opacity: 1;
+            background-color: #fff;
+            cursor: not-allowed;
         }
     }
 }

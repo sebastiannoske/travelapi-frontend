@@ -1,5 +1,11 @@
 :host() {
 
+    .travel-header-wrap {
+        background-color: #fff;
+        padding-top: 50px;
+        margin-top: 20px;
+    }
+
     .row.table-head {
         padding: 20px 0;
     }
@@ -10,6 +16,24 @@
         & > div {
             & > div:first-child {
                 padding-left: 15px;
+            }
+        }
+    }
+
+    .step-nav-wrap {
+        & > .btn {
+            background-color: #fff;
+        
+            & > i {
+                color: #000;    
+            }
+            
+            &.active-filter {
+                background-color: #000;
+                
+                & > i {
+                    color: #fff;
+                }
             }
         }
     }
@@ -29,6 +53,10 @@
 
         .right-align {
             text-align: right;
+
+            .padding-right {
+                padding-right: 15px;
+            }
     
             & > div {
                 display: inline-block;

@@ -38,6 +38,7 @@ export class TravelListComponent implements OnInit {
     destinationFilter: null | Destination;
     currentDetailsTravelId: number;
     state: string;
+    filterElements: any[];
 
     public get pager(): EventPager {
         return this._pagination.pager;
@@ -59,6 +60,14 @@ export class TravelListComponent implements OnInit {
         this.currentDetailsTravelId = 0;
         this._pagination.setPager(this.travels.length, 1);
         this.destinations = this._eventRepository.getDestinations(this.travels);
+        this.filterElements = [ // TODO
+            { iconClass: 'icon-directions-bus', active: true },
+            { iconClass: 'icon-directions-train', active: true },
+            { iconClass: 'icon-directions-car', active: true },
+            { iconClass: 'icon-directions-bike', active: true },
+            { iconClass: 'icon-directions-feed', active: true },
+            { iconClass: 'icon-directions-star', active: true }
+        ];
     }
 
     public setPage(page: number): void {
@@ -66,5 +75,13 @@ export class TravelListComponent implements OnInit {
             return;
         }
         this._pagination.setPager(this.pager.totalItems, page);
+    }
+
+    public toggleFilter(filter: any) {
+        filter.active = !filter.active;
+    }
+
+    public showMarkerDetails(travel: any) {
+        this.currentDetailsTravelId = (this.currentDetailsTravelId === travel.id) ? 0 : travel.id;
     }
 }
