@@ -47,7 +47,7 @@ export class TravelListComponent implements OnInit {
         private _eventRepository: EventRepository,
         private _route: ActivatedRoute,
         private _pagination: EventPagination
-    ) { }
+    ) {}
 
     ngOnInit() {
         this.travels =

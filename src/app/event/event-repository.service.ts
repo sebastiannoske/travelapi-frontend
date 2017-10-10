@@ -63,11 +63,7 @@ export class EventRepository {
         );
     }
 
-    public addSubmission(travelSubmission: TravelSubmission): string {
-        const request = this._eventDataService
-            .submitTravel(travelSubmission)
-            .subscribe(response => console.log(response));
-
-        return '';
+    public addSubmission(travelSubmission: TravelSubmission): Observable<any> {
+        return this._eventDataService.submitTravel(travelSubmission);
     }
 }

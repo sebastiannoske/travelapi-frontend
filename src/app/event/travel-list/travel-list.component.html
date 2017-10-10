@@ -1,24 +1,36 @@
 <div class="container-fluid" *eventAssign="let travelsFiltered be travels | filter:textFilter:destinationFilter">
-  <div class="btn-group mb-4" dropdown>
-    <button dropdownToggle type="button" class="btn dropdown-toggle">
-          {{destinationFilter ? destinationFilter.name : 'Demoziel auswählen'}}<span class="caret"></span>
-        </button>
-    <ul *dropdownMenu class="dropdown-menu" role="menu">
-      <li role="menuitem"><a class="dropdown-item" (click)="destinationFilter=null">Alle</a>
-      </li>
-      <li class="divider dropdown-divider"></li>
-      <li *ngFor="let destination of destinations" role="menuitem">
-        <a class="dropdown-item" (click)="destinationFilter=destination">{{destination.name}}</a>
-      </li>
-    </ul>
-  </div>
 
+  <div class="select-destination">
+    <div class="row" *ngIf='destinations && destinations.length > 0'>
+      <div class="col-md-8">
+        <p>Diese Demonstration findet in mehreren Städten statt.
+          <br/> Bitte wähle Dein genaues Ziel aus dem rechts stehenden Feld aus.</p>
+      </div>
+      <div class="col-md-4 right-align">
+        <div class="btn-group" dropdown>
+          <button dropdownToggle type="button" class="btn dropdown-toggle">
+            {{destinationFilter ? destinationFilter.name : 'Demoziel auswählen'}}
+            <span class="caret"></span>
+          </button>
+          <ul *dropdownMenu class="dropdown-menu" role="menu">
+            <li role="menuitem">
+              <a class="dropdown-item" (click)="destinationFilter=null">Alle</a>
+            </li>
+            <li class="divider dropdown-divider"></li>
+            <li *ngFor="let destination of destinations" role="menuitem">
+              <a class="dropdown-item" (click)="destinationFilter=destination">{{destination.name}}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
   <div id="map-wrap">
     <div>
       <agm-map [latitude]="51.948" [longitude]="10.2652" [zoom]="6">
         <!-- <agm-marker [latitude]="position.lat" [longitude]="position.lng" [markerDraggable]='true'></agm-marker> -->
-        
-        <agm-marker *ngFor='let travel of travelsFiltered' [latitude]="travel.lat" [longitude]="travel.long" [iconUrl]='"./assets/images/pin_" + travel.transportation_mean.id + ".png"'></agm-marker>
+
+        <agm-marker *ngFor='let travel of ( travelsFiltered | northToSouth )' [latitude]="travel.lat" [longitude]="travel.long" [iconUrl]='"./assets/images/pin_" + travel.transportation_mean.id + ".png"'></agm-marker>
       </agm-map>
     </div>
   </div>
@@ -28,12 +40,14 @@
     <input type="text" [(ngModel)]="textFilter" class="form-control" placeholder="Tabelle individuell filtern">
   </div>
   <div class="travel-wrap">
-    <div class="row table-head">
-      <div class="col-md-2">Plz</div>
-      <div class="col-md-3">Abfahrtsort</div>
-      <div class="col-md-2">Verkehrsmittel</div>
-      <div class="col-md-3">Aktionsort</div>
-      <div class="col-md-2">Entfernung</div>
+    <div class="travel-header-wrap">
+      <div class="row table-head">
+        <div class="col-md-2">Plz</div>
+        <div class="col-md-3">Abfahrtsort</div>
+        <div class="col-md-2">Verkehrsmittel</div>
+        <div class="col-md-3">Aktionsort</div>
+        <div class="col-md-2">Entfernung</div>
+      </div>
     </div>
 
     <div *ngFor="let travel of travelsFiltered | pagination:pager" class="travel-row-wrap">
@@ -96,7 +110,7 @@
               <span>{{travel.description}}</span>
             </div>
           </div>
-      </section>
+        </section>
 
         <section>
           <div class="row">
@@ -126,32 +140,33 @@
 
         <div class="close-botton-wrap">
 
-            <a role="button" class="btn-black" (click)='currentDetailsTravelId = 0'>Schließen</a>
+          <a role="button" class="btn-black" (click)='currentDetailsTravelId = 0'>Schließen</a>
 
         </div>
-          
+
       </div>
     </div>
 
     <div *ngIf="travelsFiltered.length === 0" class="alert alert-danger" role="alert">
       Keine Fahrten gefunden
     </div>
-    <nav>
+    <nav class="pagination-wrap">
       <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
         <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
-          <a class="page-link" (click)="setPage(1)">First</a>
+          <a class="page-link icon-jump" (click)="setPage(1)">
+            <<</a>
         </li>
-        <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+        <!-- <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
           <a class="page-link" (click)="setPage(pager.currentPage - 1)">Previous</a>
-        </li>
+        </li> -->
         <li *ngFor="let page of pager.pages" class="page-item" [ngClass]="{active:pager.currentPage === page}">
           <a class="page-link" (click)="setPage(page)">{{page}}</a>
         </li>
-        <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+        <!-- <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
           <a class="page-link" (click)="setPage(pager.currentPage + 1)">Next</a>
-        </li>
+        </li> -->
         <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-          <a class="page-link" (click)="setPage(pager.totalPages)">Last</a>
+          <a class="page-link icon-jump" (click)="setPage(pager.totalPages)">>></a>
         </li>
       </ul>
     </nav>

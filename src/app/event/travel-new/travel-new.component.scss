@@ -38,6 +38,28 @@
         line-height: 32px;
     }
 
+    select {
+        margin-bottom: 20px;
+    }
+    
+    .section-wrap {
+        margin-bottom: 55px;
+        padding-bottom: 55px;
+
+        & > .row {
+            font-family: 'Roboto', sans-serif;
+            color: #4A4A4A;
+
+            & > div:first-child {
+                font-weight: 300;
+            }
+        }
+
+        &:not(:last-child) {
+            border-bottom: 1px solid #979797;
+        }
+    }
+
     .next-button-wrap {
         &:not(.align-bottom) {
             padding: 35px 0 70px;
@@ -58,8 +80,9 @@
         }
     }
 
-    span.step-indicator {
+    span.step-indicator, h4 {
         font-size: 24px;
+        font-weight: normal;
     }
 
     h3 {
@@ -67,18 +90,43 @@
         font-weight: normal;
     }
 
+    .row.destination-time {
+        margin-left: 0;
+        margin-right: 0;
+
+        & > div {
+            padding-left: 0;
+            padding-right: 0;
+
+            &.centerd {
+                text-align: center;
+                line-height: 38px;
+            }
+        }
+    }
+
     .step-nav-wrap {
         & > .btn {
-            width: 44px;
-            height: 44px;
             color: #fff;
             background-color: #000;
             box-shadow: 0 3px 5px 0px rgba(0, 0, 0, 0.1);
-            border-radius: 22px;
             cursor: pointer;
+            border-radius: 20px;
+            width: 40px;
+            height: 40px;
 
             &:not(:last-child) {
-                margin-right: 20px;
+                margin-right: 6px;
+            }
+
+            @media ( min-width: 412px ) {
+                border-radius: 22px;
+                width: 44px;
+                height: 44px;
+
+                &:not(:last-child) {
+                    margin-right: 20px;
+                }
             }
 
             &.active {

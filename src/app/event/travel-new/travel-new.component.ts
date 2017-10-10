@@ -55,6 +55,9 @@ export class TravelNewComponent implements OnInit {
     departureMinutes: number[];
     position: { lat: number; lng: number };
     mapZoom: number;
+    transportationMeansByDBOrder: any; // TODO
+    inProgress: boolean;
+    submissionSucceed: boolean;
 
     constructor(
         private _fb: FormBuilder,
@@ -72,6 +75,16 @@ export class TravelNewComponent implements OnInit {
         this.departureMinutes = Array.from(Array(12), (_, x) => x * 5);
         this.position = { lat: 51, lng: 9 };
         this.mapZoom = 5;
+        this.inProgress = false;
+        this.submissionSucceed = false;
+        this.transportationMeansByDBOrder = {
+            1: 'Auto',
+            2: 'Bus',
+            3: 'Zug',
+            4: 'Fahrrad',
+            5: 'Fußgänger',
+            6: 'Sonstige'
+        };
 
         this.travelForm = this._fb.group({
             steps: this._fb.array([
@@ -147,6 +160,7 @@ export class TravelNewComponent implements OnInit {
     }
 
     save(): void {
+        this.inProgress = true;
         const travelFormData = this.travelForm.value.steps;
         this.travel = new TravelSubmission(
             {
@@ -161,8 +175,8 @@ export class TravelNewComponent implements OnInit {
                 ),
                 description: travelFormData[4].description,
                 lat: travelFormData[3].lat,
-                link: travelFormData[3].long,
-                long: 0,
+                link: '',
+                long: travelFormData[3].long,
                 organisation: travelFormData[2].organisation,
                 phoneNumber: travelFormData[2].phoneNumber,
                 passenger: 1,
@@ -179,7 +193,28 @@ export class TravelNewComponent implements OnInit {
             },
             travelFormData[4].destinationId
         );
-        this._eventRepository.addSubmission(this.travel);
+        this._eventRepository.addSubmission(this.travel)
+            .subscribe(response => {
+                if (response.status === 'success') {
+                    this.submissionSucceed = true;
+                }
+            });
+    }
+
+    getDepartureTime(): string {
+        const travelFormData = this.travelForm.value.steps;
+
+        return this.convertDatetime(
+            this.travelForm.value.steps[4].departureDate,
+            this.travelForm.value.steps[4].departureHour,
+            this.travelForm.value.steps[4].departureMinute
+        );
+    }
+
+    getSelectedDestination(id: number): string {
+        return this.destinations.find((destination) => {
+            return destination.id == id;
+        }).name;
     }
 
     validate(formControl: FormControl): boolean {

@@ -6,9 +6,9 @@
         <button *ngFor="let page of steps.indices; let index=index" (click)="steps.current=index" type="button" [disabled]="((index < steps.indices.length-1 && !travelForm.get('steps').at(index).valid) && index != steps.current)||(index===steps.indices.length-1 && !travelForm.valid)"
           [ngClass]="{'active':steps.current===index}" class="btn active">{{page}}</button>
       </div>
-      <div class="btn-group" role="group" aria-label="Second group">
+      <!-- <div class="btn-group" role="group" aria-label="Second group">
         <button type="button" class="btn" (click)="populateTestData()">Insert Test Data</button>
-      </div>
+      </div> -->
 
     </div>
 
@@ -29,7 +29,8 @@
             </label>
           </div>
         </div>
-        <br/><br/>
+        <br/>
+        <br/>
         <p>Tragen Sie sich in unsere Mitfahrbörse ein, dann wird Ihr Angebot oder Gesuch in die Karte und in die Liste aufgenommen
           und veröffentlicht. Ob eine Fahrgemeinschaften mit dem Auto oder der Bahn, bereits gebuchte Busse, Hilfe-Gesuche
           zur gemeinsamen Bus-Organisation, Fahrradtouren oder andere Möglichkeiten, die Ihnen einfallen – so kommen Sie
@@ -46,7 +47,8 @@
         <span class="step-indicator">Schritt {{steps.current + 1}}</span>
         <h3>Account für die Mitfahrbörse anlegen.</h3>
         <p>Die hier angegebenen Daten werden nicht veröffentlich.</p>
-        <br/><br/>
+        <br/>
+        <br/>
 
         <div class="row">
           <div class="col-md-7">
@@ -95,7 +97,8 @@
         <span class="step-indicator">Schritt {{steps.current + 1}}</span>
         <h3>Kontaktdaten hinterlegen.</h3>
         <p>Die hier angegebenen Daten werden nicht veröffentlich.</p>
-        <br/><br/>
+        <br/>
+        <br/>
 
         <div class="row">
           <div class="col-md-7">
@@ -130,7 +133,8 @@
         <span class="step-indicator">Schritt {{steps.current + 1}}</span>
         <h3>Abfahrtsort auswählen</h3>
         <p>Die hier angegebenen Daten werden nicht veröffentlich.</p>
-        <br/><br/>
+        <br/>
+        <br/>
 
         <div class="row">
           <div class="col-md-7">
@@ -148,7 +152,7 @@
             </agm-map>
           </div>
         </div>
-        
+
         <div class="row">
           <div class="col-md-7">
             <mat-form-field>
@@ -182,7 +186,8 @@
         <span class="step-indicator">Schritt {{steps.current + 1}}</span>
         <h3>Mitfahrgelegenheit anbieten</h3>
         <p>Die hier angegebenen Daten werden nicht veröffentlich.</p>
-        <br/><br/>
+        <br/>
+        <br/>
 
         <div class="row">
           <div class="col-md-7">
@@ -197,21 +202,31 @@
 
             <mat-form-field>
               <input matInput [matDatepicker]="myDatepicker" [ngClass]="{'is-invalid':validate(travelForm.get('steps.4.departureDate'))}"
-                placeholder="Abfahrt *" formControlName="departureDate">
-              <mat-datepicker-toggle mdSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+                placeholder="Abfahrt *" formControlName="departureDate" #datePickerTrigger (focus)="myDatepicker.open(); datePickerTrigger.blur()">
               <mat-datepicker #myDatepicker></mat-datepicker>
             </mat-form-field>
 
-            <select class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.4.departureHour'))}" formControlName="departureHour">
-              <option value=null disabled selected hidden>Abfahrt Stunden *</option>
-              <option *ngFor="let hour of departureHours" value="{{hour}}">{{hour}}</option>
-            </select>
-
-            <select class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.4.departureMinute'))}" formControlName="departureMinute">
-              <option value=null disabled selected hidden>Abfahrt Minuten *</option>
-              <option *ngFor="let minute of departureMinutes" value="{{minute}}">{{minute}}</option>
-            </select>
-
+            <div class="row destination-time">
+              <div class="col-md-2">
+                  <select class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.4.departureHour'))}" formControlName="departureHour">
+                    <option value=null disabled selected hidden>Abfahrt Stunden *</option>
+                    <option *ngFor="let hour of departureHours" value="{{hour}}">{{hour}}</option>
+                  </select>
+              </div>
+              <div class="col-md-1 centerd">
+                <span>:</span>
+              </div>
+              <div class="col-md-2">
+                  <select class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.4.departureMinute'))}" formControlName="departureMinute">
+                    <option value=null disabled selected hidden>Abfahrt Minuten *</option>
+                    <option *ngFor="let minute of departureMinutes" value="{{minute}}">{{minute}}</option>
+                  </select>
+              </div>
+              <div class="col-md-1 centerd">
+                <span>Uhr</span>
+              </div>
+            </div>
+            
             <mat-form-field>
               <textarea matInput class="form-control" rows="4" placeholder="Beschreibung" formControlName="description"></textarea>
             </mat-form-field>
@@ -229,11 +244,211 @@
       <div *ngIf="steps.current===5" class="slide-wrap" [@viewChange]="slide">
         <span class="step-indicator">Schritt {{steps.current + 1}}</span>
         <h3>Zusammenfassung</h3>
-        <pre>{{ travelForm.value | json }}</pre>
-        <button class="btn btn-primary" type="submit" [disabled]="!travelForm.valid">Save</button>
-      </div>
+        <br/>
+        <p>Bitte überprüfen Sie noch einmal Ihre Daten.</p>
+        <br/>
+        <br/>
 
-      <!--  -->
+        <div class="section-wrap">
+          <h4>Accountdaten</h4>
+
+          <div class="row">
+            <div class="col-md-4">
+              <span>Email</span>
+            </div>
+            <div class="col-md-8">
+              <span>{{ travelForm.value.steps[1].userEmail.email }}</span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <span>Name</span>
+            </div>
+            <div class="col-md-8">
+              <span>{{ travelForm.value.steps[1].userName }}</span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <span>Postleitzahl</span>
+            </div>
+            <div class="col-md-8">
+              <span>{{ travelForm.value.steps[1].userPostCode }}</span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <span>Strasse, Hausnummer</span>
+            </div>
+            <div class="col-md-8">
+              <span>{{ travelForm.value.steps[1].userAddress }}</span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <span>Ort</span>
+            </div>
+            <div class="col-md-8">
+              <span>{{ travelForm.value.steps[1].userCity }}</span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <span>Telefon</span>
+            </div>
+            <div class="col-md-8">
+              <span>{{ travelForm.value.steps[1].userPhoneNumber }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-wrap">
+          <h4>Kontaktdaten</h4>
+
+          <div class="row">
+            <div class="col-md-4">
+              <span>Name</span>
+            </div>
+            <div class="col-md-8">
+              <span>{{ travelForm.value.steps[2].contactName }}</span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <span>Organisation</span>
+            </div>
+            <div class="col-md-8">
+              <span>{{ travelForm.value.steps[2].organisation }}</span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <span>Email</span>
+            </div>
+            <div class="col-md-8">
+              <span>{{ travelForm.value.steps[2].contactEmail }}</span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <span>Telefon</span>
+            </div>
+            <div class="col-md-8">
+              <span>{{ travelForm.value.steps[2].phoneNumber }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-wrap">
+          <h4>Mitfahrgelegenheit</h4>
+
+          <div class="row">
+            <div class="col-md-4">
+              <span>Art</span>
+            </div>
+            <div class="col-md-8">
+              <span>{{ travelForm.value.steps[0].travelType }}</span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <span>Ziel</span>
+            </div>
+            <div class="col-md-8">
+              <span>{{ getSelectedDestination(travelForm.get('steps.4.destinationId').value) }}</span>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-4">
+              <span>Verkehrsmittel</span>
+            </div>
+            <div class="col-md-8">
+              <span>{{ transportationMeansByDBOrder[travelForm.get('steps.4.transportationMeanId').value] }}</span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <span>ungefähre Abfahrtszeit</span>
+            </div>
+            <div class="col-md-8">
+              <span>{{ getDepartureTime() | amParse:'YYYY-MM-DD hh:mm:ss' | amDateFormat:'D.MMMM YYYY, H:mm' }}</span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <span>Beschreibung</span>
+            </div>
+            <div class="col-md-8">
+              <span>{{ travelForm.get('steps.4.description').value }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-wrap">
+          <h4>Abfahrtsort</h4>
+
+          <div class="row">
+            <div class="col-md-4">
+              <span>Strasse, Hausnummer</span>
+            </div>
+            <div class="col-md-8">
+              <span>{{ travelForm.value.steps[3].streetAddress }}</span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <span>Postleitzahl</span>
+            </div>
+            <div class="col-md-8">
+              <span>{{ travelForm.value.steps[3].postcode }}</span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <span>Ort</span>
+            </div>
+            <div class="col-md-8">
+              <span>{{ travelForm.value.steps[3].city }}</span>
+            </div>
+          </div>
+          <br/><br/><br/>
+          <div id="map-wrap">
+            <div>
+              <agm-map [latitude]="position.lat" [longitude]="position.lng" [zoom]="mapZoom">
+                <agm-marker [latitude]="position.lat" [longitude]="position.lng" [markerDraggable]='false' [iconUrl]='"./assets/images/pin_" + travelForm.get("steps.4.transportationMeanId").value + ".png"'></agm-marker>
+              </agm-map>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-wrap">
+          <h4>Abschicken.</h4>
+          <br/>
+          <p>Sind alle Angaben korrekt? Dann können Sie jetzt Ihr Gesuch/Angebot aufgeben.</p>
+
+          <div class="next-button-wrap">
+            <button class="btn btn-black" type="submit" [disabled]="!travelForm.valid || inProgress">
+              <span *ngIf="!submissionSucceed">Abschicken</span>
+              <span *ngIf="submissionSucceed" [@viewChange]="slide">Die Fahrt wurder erfolgreich übermittelt.</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
 
     </div>
   </form>

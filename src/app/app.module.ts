@@ -24,6 +24,7 @@ import { MomentModule } from 'angular2-moment';
 import { AgmCoreModule } from '@agm/core';
 import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
 import { GoogleAutoCompleteDirective } from './event/travel-new/google-auto-complete.directive';
+import { NorthToSouthPipe } from './north-to-south.pipe';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { GoogleAutoCompleteDirective } from './event/travel-new/google-auto-comp
         EventFilterPipe,
         EventPaginationPipe,
         EventAssignDirective,
-        GoogleAutoCompleteDirective
+        GoogleAutoCompleteDirective,
+        NorthToSouthPipe
     ],
     imports: [
         BrowserModule,

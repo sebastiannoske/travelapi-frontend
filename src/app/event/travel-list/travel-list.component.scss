@@ -3,6 +3,39 @@
     .row.table-head {
         padding: 20px 0;
     }
+
+    .travel-wrap {
+        font-family: 'Roboto', sans-serif;
+
+        & > div {
+            & > div:first-child {
+                padding-left: 15px;
+            }
+        }
+    }
+
+    .select-destination {
+        padding: 30px 15px 20px;
+        margin-left: 1px;
+        margin-right: 1px;
+        border-left: 1px solid #979797;
+        border-right: 1px solid #979797;
+
+        p {
+            font-size: 14px;
+            font-family: 'Roboto', sans-serif;
+            color: #4A4A4A;
+        }
+
+        .right-align {
+            text-align: right;
+    
+            & > div {
+                display: inline-block;
+            }
+        }
+    }
+
     .travel-row-wrap {
         overflow: hidden;
 
@@ -41,6 +74,45 @@
             .close-botton-wrap {
                 padding: 35px 0 70px;
                 text-align: right;
+            }
+        }
+    }
+
+    .pagination-wrap {
+        display: block;
+        padding: 50px 0;
+        text-align: center;
+
+        ul {
+            display: inline-block;
+
+            li {
+                display: block;
+                float: left;
+
+                &.active {
+                    a {
+                        background-color: #9B9B9B;
+                        color: #fff;
+                        border-color: #9B9B9B;
+                    }
+                }
+
+                a {
+                    cursor: pointer;
+                    background-color: #fff;
+                    color: #4A4A4A;
+                    padding: 9px 15px 14px;
+                    transition: .15s ease all;
+                }
+
+                &:not(.active) {
+                    a:hover {
+                        background-color: #4A4A4A;
+                        border-color: #4A4A4A;
+                        color: #fff;
+                    }
+                }
             }
         }
     }
