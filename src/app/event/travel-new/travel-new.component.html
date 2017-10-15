@@ -6,9 +6,9 @@
         <button *ngFor="let page of steps.indices; let index=index" (click)="steps.current=index" type="button" [disabled]="((index < steps.indices.length-1 && !travelForm.get('steps').at(index).valid) && index != steps.current)||(index===steps.indices.length-1 && !travelForm.valid)"
           [ngClass]="{'active':steps.current===index}" class="btn active">{{page}}</button>
       </div>
-      <!-- <div class="btn-group" role="group" aria-label="Second group">
+      <div class="btn-group" role="group" aria-label="Second group">
         <button type="button" class="btn" (click)="populateTestData()">Insert Test Data</button>
-      </div> -->
+      </div>
 
     </div>
 
@@ -145,10 +145,10 @@
           </div>
         </div>
 
-        <div id="map-wrap">
+        <div class="map-wrap">
           <div>
             <agm-map [latitude]="position.lat" [longitude]="position.lng" [zoom]="mapZoom">
-              <agm-marker [latitude]="position.lat" [longitude]="position.lng" [markerDraggable]='true'></agm-marker>
+              <agm-marker [latitude]="position.lat" [longitude]="position.lng" [markerDraggable]='true' (dragEnd)='markerDragEndEvent($event)'></agm-marker>
             </agm-map>
           </div>
         </div>
@@ -207,7 +207,7 @@
             </mat-form-field>
 
             <div class="row destination-time">
-              <div class="col-md-2">
+              <div class="col-md-4">
                   <select class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.4.departureHour'))}" formControlName="departureHour">
                     <option value=null disabled selected hidden>Abfahrt Stunden *</option>
                     <option *ngFor="let hour of departureHours" value="{{hour}}">{{hour}}</option>
@@ -216,7 +216,7 @@
               <div class="col-md-1 centerd">
                 <span>:</span>
               </div>
-              <div class="col-md-2">
+              <div class="col-md-4">
                   <select class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.4.departureMinute'))}" formControlName="departureMinute">
                     <option value=null disabled selected hidden>Abfahrt Minuten *</option>
                     <option *ngFor="let minute of departureMinutes" value="{{minute}}">{{minute}}</option>
@@ -426,7 +426,7 @@
             </div>
           </div>
           <br/><br/><br/>
-          <div id="map-wrap">
+          <div class="map-wrap">
             <div>
               <agm-map [latitude]="position.lat" [longitude]="position.lng" [zoom]="mapZoom">
                 <agm-marker [latitude]="position.lat" [longitude]="position.lng" [markerDraggable]='false' [iconUrl]='"./assets/images/icons/pin_" + travelForm.get("steps.4.transportationMeanId").value + ".png"'></agm-marker>

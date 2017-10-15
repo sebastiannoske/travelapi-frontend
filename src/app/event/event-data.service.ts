@@ -32,7 +32,8 @@ export class EventDataService {
     }
 
     public fetchEvent(id: number): Observable<Event> {
-        const url = `${this._eventsUrl}/events/${id}/travel`;
+        // const url = `${this._eventsUrl}/events/${id}/travel`;
+        const url = '/assets/api/events/5.json';
         return this._http
             .get<EventRaw>(url, {
                 headers: this._headers

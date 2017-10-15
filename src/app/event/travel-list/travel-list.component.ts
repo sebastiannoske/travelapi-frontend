@@ -48,6 +48,30 @@ import {
                     })
                 )
             ])
+        ]),
+        trigger('showDeatilsWrapTrigger', [
+            transition('void => *', [
+                style({
+                    transform: 'translate3d(30px, -15px, 0) scale(.9)',
+                    opacity: '0'
+                }),
+                animate(
+                    '.3s ease',
+                    style({
+                        transform: 'translate3d(0, 0, 0) scale(1)',
+                        opacity: '1'
+                    })
+                )
+            ]),
+            transition('* => void', [
+                animate(
+                    '.3s ease',
+                    style({
+                        opacity: 0,
+                        transform: 'translate3d(30px, -15px, 0) scale(.9)'
+                    })
+                )
+            ])
         ])
     ]
 })
@@ -63,6 +87,7 @@ export class TravelListComponent implements OnInit {
     transportationMeanDisplay: Array<
         TransportationMean & { iconClass: string }
     >;
+    currentMapDetails: Travel;
     transportationMeanIcons: string[] = [
         'icon-directions-car',
         'icon-directions-bus',
@@ -71,6 +96,8 @@ export class TravelListComponent implements OnInit {
         'icon-directions-feed',
         'icon-directions-star'
     ];
+    keys: string[];
+    ascOrder: boolean;
 
     public get pager(): EventPager {
         return this._pagination.pager;
@@ -88,6 +115,7 @@ export class TravelListComponent implements OnInit {
                 ? this._eventRepository.offers
                 : this._eventRepository.requests;
         this.state = '';
+        this.ascOrder = false;
         this.currentDetailsTravelId = 0;
         this._pagination.setPager(this.travels.length, 1);
         this.destinations = this._eventRepository.getDestinations(this.travels);
@@ -127,7 +155,11 @@ export class TravelListComponent implements OnInit {
     }
 
     public showMarkerDetails(travel: Travel) {
+        this.currentMapDetails = travel;
+    }
+
+    public showMarkerFullDetails() {
         this.currentDetailsTravelId =
-            this.currentDetailsTravelId === travel.id ? 0 : travel.id;
+        this.currentDetailsTravelId === this.currentMapDetails.id ? 0 : this.currentMapDetails.id;
     }
 }

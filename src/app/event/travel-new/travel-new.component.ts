@@ -287,6 +287,18 @@ export class TravelNewComponent implements OnInit {
         return this.steps.current < this.steps.last ? 'leftin' : 'rightin';
     }
 
+    markerDragEndEvent(event: any): void {
+        this.position = { lat: event.coords.lat, lng: event.coords.lng };
+
+        this.travelForm
+        .get('steps.3.lat')
+        .patchValue(event.coords.lat);
+
+        this.travelForm
+        .get('steps.3.long')
+        .patchValue(event.coords.lng);
+    }
+
     googlePlacesAddressHandler(event: any): void {
         this.position = { lat: event.lat, lng: event.lng };
         this.mapZoom = 16;

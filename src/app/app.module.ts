@@ -22,9 +22,11 @@ import { MatNativeDateModule, MatDatepickerModule, MatInputModule } from '@angul
 import { MomentModule } from 'angular2-moment';
 // maps stuff
 import { AgmCoreModule } from '@agm/core';
+import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
 import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
 import { GoogleAutoCompleteDirective } from './event/travel-new/google-auto-complete.directive';
 import { NorthToSouthPipe } from './north-to-south.pipe';
+import { EventsSortPipe } from './event/events-sort.pipe';
 
 
 @NgModule({
@@ -38,7 +40,8 @@ import { NorthToSouthPipe } from './north-to-south.pipe';
         EventPaginationPipe,
         EventAssignDirective,
         GoogleAutoCompleteDirective,
-        NorthToSouthPipe
+        NorthToSouthPipe,
+        EventsSortPipe
     ],
     imports: [
         BrowserModule,
@@ -56,6 +59,7 @@ import { NorthToSouthPipe } from './north-to-south.pipe';
             apiKey: 'AIzaSyDS1rNqI3ZCpJu0fd8Rkyo5SAi8EPIna5g',
             libraries: ['places']
         }),
+        AgmJsMarkerClustererModule,
         BsDropdownModule.forRoot()
     ],
     providers: [EventDataService, EventRepository, EventPagination],

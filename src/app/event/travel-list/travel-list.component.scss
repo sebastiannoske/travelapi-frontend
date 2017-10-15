@@ -8,10 +8,31 @@
 
     .row.table-head {
         padding: 20px 0;
+
+        & > * {
+            span {
+                vertical-align: middle;
+                display: inline-block;
+                font-size: 12px;
+                font-weight: 300;
+                line-height: 12px;
+            }
+
+            a {
+                vertical-align: middle;
+                display: inline-block;
+                width: 12px;
+                height: 12px;
+                line-height: 12px;
+                background-color: red;
+                text-align: center;
+                cursor: pointer;
+            }
+        }
     }
 
     .travel-wrap {
-        font-family: 'Roboto', sans-serif;
+        //font-family: 'Roboto', sans-serif;
 
         & > div {
             & > div:first-child {
@@ -38,6 +59,69 @@
         }
     }
 
+    #current-travel-details {
+        display: block;
+        position: absolute;
+        top: 70px;
+        right: 70px;
+        background-color: #fff;
+        width: 344px;
+        padding: 15px;
+
+        & > .row {
+            & > div:first-child {
+                span {
+                    display: inline-block;
+                    font-size: 12px;
+                    line-height: 20px;
+                }
+            }
+
+            & > div:last-child {
+                span {
+                    font-size: 20px;
+                }
+            }
+        }
+
+        .btn-show-details-wrap {
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        .btn-close-wrap {
+            text-align: right;
+
+            a {
+                display: inline-block;
+                width: 30px;
+                height: 30px;
+                background-color: #9B9B9B;
+                color: #fff;
+                text-align: center;
+                line-height: 30px;
+                cursor: pointer;
+
+                i {
+                    display: block;
+                    font-size: 10px;
+                    transform: rotate(0);
+                    transition: .2s ease transform;
+
+                    &:before {
+                        margin: 0;
+                    }
+                }
+
+                &:hover {
+                    i {
+                        transform: rotate(90deg);
+                    }
+                }
+            }
+        }
+    }
+
     .select-destination {
         padding: 30px 15px 20px;
         margin-left: 1px;
@@ -47,7 +131,7 @@
 
         p {
             font-size: 14px;
-            font-family: 'Roboto', sans-serif;
+            //font-family: 'Roboto', sans-serif;
             color: #4A4A4A;
         }
 
