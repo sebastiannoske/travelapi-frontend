@@ -19,7 +19,12 @@
                 "styles.scss",
                 "../node_modules/snazzy-info-window/dist/snazzy-info-window.css"
             ],
-            "scripts": [],
+            "scripts": [
+                "assets/scripts/parallax/TweenMax.min.js",
+                "assets/scripts/parallax/ScrollMagic.min.js",
+                "assets/scripts/parallax/ScrollToPlugin.min.js",
+                "assets/scripts/parallax/animation.gsap.min.js"
+            ],
             "environmentSource": "environments/environment.ts",
             "environments": {
                 "dev": "environments/environment.ts",

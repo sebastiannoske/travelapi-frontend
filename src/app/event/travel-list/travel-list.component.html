@@ -1,7 +1,7 @@
 <div class="container-fluid" *eventAssign="let travelsFiltered be travels | filter:textFilter:destinationFilter:transportationMeanFilter">
 
-  <div class="select-destination">
-    <div class="row" *ngIf='destinations && destinations.length > 0'>
+  <div class="select-destination" *ngIf='destinations && destinations.length > 1'>
+    <div class="row">
       <div class="col-md-8">
         <p>Diese Demonstration findet in mehreren Städten statt.
           <br/> Bitte wähle Dein genaues Ziel aus dem rechts stehenden Feld aus.</p>
@@ -29,7 +29,7 @@
     <div>
       <div>
         <agm-map [latitude]="51.948" [longitude]="10.2652" [zoom]="6">
-          <agm-marker-cluster>
+          <agm-marker-cluster [imagePath]="'https://googlemaps.github.io/js-marker-clusterer/images/m'">
             <agm-marker *ngFor='let travel of ( travelsFiltered | northToSouth )' [latitude]="travel.lat" [longitude]="travel.long" [iconUrl]='"./assets/images/icons/pin_" + travel.transportation_mean.id + ".png"'
               (markerClick)="showMarkerDetails(travel)"></agm-marker>
           </agm-marker-cluster>
@@ -38,7 +38,7 @@
         <div id="current-travel-details" *ngIf='currentMapDetails' [@showDeatilsWrapTrigger]='true'>
             
           <div class="btn-close-wrap">
-            <a role="button" (click)='currentMapDetails = null'><i class="icon-icon-filter"></i></a>
+            <a role="button" (click)='currentMapDetails = null'><i class="icon-close"></i></a>
           </div>
           
           <div class="row">
@@ -55,7 +55,7 @@
               <span>Von</span>
             </div>
             <div class="col-md-8">
-              <span>{{currentMapDetails.street_address}}, {{currentMapDetails.postcode}}, {{currentMapDetails.city}}</span>
+              <span><span *ngIf='currentMapDetails.street_address'>{{currentMapDetails.street_address}}, </span><span *ngIf='currentMapDetails.postcode'>{{currentMapDetails.postcode}}, </span>{{currentMapDetails.city}}</span>
             </div>
           </div>
 
@@ -87,7 +87,7 @@
 
   <div class="row">
     <div class="col-md-8">
-      <div class="btn-toolbar">
+      <div class="btn-toolbar travel-filter-icons">
         <div class="step-nav-wrap mr-2" role="group" aria-label="First group">
           <button type="button" *ngFor='let filter of transportationMeanDisplay' [class.active-filter]='-1 !== transportationMeanFilter.indexOf(filter.id)'
             class="btn" (click)='updateTransportationMeanFilter(filter.id)'><i [class]='filter.iconClass'></i></button>
@@ -95,29 +95,29 @@
       </div>
     </div>
     <div class="col-md-4 right-align">
-      <div class="input-group padding-right">
+      <div class="input-group padding-right filter-table-wrap">
         <div class="input-group-addon"><i class="icon-icon-filter"></i></div>
         <input type="text" [(ngModel)]="textFilter" class="form-control" placeholder="Tabelle individuell filtern">
       </div>
     </div>
   </div>
 
-  <div class="travel-wrap">
+  <div class="travel-wrap" #travelwrap>
     <div class="travel-header-wrap">
       <div class="row table-head">
-        <div class="col-md-2"><span>Plz</span> <a role="button" (click)='keys = ["postcode"]; ascOrder = !ascOrder'>^</a></div>
-        <div class="col-md-3"><span>Abfahrtsort</span> <a role="button" (click)='keys = ["city"]; ascOrder = !ascOrder'>^</a></div>
-        <div class="col-md-2"><span>Verkehrsmittel</span> <a role="button" (click)='keys = ["transportation_mean", "name"]; ascOrder = !ascOrder'>^</a></div>
-        <div class="col-md-3"><span>Aktionsort</span> <a role="button" (click)='keys = ["destination", "name"]; ascOrder = !ascOrder'>^</a></div>
-        <div class="col-md-2"><span>Entfernung</span> <a role="button">^</a></div>
+        <div class="col-md-2"><span>Plz</span> <a role="button" (click)='keys = ["postcode"]; ascOrder = !ascOrder'><i class="icon-sort"></i></a></div>
+        <div class="col-md-3"><span>Abfahrtsort</span> <a role="button" (click)='keys = ["city"]; ascOrder = !ascOrder'><i class="icon-sort"></i></a></div>
+        <div class="col-md-2"><span>Verkehrsmittel</span> <a role="button" (click)='keys = ["transportation_mean", "name"]; ascOrder = !ascOrder'><i class="icon-sort"></i></a></div>
+        <div class="col-md-3"><span>Aktionsort</span> <a role="button" (click)='keys = ["destination", "name"]; ascOrder = !ascOrder'><i class="icon-sort"></i></a></div>
+        <div class="col-md-2"><span>Entfernung</span> <a role="button"><i class="icon-sort"></i></a></div>
       </div>
     </div>
 
-    <div *ngFor="let travel of travelsFiltered | eventsSort:keys:ascOrder | pagination:pager" class="travel-row-wrap">
+    <div *ngFor="let travel of travelsFiltered | eventsSort:keys:ascOrder | filterCurrentDetails:currentDetailsTravelId | pagination:pager" class="travel-row-wrap">
       <div class="row" [class.show-details]='currentDetailsTravelId === travel.id' (click)='(currentDetailsTravelId === travel.id) ? currentDetailsTravelId = 0 : currentDetailsTravelId = travel.id'>
         <div class="col-md-2">{{travel.postcode}}</div>
         <div class="col-md-3">{{travel.city}}</div>
-        <div class="col-md-2">{{travel.transportation_mean.name}}</div>
+        <div class="col-md-2"><i [class]='setTransportationMeanClassIcon(travel.transportation_mean.id)'></i>&nbsp;&nbsp;{{travel.transportation_mean.name}}</div>
         <div class="col-md-3">{{travel.destination.name}}</div>
         <div class="col-md-2">111</div>
       </div>
@@ -216,8 +216,7 @@
     <nav class="pagination-wrap">
       <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
         <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
-          <a class="page-link icon-jump" (click)="setPage(1)">
-            <<</a>
+          <a class="page-link icon-jump" (click)="setPage(1)"><i class="icon-angle-double-left"></i></a>
         </li>
         <!-- <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
           <a class="page-link" (click)="setPage(pager.currentPage - 1)">Previous</a>
@@ -229,7 +228,7 @@
           <a class="page-link" (click)="setPage(pager.currentPage + 1)">Next</a>
         </li> -->
         <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-          <a class="page-link icon-jump" (click)="setPage(pager.totalPages)">>></a>
+          <a class="page-link icon-jump" (click)="setPage(pager.totalPages)"><i class="icon-angle-double-right"></i></a>
         </li>
       </ul>
     </nav>

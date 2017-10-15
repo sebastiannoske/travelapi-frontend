@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EventRepository } from '../event-repository.service';
 import { EventPagination } from '../event-pagination.service';
@@ -16,6 +16,9 @@ import {
     animate,
     keyframes
 } from '@angular/animations';
+
+declare var ScrollMagic: any;
+declare var TweenMax: any;
 
 @Component({
     selector: 'app-travel-list',
@@ -76,6 +79,7 @@ import {
     ]
 })
 export class TravelListComponent implements OnInit {
+    @ViewChild('travelwrap') travelWrap: ElementRef;
     travels: Travel[];
     travelsFiltered: Travel[];
     destinations: Destination[];
@@ -98,6 +102,7 @@ export class TravelListComponent implements OnInit {
     ];
     keys: string[];
     ascOrder: boolean;
+    scrollMagicController: any;
 
     public get pager(): EventPager {
         return this._pagination.pager;
@@ -135,6 +140,17 @@ export class TravelListComponent implements OnInit {
                             : ''
                 });
             });
+
+        this.scrollMagicController = new ScrollMagic.Controller({vertical: true});
+        this.scrollMagicController.scrollTo(function (newpos) {
+
+            TweenMax.to(window, .8, {scrollTo: {y: newpos, autoKill: false}});
+
+        });
+    }
+
+    public setTransportationMeanClassIcon(id: number) {
+        return this.transportationMeanIcons[id - 1];
     }
 
     public setPage(page: number): void {
@@ -161,5 +177,9 @@ export class TravelListComponent implements OnInit {
     public showMarkerFullDetails() {
         this.currentDetailsTravelId =
         this.currentDetailsTravelId === this.currentMapDetails.id ? 0 : this.currentMapDetails.id;
+
+        if (this.currentDetailsTravelId > 0) {
+            this.scrollMagicController.scrollTo(this.travelWrap.nativeElement.offsetTop);
+        }
     }
 }

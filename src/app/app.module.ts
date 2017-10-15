@@ -27,6 +27,7 @@ import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
 import { GoogleAutoCompleteDirective } from './event/travel-new/google-auto-complete.directive';
 import { NorthToSouthPipe } from './north-to-south.pipe';
 import { EventsSortPipe } from './event/events-sort.pipe';
+import { FilterCurrentDetailsPipe } from './event/filter-current-details.pipe';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { EventsSortPipe } from './event/events-sort.pipe';
         EventAssignDirective,
         GoogleAutoCompleteDirective,
         NorthToSouthPipe,
-        EventsSortPipe
+        EventsSortPipe,
+        FilterCurrentDetailsPipe
     ],
     imports: [
         BrowserModule,

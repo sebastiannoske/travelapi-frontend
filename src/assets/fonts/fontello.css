@@ -62,3 +62,7 @@
 .icon-directions-star:before { content: '\e804'; } /* '' */
 .icon-directions-train:before { content: '\e805'; } /* '' */
 .icon-icon-filter:before { content: '\e806'; } /* '' */
+.icon-close:before { content: '\e807'; } /* '' */
+.icon-sort:before { content: '\e808'; } /* '' */
+.icon-angle-double-left:before { content: '\f100'; } /* '' */
+.icon-angle-double-right:before { content: '\f101'; } /* '' */

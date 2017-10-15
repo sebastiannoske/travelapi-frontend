@@ -24,9 +24,16 @@
                 width: 12px;
                 height: 12px;
                 line-height: 12px;
-                background-color: red;
                 text-align: center;
+                padding: 10px;
                 cursor: pointer;
+
+                i {
+                    font-size: 5px;
+                    position: relative;
+                    top: -9px;
+                    left: -10px;
+                }
             }
         }
     }
@@ -39,6 +46,31 @@
                 padding-left: 15px;
             }
         }
+    }
+
+    .filter-table-wrap {
+        .input-group-addon {
+            background-color: #fff;
+
+            i {
+                font-size: 12px;
+            }
+        }
+
+        .form-control {
+            padding-top: 15px;
+            padding-bottom: 15px;
+            border-left-color: #fff;
+
+            &:focus {
+                border-color: rgba(0, 0, 0, 0.15);
+                border-left-color: #fff;
+            }
+        }
+    }
+
+    .travel-filter-icons {
+        padding-top: 4px;
     }
 
     .step-nav-wrap {
@@ -101,19 +133,24 @@
                 text-align: center;
                 line-height: 30px;
                 cursor: pointer;
+                transition: .15s ease background-color;
 
                 i {
                     display: block;
-                    font-size: 10px;
                     transform: rotate(0);
-                    transition: .2s ease transform;
+                    transition: .15s ease transform;
 
                     &:before {
                         margin: 0;
+                        font-size: 11px;
+                        position: relative;
+                        top: -2px;
                     }
                 }
 
                 &:hover {
+                    background-color: #8a8a8a;
+
                     i {
                         transform: rotate(90deg);
                     }
@@ -216,6 +253,12 @@
                     color: #4A4A4A;
                     padding: 9px 15px 14px;
                     transition: .15s ease all;
+
+                    i {
+                        font-size: 12px;
+                        position: relative;
+                        top: -2px;
+                    }
                 }
 
                 &:not(.active) {
