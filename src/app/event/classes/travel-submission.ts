@@ -10,6 +10,7 @@ export class TravelSubmission {
             lat?: number;
             link?: string;
             long?: number;
+            distance?: number;
             organisation?: string;
             phoneNumber?: string;
             passenger?: number;

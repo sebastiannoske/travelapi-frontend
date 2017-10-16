@@ -50,9 +50,21 @@
 
     #search-in-map-wrap {
         position: absolute;
-        width: 35%;
+        width: calc( 100% - 30px );
         left: 15px;
         top: 15px;
+
+        @media ( min-width: 550px ) {
+            width: 70%;
+        }
+
+        @media ( min-width: 750px ) {
+            width: 50%;
+        }
+
+        @media ( min-width: 992px ) {
+            width: 35%;
+        }
 
         .custom-input-wrap {
             .input-group-addon {    

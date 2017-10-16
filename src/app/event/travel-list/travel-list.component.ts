@@ -118,7 +118,7 @@ export class TravelListComponent implements OnInit {
         private _route: ActivatedRoute,
         private _pagination: EventPagination
     ) {
-        this.position = { lat: 51, lng: 9 };
+        this.position = { lat: 51.1315, lng: 9.2127 };
         this.mapZoom = 6;
     }
 

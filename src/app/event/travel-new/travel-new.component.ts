@@ -59,6 +59,7 @@ export class TravelNewComponent implements OnInit {
     transportationMeansByDBOrder: any; // TODO
     inProgress: boolean;
     submissionSucceed: boolean;
+    distance: number;
 
     constructor(
         private _fb: FormBuilder,
@@ -87,7 +88,7 @@ export class TravelNewComponent implements OnInit {
             5: 'Fußgänger',
             6: 'Sonstige'
         };
-
+        this.distance = 0;
         this.travelForm = this._fb.group({
             steps: this._fb.array([
                 this._fb.group({
@@ -179,6 +180,7 @@ export class TravelNewComponent implements OnInit {
                 lat: travelFormData[3].lat,
                 link: '',
                 long: travelFormData[3].long,
+                distance: this.distance,
                 organisation: travelFormData[2].organisation,
                 phoneNumber: travelFormData[2].phoneNumber,
                 passenger: 1,
@@ -330,13 +332,15 @@ export class TravelNewComponent implements OnInit {
     }
 
     getDistance() {
+        const travelFormData = this.travelForm.value.steps;
+
         this._loader.load().then(() => {
-            const nyc = new google.maps.LatLng(52.511107, 13.4630746);
+            const nyc = new google.maps.LatLng(this.position.lat, this.position.lng);
             console.log(this.position.lng);
             console.log(this.position.lat);
-            const london = new google.maps.LatLng(50.7035559, 7.047089);
-            const distance = google.maps.geometry.spherical.computeDistanceBetween(nyc, london);
-            console.log(distance);
+            const bonn = new google.maps.LatLng(50.7035559, 7.047089);
+            const distance = google.maps.geometry.spherical.computeDistanceBetween(nyc, bonn);
+            this.distance = distance;
         });
     }
 }

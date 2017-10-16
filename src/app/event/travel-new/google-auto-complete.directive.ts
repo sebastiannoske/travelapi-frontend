@@ -53,7 +53,7 @@ export class GoogleAutoCompleteDirective implements OnInit {
           countryShort: ''
         };
 
-        console.log(place);
+        // console.log(place);
 
         // Get each part of the address from the place details
         // and fill the corresponding field on the form.
