@@ -28,13 +28,21 @@
   <div class="map-wrap">
     <div>
       <div>
-        <agm-map [latitude]="51.948" [longitude]="10.2652" [zoom]="6">
+        <agm-map [latitude]="position.lat" [longitude]="position.lng" [zoom]="mapZoom">
           <agm-marker-cluster [imagePath]="'https://googlemaps.github.io/js-marker-clusterer/images/m'">
             <agm-marker *ngFor='let travel of ( travelsFiltered | northToSouth )' [latitude]="travel.lat" [longitude]="travel.long" [iconUrl]='"./assets/images/icons/pin_" + travel.transportation_mean.id + ".png"'
               (markerClick)="showMarkerDetails(travel)"></agm-marker>
           </agm-marker-cluster>
         </agm-map>
 
+        <div id="search-in-map-wrap">
+            <div class="input-group custom-input-wrap">
+              <div class="input-group-addon"><i class="icon-search"></i></div>
+                 <input appGoogleAutoComplete (notifyForAddressData)='googlePlacesAddressHandler($event)' class='form-control form-inline focus'
+                    type="search" placeholder="Abfahrtsort eingeben" /> 
+            </div>
+        </div>
+        
         <div id="current-travel-details" *ngIf='currentMapDetails' [@showDeatilsWrapTrigger]='true'>
             
           <div class="btn-close-wrap">
@@ -78,7 +86,7 @@
           </div>
 
           <div class="btn-show-details-wrap">
-            <button class="btn btn-black" (click)='showMarkerFullDetails()'>Details und Kontaktifos</button>
+            <button class="btn btn-black" (click)='showMarkerFullDetails(); detailsRequestedFromMapDetails = true;'>Details und Kontaktifos</button>
           </div>
         </div>
       </div>
@@ -95,7 +103,7 @@
       </div>
     </div>
     <div class="col-md-4 right-align">
-      <div class="input-group padding-right filter-table-wrap">
+      <div class="input-group padding-right custom-input-wrap">
         <div class="input-group-addon"><i class="icon-icon-filter"></i></div>
         <input type="text" [(ngModel)]="textFilter" class="form-control" placeholder="Tabelle individuell filtern">
       </div>
@@ -113,8 +121,8 @@
       </div>
     </div>
 
-    <div *ngFor="let travel of travelsFiltered | eventsSort:keys:ascOrder | filterCurrentDetails:currentDetailsTravelId | pagination:pager" class="travel-row-wrap">
-      <div class="row" [class.show-details]='currentDetailsTravelId === travel.id' (click)='(currentDetailsTravelId === travel.id) ? currentDetailsTravelId = 0 : currentDetailsTravelId = travel.id'>
+    <div *ngFor="let travel of travelsFiltered | eventsSort:keys:ascOrder | filterCurrentDetails:currentDetailsTravelId:detailsRequestedFromMapDetails | pagination:pager" class="travel-row-wrap">
+      <div class="row" [class.show-details]='currentDetailsTravelId === travel.id' (click)='(currentDetailsTravelId === travel.id) ? currentDetailsTravelId = 0 : currentDetailsTravelId = travel.id; detailsRequestedFromMapDetails = false'>
         <div class="col-md-2">{{travel.postcode}}</div>
         <div class="col-md-3">{{travel.city}}</div>
         <div class="col-md-2"><i [class]='setTransportationMeanClassIcon(travel.transportation_mean.id)'></i>&nbsp;&nbsp;{{travel.transportation_mean.name}}</div>

@@ -16,6 +16,7 @@ import {
     animate,
     keyframes
 } from '@angular/animations';
+import { AgmMap, GoogleMapsAPIWrapper } from '@agm/core';
 
 declare var ScrollMagic: any;
 declare var TweenMax: any;
@@ -80,6 +81,7 @@ declare var TweenMax: any;
 })
 export class TravelListComponent implements OnInit {
     @ViewChild('travelwrap') travelWrap: ElementRef;
+    @ViewChild(AgmMap) myMap: AgmMap;
     travels: Travel[];
     travelsFiltered: Travel[];
     destinations: Destination[];
@@ -103,6 +105,9 @@ export class TravelListComponent implements OnInit {
     keys: string[];
     ascOrder: boolean;
     scrollMagicController: any;
+    detailsRequestedFromMapDetails: boolean;
+    position: any;
+    mapZoom: number;
 
     public get pager(): EventPager {
         return this._pagination.pager;
@@ -112,7 +117,10 @@ export class TravelListComponent implements OnInit {
         private _eventRepository: EventRepository,
         private _route: ActivatedRoute,
         private _pagination: EventPagination
-    ) {}
+    ) {
+        this.position = { lat: 51, lng: 9 };
+        this.mapZoom = 6;
+    }
 
     ngOnInit() {
         this.travels =
@@ -140,7 +148,7 @@ export class TravelListComponent implements OnInit {
                             : ''
                 });
             });
-
+        this.detailsRequestedFromMapDetails = false;
         this.scrollMagicController = new ScrollMagic.Controller({vertical: true});
         this.scrollMagicController.scrollTo(function (newpos) {
 
@@ -181,5 +189,11 @@ export class TravelListComponent implements OnInit {
         if (this.currentDetailsTravelId > 0) {
             this.scrollMagicController.scrollTo(this.travelWrap.nativeElement.offsetTop);
         }
+    }
+
+    googlePlacesAddressHandler(event: any): void {
+        this.position = { lat: event.lat, lng: event.lng };
+        this.mapZoom = 14;
+        this.myMap.triggerResize(true);
     }
 }

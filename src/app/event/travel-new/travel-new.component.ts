@@ -20,9 +20,10 @@ import { EventRepository } from '../event-repository.service';
 import { TravelSubmission, FormViewState } from '../classes/_index';
 import { TransportationMean, Destination } from '../interfaces/_index';
 import { DateAdapter, NativeDateAdapter } from '@angular/material';
-import { AgmMap, GoogleMapsAPIWrapper } from '@agm/core';
+import { AgmMap, GoogleMapsAPIWrapper, MapsAPILoader } from '@agm/core';
 
 import * as moment from 'moment';
+declare var google: any;
 
 @Component({
     selector: 'app-travel-new',
@@ -63,7 +64,8 @@ export class TravelNewComponent implements OnInit {
         private _fb: FormBuilder,
         private _eventRepository: EventRepository,
         private _dateAdapter: DateAdapter<NativeDateAdapter>,
-        private _GoogleMapsAPIWrapper: GoogleMapsAPIWrapper
+        private _GoogleMapsAPIWrapper: GoogleMapsAPIWrapper,
+        private _loader: MapsAPILoader
     ) {
         _dateAdapter.setLocale('de-DE');
     }
@@ -284,6 +286,7 @@ export class TravelNewComponent implements OnInit {
         if (isNaN(this.steps.last)) {
             return;
         }
+
         return this.steps.current < this.steps.last ? 'leftin' : 'rightin';
     }
 
@@ -324,5 +327,16 @@ export class TravelNewComponent implements OnInit {
         this.travelForm
             .get('steps.3.city')
             .patchValue(event.addressFields.city);
+    }
+
+    getDistance() {
+        this._loader.load().then(() => {
+            const nyc = new google.maps.LatLng(52.511107, 13.4630746);
+            console.log(this.position.lng);
+            console.log(this.position.lat);
+            const london = new google.maps.LatLng(50.7035559, 7.047089);
+            const distance = google.maps.geometry.spherical.computeDistanceBetween(nyc, london);
+            console.log(distance);
+        });
     }
 }

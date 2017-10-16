@@ -48,7 +48,22 @@
         }
     }
 
-    .filter-table-wrap {
+    #search-in-map-wrap {
+        position: absolute;
+        width: 35%;
+        left: 15px;
+        top: 15px;
+
+        .custom-input-wrap {
+            .input-group-addon {    
+                i {
+                    font-size: 1em;
+                }
+            }
+        }
+    }
+
+    .custom-input-wrap {
         .input-group-addon {
             background-color: #fff;
 

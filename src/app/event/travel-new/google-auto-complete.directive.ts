@@ -53,46 +53,52 @@ export class GoogleAutoCompleteDirective implements OnInit {
           countryShort: ''
         };
 
+        console.log(place);
+
         // Get each part of the address from the place details
         // and fill the corresponding field on the form.
 
-        for (let i = 0; i < place.address_components.length; i++) {
-            const addressType = place.address_components[i].types[0];
+        if (place.address_components) {
+            for (let i = 0; i < place.address_components.length; i++) {
+                const addressType = place.address_components[i].types[0];
 
-            if (this.componentForm[addressType]) {
-                const val = place.address_components[i][this.componentForm[addressType]];
+                if (this.componentForm[addressType]) {
+                    const val = place.address_components[i][this.componentForm[addressType]];
 
-                switch (addressType) {
+                    switch (addressType) {
 
-                    case 'locality':
-                        addressFields.city = val;
-                        break;
-                    case 'route':
-                        addressFields.street = val;
-                        break;
-                    case 'street_number':
-                        addressFields.streetNumber = val;
-                        break;
-                    case 'postal_code':
-                        addressFields.postcode = val;
-                        break;
-                    case 'country':
-                        addressFields.country = val;
-                        addressFields.countryShort = place.address_components[i]['short_name'];
-                        break;
-                    default:
-                        break;
+                        case 'locality':
+                            addressFields.city = val;
+                            break;
+                        case 'route':
+                            addressFields.street = val;
+                            break;
+                        case 'street_number':
+                            addressFields.streetNumber = val;
+                            break;
+                        case 'postal_code':
+                            addressFields.postcode = val;
+                            break;
+                        case 'country':
+                            addressFields.country = val;
+                            addressFields.countryShort = place.address_components[i]['short_name'];
+                            break;
+                        default:
+                            break;
 
+                    }
                 }
             }
-
         }
 
-        this.notifyForAddressData.emit({
-          addressFields: addressFields,
-          lng: place.geometry.location.lng(),
-          lat: place.geometry.location.lat()
-        });
+        if (place.geometry) {
+            this.notifyForAddressData.emit({
+            addressFields: addressFields,
+            lng: place.geometry.location.lng(),
+            lat: place.geometry.location.lat(),
+            viewport: place.geometry.viewport
+            });
+        }
     }
 
 }
