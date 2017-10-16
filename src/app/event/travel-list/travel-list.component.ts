@@ -183,11 +183,21 @@ export class TravelListComponent implements OnInit {
     }
 
     public showMarkerFullDetails() {
-        this.currentDetailsTravelId =
-        this.currentDetailsTravelId === this.currentMapDetails.id ? 0 : this.currentMapDetails.id;
+        // this.currentDetailsTravelId =
+        // this.currentDetailsTravelId === this.currentMapDetails.id ? 0 : this.currentMapDetails.id;
+        this.currentDetailsTravelId = this.currentMapDetails.id;
 
         if (this.currentDetailsTravelId > 0) {
-            this.scrollMagicController.scrollTo(this.travelWrap.nativeElement.offsetTop);
+            setTimeout(() => {
+                const event = new CustomEvent('setIframeHeight', { detail: {
+                    height: document.body.clientHeight, jumpTo: this.travelWrap.nativeElement.offsetTop
+                }});
+                window.parent.document.dispatchEvent(event);
+
+                // setTimeout(() => {
+                //     this.scrollMagicController.scrollTo(this.travelWrap.nativeElement.offsetTop);
+                // }, 10);
+            }, 300);
         }
     }
 

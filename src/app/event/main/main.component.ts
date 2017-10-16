@@ -16,7 +16,9 @@ export class MainComponent implements OnInit {
         this.eventHead = this._route.snapshot.data['eventHead'];
 
         setTimeout(() => {
-            const event = new CustomEvent('setIframeHeight', { detail: document.body.clientHeight });
+            const event = new CustomEvent('setIframeHeight', { detail: {
+                height: document.body.clientHeight, jumpTo: 0
+            }});
             window.parent.document.dispatchEvent(event);
         }, 1000);
     }
@@ -24,7 +26,9 @@ export class MainComponent implements OnInit {
     @HostListener('window:resize', [])
     dispatchNewHeight() {
         setTimeout(() => {
-            const event = new CustomEvent('setIframeHeight', { detail: document.body.clientHeight });
+            const event = new CustomEvent('setIframeHeight', { detail: {
+                height: document.body.clientHeight, jumpTo: 0
+            }});
             window.parent.document.dispatchEvent(event);
         }, 100);
     }

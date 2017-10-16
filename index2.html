@@ -28,9 +28,15 @@
         </style>
 
         <script>
-        
+          
           document.addEventListener('setIframeHeight', function (e) {
-            document.getElementById('myframe').setAttribute("style","height:"+e.detail+"px");
+            document.getElementById('myframe').setAttribute("style","height:"+e.detail.height+"px");
+            console.log(e.detail);
+            if (e.detail && e.detail.jumpTo > 0) {
+              setTimeout(() => {
+                window.scrollTo(0, e.detail.jumpTo);
+              },0)
+            }  
           }, false);  
 
         </script>
