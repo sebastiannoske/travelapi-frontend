@@ -59,6 +59,7 @@ export class TravelNewComponent implements OnInit {
     transportationMeansByDBOrder: any; // TODO
     inProgress: boolean;
     submissionSucceed: boolean;
+    distanceObject: any;
     distance: number;
 
     constructor(
@@ -333,14 +334,27 @@ export class TravelNewComponent implements OnInit {
 
     getDistance() {
         const travelFormData = this.travelForm.value.steps;
+        const that = this;
 
         this._loader.load().then(() => {
-            const nyc = new google.maps.LatLng(this.position.lat, this.position.lng);
-            console.log(this.position.lng);
-            console.log(this.position.lat);
-            const bonn = new google.maps.LatLng(50.7035559, 7.047089);
-            const distance = google.maps.geometry.spherical.computeDistanceBetween(nyc, bonn);
-            this.distance = distance;
+            const origin = new google.maps.LatLng(this.position.lat, this.position.lng);
+            const destination = new google.maps.LatLng(50.7035559, 7.047089);
+            const service = new google.maps.DistanceMatrixService;
+            service.getDistanceMatrix(
+                {
+                  origins: [origin],
+                  destinations: [destination],
+                  travelMode: 'DRIVING',
+                  unitSystem: google.maps.UnitSystem.METRIC,
+                }, callback);
+
+              function callback(response, status) {
+                // See Parsing the Results for
+                // the basics of a callback function.
+                that.distance = response.rows[0].elements[0].distance.value; // set distance in m
+                that.distanceObject = response;
+                console.log(that.distanceObject);
+              }
         });
     }
 }
