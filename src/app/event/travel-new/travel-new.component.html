@@ -6,9 +6,9 @@
         <button *ngFor="let page of steps.indices; let index=index" (click)="steps.current=index" type="button" [disabled]="((index < steps.indices.length-1 && !travelForm.get('steps').at(index).valid) && index != steps.current)||(index===steps.indices.length-1 && !travelForm.valid)"
           [ngClass]="{'active':steps.current===index}" class="btn active">{{page}}</button>
       </div>
-      <div class="btn-group" role="group" aria-label="Second group">
+      <!-- <div class="btn-group" role="group" aria-label="Second group">
         <button type="button" class="btn" (click)="populateTestData()">Insert Test Data</button>
-      </div>
+      </div> -->
 
     </div>
 
@@ -434,7 +434,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12" *ngIf='distance > 0 && distanceObject'>
                <span>Entfernung zum Demoziel: {{distance/1000 | number}} km</span> / 
                <span>Voraussichtliche Fahrzeit: {{ distanceObject.rows[0].elements[0].duration.text }}</span>
             </div>

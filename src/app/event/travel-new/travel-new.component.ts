@@ -90,6 +90,7 @@ export class TravelNewComponent implements OnInit {
             6: 'Sonstige'
         };
         this.distance = 0;
+        this.distanceObject = null;
         this.travelForm = this._fb.group({
             steps: this._fb.array([
                 this._fb.group({
@@ -353,7 +354,6 @@ export class TravelNewComponent implements OnInit {
                 // the basics of a callback function.
                 that.distance = response.rows[0].elements[0].distance.value; // set distance in m
                 that.distanceObject = response;
-                console.log(that.distanceObject);
               }
         });
     }
