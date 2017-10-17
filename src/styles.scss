@@ -102,8 +102,10 @@ body {
 
         & > i {
             color: #000;
-            font-size: 18px;
+            font-size: 16px;
             transition: .15s ease color;
+            position: relative;
+            left: -1px;
 
             &:before {
                 margin: 0;
@@ -121,6 +123,11 @@ body {
 
             &:not(:last-child) {
                 margin-right: 20px;
+            }
+
+            & > i {
+                font-size: 18px;
+                left: 0;
             }
         }
 

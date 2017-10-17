@@ -1,6 +1,8 @@
 :host() {
     #steps-wrap {
         padding-top: 100px;
+        padding-left: 15px;
+        padding-right: 15px;
 
         @media ( min-width: 992px ) {
             padding-left: 60px;
@@ -66,9 +68,11 @@
         }
 
         &.align-bottom {
-            position: absolute;
-            bottom: 20px;
-            width: 100%;
+            @media ( min-width: 992px ) {
+                position: absolute;
+                bottom: 20px;
+                width: 100%;
+            }
         }
 
         text-align: right;
