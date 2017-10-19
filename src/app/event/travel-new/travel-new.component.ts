@@ -148,9 +148,12 @@ export class TravelNewComponent implements OnInit {
 
         // inform parent about applications clientHeight
         setTimeout(() => {
-            const event = new CustomEvent('setIframeHeight', { detail: {
-                height: document.body.clientHeight, jumpTo: 0
-            }});
+            const event = new CustomEvent('setIframeHeight', {
+                detail: {
+                    height: document.body.clientHeight,
+                    jumpTo: 0
+                }
+            });
             window.parent.document.dispatchEvent(event);
         }, 300);
     }
@@ -173,45 +176,72 @@ export class TravelNewComponent implements OnInit {
     }
 
     save(): void {
-        this.inProgress = true;
-        const travelFormData = this.travelForm.value.steps;
-        this.travel = new TravelSubmission(
-            {
-                city: travelFormData[3].city,
-                contactEmail: travelFormData[2].contactEmail,
-                contactName: travelFormData[2].contactName,
-                cost: 0,
-                departureTime: this.convertDatetime(
-                    this.travelForm.value.steps[4].departureDate,
-                    this.travelForm.value.steps[4].departureHour,
-                    this.travelForm.value.steps[4].departureMinute
-                ),
-                description: travelFormData[4].description,
-                lat: travelFormData[3].lat,
-                link: '',
-                long: travelFormData[3].long,
-                distance: this.distance,
-                organisation: travelFormData[2].organisation,
-                phoneNumber: travelFormData[2].phoneNumber,
-                passenger: 1,
-                postcode: travelFormData[3].postcode,
-                streetAddress: travelFormData[3].streetAddress,
-                transportationMeanId: travelFormData[4].transportationMeanId,
-                travelType: travelFormData[0].travelType,
-                userAddress: travelFormData[1].userAddress,
-                userEmail: travelFormData[1].userEmail.email,
-                userCity: travelFormData[1].userCity,
-                userName: travelFormData[1].userName,
-                userPhoneNumber: travelFormData[1].userPhoneNumber,
-                userPostCode: travelFormData[1].userPostCode
-            },
-            travelFormData[4].destinationId
-        );
-        this._eventRepository.addSubmission(this.travel).subscribe(response => {
-            if (response.status === 'success') {
-                this.submissionSucceed = true;
+        if (this.travelForm.valid) {
+            this.inProgress = true;
+            const travelFormData = this.travelForm.value.steps;
+            this.travel = new TravelSubmission(
+                {
+                    city: travelFormData[3].city,
+                    contactEmail: travelFormData[2].contactEmail,
+                    contactName: travelFormData[2].contactName,
+                    cost: 0,
+                    departureTime: this.convertDatetime(
+                        this.travelForm.value.steps[4].departureDate,
+                        this.travelForm.value.steps[4].departureHour,
+                        this.travelForm.value.steps[4].departureMinute
+                    ),
+                    description: travelFormData[4].description,
+                    lat: travelFormData[3].lat,
+                    link: '',
+                    long: travelFormData[3].long,
+                    distance: this.distance,
+                    organisation: travelFormData[2].organisation,
+                    phoneNumber: travelFormData[2].phoneNumber,
+                    passenger: 1,
+                    postcode: travelFormData[3].postcode,
+                    streetAddress: travelFormData[3].streetAddress,
+                    transportationMeanId:
+                        travelFormData[4].transportationMeanId,
+                    travelType: travelFormData[0].travelType,
+                    userAddress: travelFormData[1].userAddress,
+                    userEmail: travelFormData[1].userEmail.email,
+                    userCity: travelFormData[1].userCity,
+                    userName: travelFormData[1].userName,
+                    userPhoneNumber: travelFormData[1].userPhoneNumber,
+                    userPostCode: travelFormData[1].userPostCode
+                },
+                travelFormData[4].destinationId
+            );
+            this._eventRepository
+                .addSubmission(this.travel)
+                .subscribe(response => {
+                    if (response.status === 'success') {
+                        this.submissionSucceed = true;
+                    }
+                });
+        }
+    }
+
+    private markFormGroupAsTouched(c: FormGroup): void {
+        Object.keys(c.controls).forEach(key => {
+            const ac = c.get(key);
+            if (ac instanceof FormGroup) {
+                this.markFormGroupAsTouched(ac);
             }
+            ac.markAsTouched();
         });
+    }
+
+    proceed(currentSlide: number): boolean {
+        const formStep = <FormGroup>this.travelForm.get(
+            `steps.${currentSlide}`
+        );
+        if (formStep.valid) {
+            this.steps.next();
+        } else {
+            this.markFormGroupAsTouched(formStep);
+        }
+        return false;
     }
 
     getDepartureTime(): string {
@@ -226,7 +256,7 @@ export class TravelNewComponent implements OnInit {
 
     getSelectedDestination(id: number): string {
         return this.destinations.find(destination => {
-            return destination.id === id;
+            return destination.id === +id;
         }).name;
     }
 

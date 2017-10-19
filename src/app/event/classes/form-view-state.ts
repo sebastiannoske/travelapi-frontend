@@ -10,7 +10,7 @@ export class FormViewState {
         this.last = this._current;
         this._current = value;
     }
-    public get next(): number {
+    public next(): number {
         return this.current < this._maxViews ? ++this.current : this.current;
     }
 
