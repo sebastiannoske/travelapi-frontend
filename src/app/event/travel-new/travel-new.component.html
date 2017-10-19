@@ -5,9 +5,9 @@
       <button *ngFor="let page of steps.indices; let index=index" (click)="steps.current=index" type="button" [disabled]="((index < steps.indices.length-1 && !travelForm.get('steps').at(index).valid) && index != steps.current)||(index===steps.indices.length-1 && !travelForm.valid)"
         [ngClass]="{'active':steps.current===index}" class="btn active">{{page}}</button>
     </div>
-    <!-- <div class="btn-group" role="group" aria-label="Second group">
+    <div class="btn-group" role="group" aria-label="Second group">
       <button type="button" class="btn" (click)="populateTestData()">Insert Test Data</button>
-    </div> -->
+    </div>
 
   </div>
 
@@ -32,11 +32,11 @@
       <br/>
       <p>Tragen Sie sich in unsere Mitfahrbörse ein, dann wird Ihr Angebot oder Gesuch in die Karte und in die Liste aufgenommen
         und veröffentlicht. Ob eine Fahrgemeinschaften mit dem Auto oder der Bahn, bereits gebuchte Busse, Hilfe-Gesuche
-        zur gemeinsamen Bus-Organisation, Fahrradtouren oder andere Möglichkeiten, die Ihnen einfallen – so kommen Sie
-        gemeinsam zum Ziel. Schauen Sie bitte vorher, ob es bereits passende Angebote oder Gesuche gibt.</p>
+        zur gemeinsamen Bus-Organisation, Fahrradtouren oder andere Möglichkeiten, die Ihnen einfallen – so kommen Sie gemeinsam
+        zum Ziel. Schauen Sie bitte vorher, ob es bereits passende Angebote oder Gesuche gibt.</p>
 
       <div class="next-button-wrap">
-        <button class="btn btn-black" (click)="steps.next" [disabled]="!travelForm.get('steps.0').valid">Weiter</button>
+        <button class="btn btn-black" (click)="proceed(steps.current);" [ngClass]="{'is-disabled':!travelForm.get('steps.0').valid}">Weiter</button>
       </div>
 
     </div>
@@ -85,7 +85,7 @@
         </div>
         <div class="col-md-5">
           <div class="next-button-wrap align-bottom">
-            <button class="btn btn-black" (click)="steps.next" [disabled]="!travelForm.get('steps.1').valid">Weiter</button>
+            <button class="btn btn-black" (click)="proceed(steps.current)" [ngClass]="{'is-disabled':!travelForm.get('steps.1').valid}">Weiter</button>
           </div>
         </div>
       </div>
@@ -120,7 +120,7 @@
         </div>
         <div class="col-md-5">
           <div class="next-button-wrap align-bottom">
-            <button class="btn btn-black" (click)="steps.next" [disabled]="!travelForm.get('steps.2').valid">Weiter</button>
+            <button class="btn btn-black" (click)="proceed(steps.current)" [ngClass]="{'is-disabled':!travelForm.get('steps.2').valid}">Weiter</button>
           </div>
         </div>
       </div>
@@ -170,7 +170,7 @@
 
         <div class="col-md-5">
           <div class="next-button-wrap align-bottom">
-            <button class="btn btn-black" (click)="steps.next" [disabled]="!travelForm.get('steps.3').valid">Weiter</button>
+            <button class="btn btn-black" (click)="proceed(steps.current)" [ngClass]="{'is-disabled':!travelForm.get('steps.3').valid}">Weiter</button>
           </div>
         </div>
       </div>
@@ -233,7 +233,7 @@
 
         <div class="col-md-5">
           <div class="next-button-wrap align-bottom">
-            <button class="btn btn-black" (click)="steps.next; getDistance()" [disabled]="!travelForm.get('steps.4').valid">Weiter</button>
+            <button class="btn btn-black" (click)="proceed(steps.current); getDistance()" [ngClass]="{'is-disabled':!travelForm.get('steps.4').valid}">Weiter</button>
           </div>
         </div>
       </div>
