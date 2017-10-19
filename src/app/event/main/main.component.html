@@ -1,41 +1,38 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="nav-wrap">
-        <nav class="navbar navbar-expand-lg" id="main-nav"> <!-- class="d-none d-sm-block" -->
-          <ul class="nav clearfix">
-            <li class="nav-item">
-              <a class="nav-link" [ngClass]="{'disabled': !eventHead.offers_total}" routerLinkActive="active" [routerLink]="['offers']">Angebote <span class="badge badge-light">{{eventHead.offers_total}}</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" [ngClass]="{'disabled': !eventHead.requests_total}" routerLinkActive="active" [routerLink]="['requests']">Gesuche <span class="badge badge-light">{{eventHead.requests_total}}</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" routerLinkActive="active" [routerLink]="['new']">Fahrt/Gesuch eintragen</a>
-            </li>
-          </ul>
-        </nav>
 
-        <div class="d-md-none">
-            <a role="button" id="mobile-menu" (click)='mobileMenuVisible = !mobileMenuVisible'>
-              <i class="icon-menu"></i>
-            </a>
+  <div class="nav-wrap">
+    <nav class="navbar navbar-expand-lg" id="main-nav"> <!-- class="d-none d-sm-block" -->
+      <ul class="nav clearfix">
+        <li class="nav-item">
+          <a class="nav-link" [ngClass]="{'disabled': !eventHead.offers_total}" routerLinkActive="active" [routerLink]="['offers']">Angebote <span class="badge badge-light">{{eventHead.offers_total}}</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [ngClass]="{'disabled': !eventHead.requests_total}" routerLinkActive="active" [routerLink]="['requests']">Gesuche <span class="badge badge-light">{{eventHead.requests_total}}</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['new']">Fahrt/Gesuch eintragen</a>
+        </li>
+      </ul>
+    </nav>
 
-            <div *ngIf='mobileMenuVisible' id="mobile-menu-dropdown">
-                <ul class="nav clearfix">
-                  <li>
-                    <a class="dropdown-item" [ngClass]="{'disabled': !eventHead.offers_total}" routerLinkActive="active" [routerLink]="['offers']" (click)='mobileMenuVisible = !mobileMenuVisible'>Angebote <span class="badge badge-light">{{eventHead.offers_total}}</span></a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" [ngClass]="{'disabled': !eventHead.requests_total}" routerLinkActive="active" [routerLink]="['requests']" (click)='mobileMenuVisible = !mobileMenuVisible'>Gesuche <span class="badge badge-light">{{eventHead.requests_total}}</span></a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" routerLinkActive="active" [routerLink]="['new']" (click)='mobileMenuVisible = !mobileMenuVisible'>Fahrt/Gesuch eintragen</a>
-                  </li>
-                </ul>
-            </div>
+    <div class="d-md-none">
+        <a role="button" id="mobile-menu" (click)='mobileMenuVisible = !mobileMenuVisible'>
+          <i class="icon-menu"></i>
+        </a>
+
+        <div *ngIf='mobileMenuVisible' id="mobile-menu-dropdown">
+            <ul class="nav clearfix">
+              <li>
+                <a class="dropdown-item" [ngClass]="{'disabled': !eventHead.offers_total}" routerLinkActive="active" [routerLink]="['offers']" (click)='mobileMenuVisible = !mobileMenuVisible'>Angebote <span class="badge badge-light">{{eventHead.offers_total}}</span></a>
+              </li>
+              <li>
+                <a class="dropdown-item" [ngClass]="{'disabled': !eventHead.requests_total}" routerLinkActive="active" [routerLink]="['requests']" (click)='mobileMenuVisible = !mobileMenuVisible'>Gesuche <span class="badge badge-light">{{eventHead.requests_total}}</span></a>
+              </li>
+              <li>
+                <a class="dropdown-item" routerLinkActive="active" [routerLink]="['new']" (click)='mobileMenuVisible = !mobileMenuVisible'>Fahrt/Gesuch eintragen</a>
+              </li>
+            </ul>
         </div>
-      </div>
     </div>
   </div>
   

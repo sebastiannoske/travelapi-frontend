@@ -1,4 +1,4 @@
-<div class="container-fluid" *eventAssign="let travelsFiltered be travels | filter:textFilter:destinationFilter:transportationMeanFilter">
+<div *eventAssign="let travelsFiltered be travels | filter:textFilter:destinationFilter:transportationMeanFilter" style="overflow: hidden">
 
   <div class="select-destination" *ngIf='destinations && destinations.length > 1'>
     <div class="row">
@@ -50,37 +50,37 @@
           </div>
           
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-4">
               <span>Abfahrt</span>
             </div>
-            <div class="col-md-8">
+            <div class="col-8">
               <span>{{currentMapDetails.departure_time | amParse:'YYYY-MM-DD hh:mm:ss' | amDateFormat:'DD.MM.YY, HH:mm'}} Uhr</span>
             </div>
           </div>
         
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-4">
               <span>Von</span>
             </div>
-            <div class="col-md-8">
+            <div class="col-8">
               <span><span *ngIf='currentMapDetails.street_address'>{{currentMapDetails.street_address}}, </span><span *ngIf='currentMapDetails.postcode'>{{currentMapDetails.postcode}}, </span>{{currentMapDetails.city}}</span>
             </div>
           </div>
 
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-4">
               <span>Nach</span>
             </div>
-            <div class="col-md-8">
+            <div class="col-8">
               <span>{{currentMapDetails.destination.name}} ({{currentMapDetails.destination.date | amParse:'YYYY-MM-DD' | amDateFormat:'DD.MM.YYYY'}})</span>
             </div>
           </div>
 
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-4">
               <span>Verkehrsmittel</span>
             </div>
-            <div class="col-md-8">
+            <div class="col-8">
               <span>{{currentMapDetails.transportation_mean.name}}</span>
             </div>
           </div>

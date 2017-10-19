@@ -53,7 +53,12 @@
             color: #4A4A4A;
 
             & > div:first-child {
+                font-size: 10px;
                 font-weight: 300;
+
+                @media ( min-width: 992px ) {
+                    font-size: 16px;
+                }
             }
         }
 

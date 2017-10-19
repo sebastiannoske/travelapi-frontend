@@ -166,7 +166,6 @@
         left: 15px;
         width: calc( 100% - 30px );
         top: 15px;
-        bottom: 15px;
 
         @media ( min-width: 450px ) {
             top: 70px;
@@ -237,8 +236,6 @@
 
     .select-destination {
         padding: 30px 15px 20px;
-        margin-left: 1px;
-        margin-right: 1px;
         border-left: 1px solid #979797;
         border-right: 1px solid #979797;
 
