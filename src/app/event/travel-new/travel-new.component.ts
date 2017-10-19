@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild  } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
     trigger,
     state,
@@ -199,12 +199,11 @@ export class TravelNewComponent implements OnInit {
             },
             travelFormData[4].destinationId
         );
-        this._eventRepository.addSubmission(this.travel)
-            .subscribe(response => {
-                if (response.status === 'success') {
-                    this.submissionSucceed = true;
-                }
-            });
+        this._eventRepository.addSubmission(this.travel).subscribe(response => {
+            if (response.status === 'success') {
+                this.submissionSucceed = true;
+            }
+        });
     }
 
     getDepartureTime(): string {
@@ -218,8 +217,8 @@ export class TravelNewComponent implements OnInit {
     }
 
     getSelectedDestination(id: number): string {
-        return this.destinations.find((destination) => {
-            return destination.id == id;
+        return this.destinations.find(destination => {
+            return destination.id === id;
         }).name;
     }
 
@@ -297,13 +296,9 @@ export class TravelNewComponent implements OnInit {
     markerDragEndEvent(event: any): void {
         this.position = { lat: event.coords.lat, lng: event.coords.lng };
 
-        this.travelForm
-        .get('steps.3.lat')
-        .patchValue(event.coords.lat);
+        this.travelForm.get('steps.3.lat').patchValue(event.coords.lat);
 
-        this.travelForm
-        .get('steps.3.long')
-        .patchValue(event.coords.lng);
+        this.travelForm.get('steps.3.long').patchValue(event.coords.lng);
     }
 
     googlePlacesAddressHandler(event: any): void {
@@ -311,13 +306,9 @@ export class TravelNewComponent implements OnInit {
         this.mapZoom = 16;
         this.myMap.triggerResize(true);
 
-        this.travelForm
-        .get('steps.3.lat')
-        .patchValue(event.lat);
+        this.travelForm.get('steps.3.lat').patchValue(event.lat);
 
-        this.travelForm
-        .get('steps.3.long')
-        .patchValue(event.lng);
+        this.travelForm.get('steps.3.long').patchValue(event.lng);
 
         this.travelForm
             .get('steps.3.streetAddress')
@@ -337,24 +328,46 @@ export class TravelNewComponent implements OnInit {
         const travelFormData = this.travelForm.value.steps;
         const that = this;
 
+        const mapTravelMode = (
+            transportationMeanId = this.travelForm.get(
+                'steps.4.transportationMeanId'
+            ).value
+        ): 'BICYCLING' | 'DRIVING' | 'TRANSIT' | 'WALKING' => {
+            switch (+transportationMeanId) {
+                case 3:
+                    return 'TRANSIT';
+                case 4:
+                    return 'BICYCLING';
+                case 5:
+                    return 'WALKING';
+                default:
+                    return 'DRIVING';
+            }
+        };
+
         this._loader.load().then(() => {
-            const origin = new google.maps.LatLng(this.position.lat, this.position.lng);
+            const origin = new google.maps.LatLng(
+                this.position.lat,
+                this.position.lng
+            );
             const destination = new google.maps.LatLng(50.7035559, 7.047089);
-            const service = new google.maps.DistanceMatrixService;
+            const service = new google.maps.DistanceMatrixService();
             service.getDistanceMatrix(
                 {
-                  origins: [origin],
-                  destinations: [destination],
-                  travelMode: 'DRIVING',
-                  unitSystem: google.maps.UnitSystem.METRIC,
-                }, callback);
+                    origins: [origin],
+                    destinations: [destination],
+                    travelMode: mapTravelMode(),
+                    unitSystem: google.maps.UnitSystem.METRIC
+                },
+                callback
+            );
 
-              function callback(response, status) {
+            function callback(response, status) {
                 // See Parsing the Results for
                 // the basics of a callback function.
                 that.distance = response.rows[0].elements[0].distance.value; // set distance in m
                 that.distanceObject = response;
-              }
+            }
         });
     }
 }

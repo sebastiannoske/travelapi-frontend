@@ -208,25 +208,25 @@
 
             <div class="row destination-time">
               <div class="col-md-4">
-                  <select class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.4.departureHour'))}" formControlName="departureHour">
-                    <option value=null disabled selected hidden>Abfahrt Stunden *</option>
-                    <option *ngFor="let hour of departureHours" value="{{hour}}">{{hour}}</option>
-                  </select>
+                <select class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.4.departureHour'))}" formControlName="departureHour">
+                  <option value=null disabled selected hidden>Abfahrt Stunden *</option>
+                  <option *ngFor="let hour of departureHours" value="{{hour}}">{{hour}}</option>
+                </select>
               </div>
               <div class="col-md-1 centerd">
                 <span>:</span>
               </div>
               <div class="col-md-4">
-                  <select class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.4.departureMinute'))}" formControlName="departureMinute">
-                    <option value=null disabled selected hidden>Abfahrt Minuten *</option>
-                    <option *ngFor="let minute of departureMinutes" value="{{minute}}">{{minute}}</option>
-                  </select>
+                <select class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.4.departureMinute'))}" formControlName="departureMinute">
+                  <option value=null disabled selected hidden>Abfahrt Minuten *</option>
+                  <option *ngFor="let minute of departureMinutes" value="{{minute}}">{{minute}}</option>
+                </select>
               </div>
               <div class="col-md-1 centerd">
                 <span>Uhr</span>
               </div>
             </div>
-            
+
             <mat-form-field>
               <textarea matInput class="form-control" rows="4" placeholder="Beschreibung" formControlName="description"></textarea>
             </mat-form-field>
@@ -367,7 +367,7 @@
               <span>{{ getSelectedDestination(travelForm.get('steps.4.destinationId').value) }}</span>
             </div>
           </div>
-          
+
           <div class="row">
             <div class="col-md-4">
               <span>Verkehrsmittel</span>
@@ -425,7 +425,9 @@
               <span>{{ travelForm.value.steps[3].city }}</span>
             </div>
           </div>
-          <br/><br/><br/>
+          <br/>
+          <br/>
+          <br/>
           <div class="map-wrap">
             <div>
               <agm-map [latitude]="position.lat" [longitude]="position.lng" [zoom]="mapZoom">
@@ -435,8 +437,8 @@
           </div>
           <div class="row">
             <div class="col-md-12" *ngIf='distance > 0 && distanceObject'>
-               <span>Entfernung zum Demoziel: {{distance/1000 | number}} km</span> / 
-               <span>Voraussichtliche Fahrzeit: {{ distanceObject.rows[0].elements[0].duration.text }}</span>
+              <span>Entfernung zum Demoziel: {{distance/1000 | number}} km</span> /
+              <span>Voraussichtliche Fahrzeit: {{ distanceObject.rows[0].elements[0].duration.text }}</span>
             </div>
           </div>
 
