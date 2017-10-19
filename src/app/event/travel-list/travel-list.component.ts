@@ -194,9 +194,9 @@ export class TravelListComponent implements OnInit {
                 }});
                 window.parent.document.dispatchEvent(event);
 
-                // setTimeout(() => {
-                //     this.scrollMagicController.scrollTo(this.travelWrap.nativeElement.offsetTop);
-                // }, 10);
+                setTimeout(() => {
+                    this.scrollMagicController.scrollTo(this.travelWrap.nativeElement.offsetTop);
+                }, 10);
             }, 300);
         }
     }

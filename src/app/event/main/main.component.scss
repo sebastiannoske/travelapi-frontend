@@ -1,9 +1,68 @@
 :host() {
 
+    .nav-wrap {
+        position: relative;
+    }
+
+    #mobile-menu {
+        background-color: #4A4A4A;
+        display: block;
+        width: 45px;
+        height: 45px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        text-align: center;
+        padding-top: 10px;
+        color: #fff;
+
+        i:before {
+            margin: 0;
+        }
+    }
+
+    #mobile-menu-dropdown {
+        z-index: 99;
+        position: absolute;
+        top: 45px;
+        right: 0;
+
+        .nav { 
+            border-bottom: none;
+            padding: 0.5rem 0;
+            margin: 0.125rem 0 0;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            background-color: #fff;
+            border-radius: 0.25rem;
+
+            li a {
+                color: #373A3C;
+
+                &.active {
+                    display: none;
+                }
+            }
+        }
+    }
+
     .navbar {
-        @media ( max-width: 992px ) {
+        padding: 0;
+        
+        li a {
+            display: none;
+
+            &.active {
+                display: block;
+            }
+        }
+
+        @media ( min-width: 992px ) {
             padding-left: 1px;
             padding-right: 1px;
+            
+            li a {
+                display: block;
+            }
         }
     }
 
@@ -11,16 +70,15 @@
         display: block;
         border-bottom: 1px solid rgba(151,151,151,1);
         width: 100%;
-        
+
         .nav-item {
             &:not(:first-child) {
-                margin-left: 2px;
-
-                @media ( min-width: 560px ) {
+                @media ( min-width: 992px ) {
                     margin-left: 8px;
                 }
             }
             float: left;
+            max-height: 62px;
             
             .nav-link {
                 background-color: #4A4A4A;
@@ -30,31 +88,15 @@
                 text-align: center;
                 border: 1px solid #979797;
                 border-bottom: 1px solid #4A4A4A;
-                display: block;
                 position: relative;
                 top: 1px;
                 font-size: 18px;
                 line-height: 20px;
                 font-weight: 400;
-                // font-family: 'Roboto', sans-serif;
+                font-family: 'Roboto', sans-serif;
                 width: auto;
-                font-size: 12px;
-                padding: 30px 9px 10px;
-
-                @media ( min-width: 400px ) {
-                    font-size: 14px;
-                    padding-left: 15px;
-                    padding-right: 15px;
-                }
-
-                @media ( min-width: 550px ) {
-                    font-size: 18px;
-                    padding: 20px 15px;
-                }
-
-                @media ( min-width: 820px ) {
-                    width: 256px;
-                }
+                padding: 20px 15px;
+                
 
                 .badge {
                     width: 20px;
@@ -66,27 +108,22 @@
                     text-align: center;
                     padding: 0;
                     margin-left: 10px;
-                    position: absolute;
-                    top: 5px;
-                    right: 5px;
-
-                    @media ( min-width: 560px ) {
-                        position: relative;
-                        top: auto;
-                        right: auto;
-                    }
+                    position: relative;
                 }
                 
                 &.active {
                     background-color: #F4F4F4;
                     color: #4A4A4A;
                     border-bottom: 1px solid #F4F4F4;
-                    margin-bottom: -1px;
+                    position: relative;
+                    top: 1px;
                 }
             }
 
-            &:last-child {
-                float: right;
+            @media ( min-width: 992px ) {
+                &:last-child {
+                    float: right;
+                }
             }
         }
     }
