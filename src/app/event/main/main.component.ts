@@ -10,7 +10,10 @@ import { EventHead } from '../interfaces/_index';
 })
 export class MainComponent implements OnInit {
     eventHead: EventHead;
-    constructor(private _route: ActivatedRoute) {}
+    mobileMenuVisible: boolean;
+    constructor(private _route: ActivatedRoute) {
+        this.mobileMenuVisible = false;
+    }
 
     ngOnInit(): void {
         this.eventHead = this._route.snapshot.data['eventHead'];
