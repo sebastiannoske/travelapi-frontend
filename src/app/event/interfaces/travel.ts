@@ -16,4 +16,5 @@ export interface Travel {
     url_token: string;
     destination?: Destination;
     description?: string;
+    distance: number;
 }

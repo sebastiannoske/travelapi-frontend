@@ -127,7 +127,12 @@
         <div class="col-4 col-sm-3">{{travel.city}}</div>
         <div class="col-4 col-sm-2"><i [class]='setTransportationMeanClassIcon(travel.transportation_mean.id)'></i>&nbsp;&nbsp;{{travel.transportation_mean.name}}</div>
         <div class="col-4 col-sm-3">{{travel.destination.name}}</div>
-        <div class="col-2 d-none d-sm-block">111</div>
+        <div class="col-2 d-none d-sm-block">
+          <span *ngIf='travel.distance > 0; else unknownDistance'>{{travel.distance/1000 | number}} km</span>
+          <ng-template #unknownDistance>
+            unbekannt
+          </ng-template>
+        </div>
       </div>
       <div *ngIf='currentDetailsTravelId === travel.id' class="details-wrap" [@viewChange]='true'>
         <section>
