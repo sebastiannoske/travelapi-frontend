@@ -17,13 +17,6 @@ export class MainComponent implements OnInit {
 
     ngOnInit(): void {
         this.eventHead = this._route.snapshot.data['eventHead'];
-
-        setTimeout(() => {
-            const event = new CustomEvent('setIframeHeight', { detail: {
-                height: document.body.clientHeight, jumpTo: 0
-            }});
-            window.parent.document.dispatchEvent(event);
-        }, 1000);
     }
 
     @HostListener('window:resize', [])
@@ -33,6 +26,6 @@ export class MainComponent implements OnInit {
                 height: document.body.clientHeight, jumpTo: 0
             }});
             window.parent.document.dispatchEvent(event);
-        }, 100);
+        }, 0);
     }
 }

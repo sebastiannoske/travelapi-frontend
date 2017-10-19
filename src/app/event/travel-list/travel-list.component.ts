@@ -155,6 +155,14 @@ export class TravelListComponent implements OnInit {
             TweenMax.to(window, .8, {scrollTo: {y: newpos, autoKill: false}});
 
         });
+
+        // inform parent about applications clientHeight
+        setTimeout(() => {
+            const event = new CustomEvent('setIframeHeight', { detail: {
+                height: document.body.clientHeight, jumpTo: 0
+            }});
+            window.parent.document.dispatchEvent(event);
+        }, 300);
     }
 
     public setTransportationMeanClassIcon(id: number) {
@@ -189,6 +197,7 @@ export class TravelListComponent implements OnInit {
 
         if (this.currentDetailsTravelId > 0) {
             setTimeout(() => {
+                // inform parent about applications clientHeight
                 const event = new CustomEvent('setIframeHeight', { detail: {
                     height: document.body.clientHeight, jumpTo: this.travelWrap.nativeElement.offsetTop
                 }});
@@ -197,7 +206,7 @@ export class TravelListComponent implements OnInit {
                 setTimeout(() => {
                     this.scrollMagicController.scrollTo(this.travelWrap.nativeElement.offsetTop);
                 }, 10);
-            }, 300);
+            }, 400);
         }
     }
 

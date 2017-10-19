@@ -145,6 +145,14 @@ export class TravelNewComponent implements OnInit {
         this.steps = new FormViewState(
             (<FormArray>this.travelForm.controls.steps).length
         );
+
+        // inform parent about applications clientHeight
+        setTimeout(() => {
+            const event = new CustomEvent('setIframeHeight', { detail: {
+                height: document.body.clientHeight, jumpTo: 0
+            }});
+            window.parent.document.dispatchEvent(event);
+        }, 300);
     }
 
     debounceValidation(
