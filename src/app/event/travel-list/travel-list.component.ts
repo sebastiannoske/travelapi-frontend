@@ -108,6 +108,8 @@ export class TravelListComponent implements OnInit {
     detailsRequestedFromMapDetails: boolean;
     position: any;
     mapZoom: number;
+    mapSearchString: string;
+    mapSearchMode: boolean;
 
     public get pager(): EventPager {
         return this._pagination.pager;
@@ -157,12 +159,12 @@ export class TravelListComponent implements OnInit {
         });
 
         // inform parent about applications clientHeight
-        setTimeout(() => {
-            const event = new CustomEvent('setIframeHeight', { detail: {
-                height: document.body.clientHeight, jumpTo: 0
-            }});
-            window.parent.document.dispatchEvent(event);
-        }, 300);
+        // setTimeout(() => {
+        //     const event = new CustomEvent('setIframeHeight', { detail: {
+        //         height: document.body.clientHeight, jumpTo: 0
+        //     }});
+        //     window.parent.document.dispatchEvent(event);
+        // }, 300);
     }
 
     public setTransportationMeanClassIcon(id: number) {
@@ -198,10 +200,10 @@ export class TravelListComponent implements OnInit {
         if (this.currentDetailsTravelId > 0) {
             setTimeout(() => {
                 // inform parent about applications clientHeight
-                const event = new CustomEvent('setIframeHeight', { detail: {
-                    height: document.body.clientHeight, jumpTo: this.travelWrap.nativeElement.offsetTop
-                }});
-                window.parent.document.dispatchEvent(event);
+                // const event = new CustomEvent('setIframeHeight', { detail: {
+                //     height: document.body.clientHeight, jumpTo: this.travelWrap.nativeElement.offsetTop
+                // }});
+                // window.parent.document.dispatchEvent(event);
 
                 setTimeout(() => {
                     this.scrollMagicController.scrollTo(this.travelWrap.nativeElement.offsetTop);
@@ -210,9 +212,22 @@ export class TravelListComponent implements OnInit {
         }
     }
 
+    onMapSearchStringChange() {
+        if (this.mapSearchMode && this.mapSearchString.length === 0) {
+            this.mapSearchMode = false;
+        }
+    }
+
     googlePlacesAddressHandler(event: any): void {
         this.position = { lat: event.lat, lng: event.lng };
         this.mapZoom = 14;
         this.myMap.triggerResize(true);
+
+        if (this.mapSearchString.length > 0) { // set mapSearchMode to true, to calculate distances of each travel to the desired departure
+            this.mapSearchMode = true;
+
+            this.keys = ['currentDistance'];
+            this.ascOrder = true;
+        }
     }
 }

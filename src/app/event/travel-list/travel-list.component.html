@@ -39,7 +39,7 @@
             <div class="input-group custom-input-wrap">
               <div class="input-group-addon"><i class="icon-search"></i></div>
                  <input appGoogleAutoComplete (notifyForAddressData)='googlePlacesAddressHandler($event)' class='form-control form-inline focus'
-                    type="search" placeholder="Abfahrtsort eingeben" /> 
+                    type="search" placeholder="Abfahrtsort eingeben" [(ngModel)]="mapSearchString" (change)='onMapSearchStringChange()'/> 
             </div>
         </div>
         
@@ -117,20 +117,20 @@
         <div class="col-4 col-sm-3"><span>Abfahrtsort</span> <a role="button" (click)='keys = ["city"]; ascOrder = !ascOrder'><i class="icon-sort"></i></a></div>
         <div class="col-4 col-sm-2"><span>Verkehrsmittel</span> <a role="button" (click)='keys = ["transportation_mean", "name"]; ascOrder = !ascOrder'><i class="icon-sort"></i></a></div>
         <div class="col-4 col-sm-3"><span>Aktionsort</span> <a role="button" (click)='keys = ["destination", "name"]; ascOrder = !ascOrder'><i class="icon-sort"></i></a></div>
-        <div class="col-2 d-none d-sm-block"><span>Entfernung</span> <a role="button"><i class="icon-sort"></i></a></div>
+        <div class="col-2 d-none d-sm-block"><span>Entfernung</span> <a role="button" (click)='keys = ["currentDistance"]; ascOrder = !ascOrder'><i class="icon-sort"></i></a></div>
       </div>
     </div>
 
-    <div *ngFor="let travel of travelsFiltered | eventsSort:keys:ascOrder | filterCurrentDetails:currentDetailsTravelId:detailsRequestedFromMapDetails | pagination:pager" class="travel-row-wrap">
+    <div *ngFor="let travel of travelsFiltered | calculateDistance:mapSearchMode:position | eventsSort:keys:ascOrder | filterCurrentDetails:currentDetailsTravelId:detailsRequestedFromMapDetails | pagination:pager" class="travel-row-wrap">
       <div class="row" [class.show-details]='currentDetailsTravelId === travel.id' (click)='(currentDetailsTravelId === travel.id) ? currentDetailsTravelId = 0 : currentDetailsTravelId = travel.id; detailsRequestedFromMapDetails = false'>
         <div class="col-2 d-none d-sm-block">{{travel.postcode}}</div>
         <div class="col-4 col-sm-3">{{travel.city}}</div>
         <div class="col-4 col-sm-2"><i [class]='setTransportationMeanClassIcon(travel.transportation_mean.id)'></i>&nbsp;&nbsp;{{travel.transportation_mean.name}}</div>
         <div class="col-4 col-sm-3">{{travel.destination.name}}</div>
         <div class="col-2 d-none d-sm-block">
-          <span *ngIf='travel.distance > 0; else unknownDistance'>{{travel.distance/1000 | number}} km</span>
+          <span *ngIf='travel.currentDistance && travel.currentDistance > 0; else unknownDistance'>{{travel.currentDistance/1000 | number}} km</span>
           <ng-template #unknownDistance>
-            unbekannt
+            -
           </ng-template>
         </div>
       </div>

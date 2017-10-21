@@ -28,6 +28,7 @@ import { GoogleAutoCompleteDirective } from './event/travel-new/google-auto-comp
 import { NorthToSouthPipe } from './north-to-south.pipe';
 import { EventsSortPipe } from './event/events-sort.pipe';
 import { FilterCurrentDetailsPipe } from './event/filter-current-details.pipe';
+import { CalculateDistancePipe } from './event/calculate-distance.pipe';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { FilterCurrentDetailsPipe } from './event/filter-current-details.pipe';
         GoogleAutoCompleteDirective,
         NorthToSouthPipe,
         EventsSortPipe,
-        FilterCurrentDetailsPipe
+        FilterCurrentDetailsPipe,
+        CalculateDistancePipe
     ],
     imports: [
         BrowserModule,

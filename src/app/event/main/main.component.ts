@@ -19,13 +19,13 @@ export class MainComponent implements OnInit {
         this.eventHead = this._route.snapshot.data['eventHead'];
     }
 
-    @HostListener('window:resize', [])
-    dispatchNewHeight() {
-        setTimeout(() => {
-            const event = new CustomEvent('setIframeHeight', { detail: {
-                height: document.body.clientHeight, jumpTo: 0
-            }});
-            window.parent.document.dispatchEvent(event);
-        }, 0);
-    }
+    // @HostListener('window:resize', [])
+    // dispatchNewHeight() {
+    //     setTimeout(() => {
+    //         const event = new CustomEvent('setIframeHeight', { detail: {
+    //             height: document.body.clientHeight, jumpTo: 0
+    //         }});
+    //         window.parent.document.dispatchEvent(event);
+    //     }, 0);
+    // }
 }
