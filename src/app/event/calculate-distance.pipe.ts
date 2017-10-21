@@ -11,14 +11,13 @@ export class CalculateDistancePipe implements PipeTransform {
 
   transform(value: Travel[], mapSearchMode: boolean, LngLatDeparture?: any): any {
     if ( mapSearchMode ) {
-      value.map((travel) => {
+      return value.filter((travel) => {
         travel.currentDistance = this.distance(travel.lat, travel.long, LngLatDeparture.lat, LngLatDeparture.lng);
+        return travel.currentDistance < 100000;
       });
-
-      return value;
     } else {
       value.map((travel) => {
-        travel.currentDistance = 0;
+        travel.currentDistance = -1;
       });
 
       return value;

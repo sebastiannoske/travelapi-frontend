@@ -88,9 +88,52 @@
         }
 
         .custom-input-wrap {
+            position: relative;
+
             .input-group-addon {    
                 i {
                     font-size: 1em;
+                }
+            }
+
+            #clear-search {
+                display: inline-block;
+                background-color: #fff;
+                border: 1px solid #ced4da;
+                border-left: none;
+                width: 56px;
+                height: 56px;
+                color: #000;
+                text-align: center;
+                line-height: 54px;
+                cursor: pointer;
+                transition: .15s ease background-color, .3s ease transform;
+                transform: translateX(-100%);
+
+                &.show {
+                    transform: translateX(0);
+                }
+
+                i {
+                    display: block;
+                    transform: rotate(0);
+                    transition: .15s ease transform;
+
+                    &:before {
+                        margin: 0;
+                        font-size: 1em;
+                        position: relative;
+                        top: 1px;
+                    }
+                }
+
+                &:hover {
+                    background-color: #000;
+                    color: #fff;
+
+                    i {
+                        transform: rotate(90deg);
+                    }
                 }
             }
         }

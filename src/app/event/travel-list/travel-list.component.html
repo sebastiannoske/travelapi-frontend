@@ -40,6 +40,7 @@
               <div class="input-group-addon"><i class="icon-search"></i></div>
                  <input appGoogleAutoComplete (notifyForAddressData)='googlePlacesAddressHandler($event)' class='form-control form-inline focus'
                     type="search" placeholder="Abfahrtsort eingeben" [(ngModel)]="mapSearchString" (change)='onMapSearchStringChange()'/> 
+                 <a role="button" id='clear-search' [class.show]='this.mapSearchMode' (click)='mapSearchString=""; this.mapSearchMode=false'><i class="icon-close"></i></a>
             </div>
         </div>
         
@@ -128,7 +129,7 @@
         <div class="col-4 col-sm-2"><i [class]='setTransportationMeanClassIcon(travel.transportation_mean.id)'></i>&nbsp;&nbsp;{{travel.transportation_mean.name}}</div>
         <div class="col-4 col-sm-3">{{travel.destination.name}}</div>
         <div class="col-2 d-none d-sm-block">
-          <span *ngIf='travel.currentDistance && travel.currentDistance > 0; else unknownDistance'>{{travel.currentDistance/1000 | number}} km</span>
+          <span *ngIf='travel.currentDistance >= 0; else unknownDistance'>{{travel.currentDistance/1000 | number:'1.1-1'}} km</span>
           <ng-template #unknownDistance>
             -
           </ng-template>
