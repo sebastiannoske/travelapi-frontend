@@ -134,9 +134,7 @@ export class TravelListComponent implements OnInit {
         this.currentDetailsTravelId = 0;
         this._pagination.setPager(this.travels.length, 1);
         this.destinations = this._eventRepository.getDestinations(this.travels);
-        this.transportationMeanFilter = this._eventRepository
-            .getTransportationMeans()
-            .map(transportationMean => transportationMean.id);
+        this.transportationMeanFilter = [];
         this.transportationMeanDisplay = this._eventRepository
             .getTransportationMeans()
             .map(transportationMean => {

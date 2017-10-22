@@ -1,4 +1,11 @@
 :host() {
+    position: relative;
+    display: block;
+    min-height: 100vh;
+    background-color: #F4F4F4;
+    border-left: 1px solid #979797;
+    border-right: 1px solid #979797;
+    
     #steps-wrap {
         padding-top: 100px;
         padding-left: 15px;

@@ -36,7 +36,7 @@ export class EventFilterPipe implements PipeTransform {
         travels: Travel[],
         transportationMeanFilter: number[]
     ): Travel[] {
-        if (!transportationMeanFilter) {
+        if (!transportationMeanFilter || transportationMeanFilter.length === 0) {
             return travels;
         }
         return travels.filter(travel => {
