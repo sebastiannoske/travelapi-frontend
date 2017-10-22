@@ -220,7 +220,7 @@ export class TravelListComponent implements OnInit {
 
     googlePlacesAddressHandler(event: any): void {
         this.position = { lat: event.lat, lng: event.lng };
-        this.mapZoom = 14;
+        this.mapZoom = 9;
         this.myMap.triggerResize(true);
 
         if (this.mapSearchString.length > 0) { // set mapSearchMode to true, to calculate distances of each travel to the desired departure

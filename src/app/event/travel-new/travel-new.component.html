@@ -434,10 +434,21 @@
             </agm-map>
           </div>
         </div>
-        <div class="row">
-          <div class="col-12" *ngIf='distance > 0 && distanceObject'>
-            <span>Entfernung zum Demoziel: {{distance/1000 | number}} km</span> /
-            <span>Voraussichtliche Fahrzeit: {{ distanceObject.rows[0].elements[0].duration.text }}</span>
+        <div class="row" *ngIf='distance > 0 && distanceObject'>
+          <div class="col-4">
+            <span>Entfernung zum Ziel</span>
+          </div>
+          <div class="col-8">
+            <span>{{ travelForm.value.steps[3].city }}</span>
+          </div>
+        </div>
+
+        <div class="row" *ngIf='distance > 0 && distanceObject'>
+          <div class="col-4">
+            <span>Voraussichtliche Fahrzeit</span>
+          </div>
+          <div class="col-8">
+            <span>{{ distanceObject.rows[0].elements[0].duration.text }}</span>
           </div>
         </div>
 

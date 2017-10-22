@@ -33,6 +33,21 @@
             <agm-marker *ngFor='let travel of ( travelsFiltered | northToSouth )' [latitude]="travel.lat" [longitude]="travel.long" [iconUrl]='"./assets/images/icons/pin_" + travel.transportation_mean.id + ".png"'
               (markerClick)="showMarkerDetails(travel)"></agm-marker>
           </agm-marker-cluster>
+          <agm-circle *ngIf='mapSearchMode'
+            [latitude]="position.lat"
+            [longitude]="position.lng"
+            [circleDraggable]="false"
+            [editable]="false"
+            [radius]="100000"
+            [fillColor]="'#0099ff'"
+            [fillOpacity]=".1"
+          ></agm-circle>
+
+          <!-- [strokeWeight]="1"
+            [strokePosition]="'CENTER'"
+            [strokeColor]="'#000'"
+            [strokeOpacity]="1" -->
+
         </agm-map>
 
         <div id="search-in-map-wrap">
