@@ -28,13 +28,64 @@
         display: block;
     }
 
+    #search-in-map-wrap {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 15px;
+
+        @media ( min-width: 550px ) {
+            width: 70%;
+        }
+
+        @media ( min-width: 750px ) {
+            width: 50%;
+        }
+
+        @media ( min-width: 992px ) {
+            width: 35%;
+            left: 15px;
+        }
+
+        .custom-input-wrap {
+            position: relative;
+            padding-left: 15px;
+            padding-right: 15px;
+    
+            @media ( min-width: 992px ) {
+                padding-left: 0;
+                padding-right: 0;
+            }
+    
+            .input-group-addon {
+                background-color: #fff;
+    
+                i {
+                    font-size: 1em;
+                }
+            }
+    
+            .form-control {
+                padding-top: 15px;
+                padding-bottom: 15px;
+                border-left-color: #fff;
+    
+                &:focus {
+                    border: 1px solid #ced4da;
+                    border-left-color: #fff;
+                    box-shadow: none;
+                }
+            }
+        }
+    }
+
     input.form-control {
         width: 100%;
     }
 
     input.form-control:focus {
-        border: none !important;
-        box-shadow: none !important;
+        border: none;
+        box-shadow: none;
     }
 
     .btn-toolbar {

@@ -220,6 +220,7 @@ export class TravelListComponent implements OnInit {
         this.position = { lat: event.lat, lng: event.lng };
         this.mapZoom = 9;
         this.myMap.triggerResize(true);
+        // this.myMap.fitBounds();
 
         if (this.mapSearchString.length > 0) { // set mapSearchMode to true, to calculate distances of each travel to the desired departure
             this.mapSearchMode = true;

@@ -168,8 +168,9 @@
             border-left-color: #fff;
 
             &:focus {
-                border-color: rgba(0, 0, 0, 0.15);
+                border-color: #ced4da;
                 border-left-color: #fff;
+                box-shadow: none;
             }
         }
     }
