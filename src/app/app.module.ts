@@ -26,9 +26,12 @@ import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
 import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
 import { GoogleAutoCompleteDirective } from './event/travel-new/google-auto-complete.directive';
 import { NorthToSouthPipe } from './north-to-south.pipe';
+// maps stuff end
+
 import { EventsSortPipe } from './event/events-sort.pipe';
 import { FilterCurrentDetailsPipe } from './event/filter-current-details.pipe';
 import { CalculateDistancePipe } from './event/calculate-distance.pipe';
+import { ShareButtonModule } from 'ngx-sharebuttons';
 
 
 @NgModule({
@@ -64,7 +67,8 @@ import { CalculateDistancePipe } from './event/calculate-distance.pipe';
             libraries: ['places']
         }),
         AgmJsMarkerClustererModule,
-        BsDropdownModule.forRoot()
+        BsDropdownModule.forRoot(),
+        ShareButtonModule.forRoot()
     ],
     providers: [EventDataService, EventRepository, EventPagination],
     bootstrap: [AppComponent]

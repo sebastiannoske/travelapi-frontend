@@ -56,7 +56,6 @@
     }
 
     .travel-wrap {
-        font-family: 'Roboto', sans-serif;
         font-size: 10px;
 
         @media ( min-width: 400px ) {
@@ -244,6 +243,11 @@
         .btn-show-details-wrap {
             margin-top: 20px;
             text-align: right;
+
+            .btn-black {
+                font-size: 14px;
+                padding: 6px 12px 5px;
+            }
         }
 
         .btn-close-wrap {
@@ -286,12 +290,9 @@
 
     .select-destination {
         padding: 30px 15px 20px;
-        border-left: 1px solid #979797;
-        border-right: 1px solid #979797;
 
         p {
             font-size: 14px;
-            font-family: 'Roboto', sans-serif;
             color: #4A4A4A;
         }
 
@@ -337,6 +338,12 @@
             background-color: #fff;
             padding: 0 15px;
             font-size: 14px;
+
+            h4 {
+                font-family: 'Raleway', sans-serif;
+                font-weight: 800;
+                font-size: 24px;
+            }
 
             .col-3 {
                 span {

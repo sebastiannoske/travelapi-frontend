@@ -110,6 +110,7 @@ export class TravelListComponent implements OnInit {
     mapZoom: number;
     mapSearchString: string;
     mapSearchMode: boolean;
+    currentUrl: string;
 
     public get pager(): EventPager {
         return this._pagination.pager;
@@ -163,6 +164,19 @@ export class TravelListComponent implements OnInit {
         //     }});
         //     window.parent.document.dispatchEvent(event);
         // }, 300);
+
+        // listen for given travel id to show its details
+        this._route.params.subscribe(params => {
+            if (params && params.travelId) {
+                this.currentDetailsTravelId = <number>parseInt(params.travelId, 10);
+                this.detailsRequestedFromMapDetails = true;
+
+                const currentTravel = this.travels.find((travel) => {
+                    return travel.id === this.currentDetailsTravelId;
+                });
+                this.showMarkerDetails(currentTravel);
+            }
+        });
     }
 
     public setTransportationMeanClassIcon(id: number) {
@@ -188,6 +202,18 @@ export class TravelListComponent implements OnInit {
 
     public showMarkerDetails(travel: Travel) {
         this.currentMapDetails = travel;
+        this.currentUrl = window.location.href;
+
+        if (!(this.currentUrl.indexOf(travel.id.toString()) > 0)) {
+            this.currentUrl += '/' + travel.id;
+        }
+    }
+
+    public setCurrentShareUrl(travelId: number) {
+        this.currentUrl = window.location.href;
+        if (!(this.currentUrl.indexOf(travelId.toString()) > 0)) {
+            this.currentUrl += '/' + travelId;
+        }
     }
 
     public showMarkerFullDetails() {

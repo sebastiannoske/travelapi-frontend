@@ -5,6 +5,11 @@
     border-left: 1px solid #979797;
     border-right: 1px solid #979797;
     border-bottom: 1px solid #979797;
+
+    .confirmation-screen {
+        background-color: #fff;
+        padding: 150px 60px;
+    }
     
     #steps-wrap {
         padding-top: 100px;
@@ -93,10 +98,51 @@
         padding: 20px;
     }
 
-    .form-check-label {
-        font-size: 32px;
-        line-height: 32px;
+    .form-check {
+
+        &.form-check-inline {
+            margin-right: 30px;
+        }
+
+        .form-check-label {
+            font-size: 32px;
+            line-height: 32px;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 900;
+            padding-left: 0;
+        }
+
+        label {
+            &:before {
+                content: "";
+                display: inline-block;
+                position: relative;
+                bottom: 1px;
+                margin-right: 10px;
+                width: 20px;
+                height: 20px;
+                background-color: #fff;
+                border: 2px solid #000;
+                box-shadow: inset 0 0 0 3px #fff;
+                border-radius: 11px;
+                transition: .3s ease all;
+            }
+        }
+
+        input[type=radio] {
+            display: none;
+
+            &:checked + label {
+                
+                &:before {
+                    background-color: #000;
+                }
+            }
+        }
+
     }
+
+    
 
     select {
         margin-bottom: 20px;
@@ -107,7 +153,6 @@
         padding-bottom: 55px;
 
         & > .row {
-            font-family: 'Roboto', sans-serif;
             color: #4A4A4A;
 
             & > div:first-child {
@@ -147,14 +192,22 @@
         }
     }
 
-    span.step-indicator, h4 {
+    span.step-indicator {
+        font-family: 'Raleway', sans-serif;
+        font-weight: 500;
         font-size: 24px;
-        font-weight: normal;
     }
 
-    h3 {
+    h4 {
+        font-family: 'Raleway', sans-serif;
+        font-weight: 800;
+        font-size: 24px;
+    }
+
+    h3 {    
+        font-family: 'Raleway', sans-serif;
+        font-weight: 800;
         font-size: 32px;
-        font-weight: normal;
     }
 
     .row.destination-time {

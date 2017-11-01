@@ -217,6 +217,8 @@ export class TravelNewComponent implements OnInit {
                 .subscribe(response => {
                     if (response.status === 'success') {
                         this.submissionSucceed = true;
+                        this.travelForm.reset();
+                        this.travelForm.get('steps.0.travelType').patchValue('offer');
                     }
                 });
         }

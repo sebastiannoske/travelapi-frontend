@@ -27,7 +27,17 @@ import { TravelNewComponent } from './event/travel-new/travel-new.component';
                         data: { type: 'offer' }
                     },
                     {
+                        path: 'offers/:travelId',
+                        component: TravelListComponent,
+                        data: { type: 'offer' }
+                    },
+                    {
                         path: 'requests',
+                        component: TravelListComponent,
+                        data: { type: 'request' }
+                    },
+                    {
+                        path: 'requests/:travelId',
                         component: TravelListComponent,
                         data: { type: 'request' }
                     },
