@@ -42,7 +42,11 @@ button.dropdown-toggle {
     padding: 13px 20px;
 
     span.caret {
-        margin-left: 80px;
+        margin-left: 30px;
+        
+        @media (min-width: 1200px) {
+            margin-left: 130px;
+        }
     }
 }
 
