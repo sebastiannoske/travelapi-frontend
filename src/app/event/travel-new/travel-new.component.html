@@ -109,11 +109,11 @@
           </mat-form-field>
           <div formGroupName="travelContact">
             <mat-form-field>
-              <input matInput class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.2.travelContact.phoneNumber'))}" type="text"
+              <input matInput class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.2.travelContact.phoneNumber'))||(travelForm.get('steps.2.travelContact.phoneNumber').errors&&travelForm.get('steps.2.travelContact.phoneNumber').errors.match)}" type="text"
                 placeholder="Telefon *" formControlName="phoneNumber" />
             </mat-form-field>
             <mat-form-field>
-              <input matInput class="form-control" [ngClass]="{'is-invalid':travelForm.get('steps.2.travelContact.contactEmail').validDebounced}" type="email"
+              <input matInput class="form-control" [ngClass]="{'is-invalid':travelForm.get('steps.2.travelContact.contactEmail').validDebounced||(travelForm.get('steps.2.travelContact.contactEmail').errors&&travelForm.get('steps.2.travelContact.contactEmail').errors.match)}" type="email"
                 placeholder="Email *" formControlName="contactEmail" />
             </mat-form-field>
           </div>
