@@ -116,8 +116,13 @@ export class TravelNewComponent implements OnInit {
                 this._fb.group({
                     organisation: '',
                     contactName: ['', Validators.required],
-                    phoneNumber: ['', Validators.required],
-                    contactEmail: ['', Validators.email]
+                    travelContact: this._fb.group(
+                        {
+                            phoneNumber: [''],
+                            contactEmail: ['']
+                        },
+                        { validator: this.atLeastOne }
+                    )
                 }),
                 this._fb.group({
                     streetAddress: ['', Validators.required],
@@ -139,7 +144,7 @@ export class TravelNewComponent implements OnInit {
 
         this.debounceValidation(
             this.travelForm.get('steps.1.userEmail.email'),
-            this.travelForm.get('steps.2.contactEmail')
+            this.travelForm.get('steps.2.travelContact.contactEmail')
         );
 
         this.steps = new FormViewState(
@@ -277,6 +282,17 @@ export class TravelNewComponent implements OnInit {
         if (emailControl.value === confirmControl.value) {
             return null;
         }
+        return { match: true };
+    }
+
+    atLeastOne(c: AbstractControl): { [key: string]: boolean } | null {
+        const phoneControl = c.get('phoneNumber');
+        const emailControl = c.get('contactEmail');
+
+        if (phoneControl.value.length > 0 || emailControl.value.length > 0) {
+            return null;
+        }
+
         return { match: true };
     }
 

@@ -93,7 +93,7 @@
     <div [formGroupName]="2" *ngIf="steps.current===2" class="slide-wrap" [@viewChange]="slide">
       <span class="step-indicator">Schritt {{steps.current + 1}}</span>
       <h3>Kontaktdaten hinterlegen.</h3>
-      <p>Die hier angegebenen Daten werden nicht veröffentlich.</p>
+      <p>Die hier angegebenen Daten werden veröffentlich und sind frei einsehbar.</p>
       <br/>
       <br/>
 
@@ -107,14 +107,16 @@
             <input matInput class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.2.contactName'))}" type="text"
               placeholder="Name *" formControlName="contactName" />
           </mat-form-field>
-          <mat-form-field>
-            <input matInput class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.2.phoneNumber'))}" type="text"
-              placeholder="Telefon *" formControlName="phoneNumber" />
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput class="form-control" [ngClass]="{'is-invalid':travelForm.get('steps.2.contactEmail').validDebounced}" type="email"
-              placeholder="Email *" formControlName="contactEmail" />
-          </mat-form-field>
+          <div formGroupName="travelContact">
+            <mat-form-field>
+              <input matInput class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.2.travelContact.phoneNumber'))}" type="text"
+                placeholder="Telefon *" formControlName="phoneNumber" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput class="form-control" [ngClass]="{'is-invalid':travelForm.get('steps.2.travelContact.contactEmail').validDebounced}" type="email"
+                placeholder="Email *" formControlName="contactEmail" />
+            </mat-form-field>
+          </div>
         </div>
         <div class="col-md-5">
           <div class="next-button-wrap align-bottom">
@@ -129,7 +131,7 @@
     <div [formGroupName]="3" *ngIf="steps.current===3" class="slide-wrap" [@viewChange]="slide">
       <span class="step-indicator">Schritt {{steps.current + 1}}</span>
       <h3>Abfahrtsort auswählen</h3>
-      <p>Die hier angegebenen Daten werden nicht veröffentlich.</p>
+      <p>Bitte geben Sie den Abfahrtsort an und prüfen Sie, ob dieser auf der Karte richtig angezeigt wird.</p>
       <br/>
       <br/>
 
@@ -181,7 +183,7 @@
     <div [formGroupName]="4" *ngIf="steps.current===4" class="slide-wrap" [@viewChange]="slide">
       <span class="step-indicator">Schritt {{steps.current + 1}}</span>
       <h3>Mitfahrgelegenheit anbieten</h3>
-      <p>Die hier angegebenen Daten werden nicht veröffentlich.</p>
+      <p>Diese Daten werden in der Mitfahrzentrale veröffentlicht.</p>
       <br/>
       <br/>
 
