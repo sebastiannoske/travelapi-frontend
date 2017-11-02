@@ -116,13 +116,10 @@ export class TravelNewComponent implements OnInit {
                 this._fb.group({
                     organisation: '',
                     contactName: ['', Validators.required],
-                    travelContact: this._fb.group(
-                        {
-                            phoneNumber: [''],
-                            contactEmail: ['']
-                        },
-                        { validator: this.atLeastOne }
-                    )
+                    travelContact: this._fb.group({
+                        phoneNumber: ['', Validators.required],
+                        contactEmail: ['', Validators.email]
+                    })
                 }),
                 this._fb.group({
                     streetAddress: ['', Validators.required],
@@ -145,6 +142,10 @@ export class TravelNewComponent implements OnInit {
         this.debounceValidation(
             this.travelForm.get('steps.1.userEmail.email'),
             this.travelForm.get('steps.2.travelContact.contactEmail')
+        );
+
+        this.validateTravelContact(
+            this.travelForm.get('steps.2.travelContact')
         );
 
         this.steps = new FormViewState(
@@ -170,6 +171,28 @@ export class TravelNewComponent implements OnInit {
             control.valueChanges.debounceTime(1000).subscribe(() => {
                 (<any>control).validDebounced = !control.valid;
             });
+        });
+    }
+
+    validateTravelContact(c: AbstractControl): void {
+        const phoneControl = c.get('phoneNumber');
+        const emailControl = c.get('contactEmail');
+
+        phoneControl.valueChanges.subscribe(_ => {
+            if (phoneControl.valid) {
+                emailControl.clearValidators();
+            } else {
+                emailControl.setValidators(Validators.email);
+            }
+            emailControl.updateValueAndValidity({ emitEvent: false });
+        });
+        emailControl.valueChanges.subscribe(_ => {
+            if (emailControl.valid) {
+                phoneControl.clearValidators();
+            } else {
+                phoneControl.setValidators(Validators.required);
+            }
+            phoneControl.updateValueAndValidity({ emitEvent: false });
         });
     }
 
@@ -223,7 +246,9 @@ export class TravelNewComponent implements OnInit {
                     if (response.status === 'success') {
                         this.submissionSucceed = true;
                         this.travelForm.reset();
-                        this.travelForm.get('steps.0.travelType').patchValue('offer');
+                        this.travelForm
+                            .get('steps.0.travelType')
+                            .patchValue('offer');
                     }
                 });
         }
@@ -282,17 +307,6 @@ export class TravelNewComponent implements OnInit {
         if (emailControl.value === confirmControl.value) {
             return null;
         }
-        return { match: true };
-    }
-
-    atLeastOne(c: AbstractControl): { [key: string]: boolean } | null {
-        const phoneControl = c.get('phoneNumber');
-        const emailControl = c.get('contactEmail');
-
-        if (phoneControl.value.length > 0 || emailControl.value.length > 0) {
-            return null;
-        }
-
         return { match: true };
     }
 

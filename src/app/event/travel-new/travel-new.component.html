@@ -2,7 +2,8 @@
 
   <div class="btn-toolbar">
     <div class="step-nav-wrap mr-2" role="group" aria-label="First group">
-      <button *ngFor="let page of steps.indices; let index=index" (click)="steps.current=index; this.submissionSucceed=false;" type="button" [disabled]="((index < steps.indices.length-1 && !travelForm.get('steps').at(index).valid) && index != steps.current)||(index===steps.indices.length-1 && !travelForm.valid)"
+      <button *ngFor="let page of steps.indices; let index=index" (click)="steps.current=index; this.submissionSucceed=false;"
+        type="button" [disabled]="((index < steps.indices.length-1 && !travelForm.get('steps').at(index).valid) && index != steps.current)||(index===steps.indices.length-1 && !travelForm.valid)"
         [ngClass]="{'active':steps.current===index}" class="btn active">{{page}}</button>
     </div>
     <!-- <div class="btn-group" role="group" aria-label="Second group">
@@ -18,12 +19,12 @@
 
       <div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" formControlName="travelType" value="offer" id="cb-offer">
-            <label class="form-check-label" for="cb-offer">Angebot</label>
+          <input class="form-check-input" type="radio" formControlName="travelType" value="offer" id="cb-offer">
+          <label class="form-check-label" for="cb-offer">Angebot</label>
         </div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" formControlName="travelType" value="request" id="cb-request">
-            <label class="form-check-label" for="cb-request">Gesuch</label>
+          <input class="form-check-input" type="radio" formControlName="travelType" value="request" id="cb-request">
+          <label class="form-check-label" for="cb-request">Gesuch</label>
         </div>
       </div>
       <br/>
@@ -109,11 +110,11 @@
           </mat-form-field>
           <div formGroupName="travelContact">
             <mat-form-field>
-              <input matInput class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.2.travelContact.phoneNumber'))||(travelForm.get('steps.2.travelContact.phoneNumber').errors&&travelForm.get('steps.2.travelContact.phoneNumber').errors.match)}" type="text"
+              <input matInput class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.2.travelContact'))}" type="text"
                 placeholder="Telefon *" formControlName="phoneNumber" />
             </mat-form-field>
             <mat-form-field>
-              <input matInput class="form-control" [ngClass]="{'is-invalid':travelForm.get('steps.2.travelContact.contactEmail').validDebounced||(travelForm.get('steps.2.travelContact.contactEmail').errors&&travelForm.get('steps.2.travelContact.contactEmail').errors.match)}" type="email"
+              <input matInput class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.2.travelContact'))}" type="email"
                 placeholder="Email *" formControlName="contactEmail" />
             </mat-form-field>
           </div>
@@ -124,7 +125,6 @@
           </div>
         </div>
       </div>
-
     </div>
 
     <!-- FormArray Step 3 -->
@@ -143,11 +143,13 @@
 
           <div id="search-in-map-wrap">
             <div class="input-group custom-input-wrap">
-              <div class="input-group-addon"><i class="icon-search"></i></div>
-                 <input appGoogleAutoComplete (notifyForAddressData)='googlePlacesAddressHandler($event)' class='form-control form-inline focus'
-                 type="search" placeholder="Suche eine Adresse"/> 
+              <div class="input-group-addon">
+                <i class="icon-search"></i>
+              </div>
+              <input appGoogleAutoComplete (notifyForAddressData)='googlePlacesAddressHandler($event)' class='form-control form-inline focus'
+                type="search" placeholder="Suche eine Adresse" />
             </div>
-        </div>
+          </div>
         </div>
       </div>
 
@@ -472,7 +474,8 @@
   <div *ngIf='submissionSucceed' class="confirmation-screen" [@viewChange]="slide">
     <span class="step-indicator">Zusammenfassung</span>
     <h3>Ihre Eintrag wurde hinterlegt.</h3>
-    <br/><br/>
+    <br/>
+    <br/>
 
     <p>Danke, wir haben ihren Eintrag entgegen genommen, bitte prüfen Sie nun ihre Mails..</p>
   </div>
