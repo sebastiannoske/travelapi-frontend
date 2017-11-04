@@ -137,7 +137,7 @@
 
       <div class="map-wrap">
         <div>
-          <agm-map [latitude]="position.lat" [longitude]="position.lng" [zoom]="mapZoom">
+          <agm-map [latitude]="position.lat" [longitude]="position.lng" [zoom]="mapZoom" [styles]="mapStyles">
             <agm-marker [latitude]="position.lat" [longitude]="position.lng" [markerDraggable]='true' (dragEnd)='markerDragEndEvent($event)'></agm-marker>
           </agm-map>
 
@@ -430,7 +430,7 @@
         <br/>
         <div class="map-wrap">
           <div>
-            <agm-map [latitude]="position.lat" [longitude]="position.lng" [zoom]="mapZoom">
+            <agm-map [latitude]="position.lat" [longitude]="position.lng" [zoom]="mapZoom" [styles]="mapStyles">
               <agm-marker [latitude]="position.lat" [longitude]="position.lng" [markerDraggable]='false' [iconUrl]='"./assets/images/icons/pin_" + travelForm.get("steps.4.transportationMeanId").value + ".png"'></agm-marker>
             </agm-map>
           </div>

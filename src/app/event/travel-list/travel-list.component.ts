@@ -1,4 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import {
+  HttpClient
+} from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { EventRepository } from '../event-repository.service';
 import { EventPagination } from '../event-pagination.service';
@@ -16,10 +19,11 @@ import {
     animate,
     keyframes
 } from '@angular/animations';
-import { AgmMap, GoogleMapsAPIWrapper } from '@agm/core';
+import { AgmMap, GoogleMapsAPIWrapper, MapsAPILoader, LatLngBounds } from '@agm/core';
 
 declare var ScrollMagic: any;
 declare var TweenMax: any;
+declare var google: any;
 
 @Component({
     selector: 'app-travel-list',
@@ -111,6 +115,8 @@ export class TravelListComponent implements OnInit {
     mapSearchString: string;
     mapSearchMode: boolean;
     currentUrl: string;
+    mapStyles: any[];
+    latlngBounds: LatLngBounds;
 
     public get pager(): EventPager {
         return this._pagination.pager;
@@ -119,7 +125,9 @@ export class TravelListComponent implements OnInit {
     constructor(
         private _eventRepository: EventRepository,
         private _route: ActivatedRoute,
-        private _pagination: EventPagination
+        private _pagination: EventPagination,
+        private _http: HttpClient,
+        private _loader: MapsAPILoader,
     ) {
         this.position = { lat: 51.1315, lng: 9.2127 };
         this.mapZoom = 6;
@@ -175,6 +183,20 @@ export class TravelListComponent implements OnInit {
                     return travel.id === this.currentDetailsTravelId;
                 });
                 this.showMarkerDetails(currentTravel);
+            }
+        });
+
+        this._http.get('assets/mapstyles/mapstyles.json')
+            .subscribe((data) => {
+                this.mapStyles = <any[]>data;
+        });
+
+        this._loader.load().then(() => {
+            this.latlngBounds = new google.maps.LatLngBounds();
+            if (this.travels) {
+                this.travels.map((location) => {
+                    this.latlngBounds.extend(new google.maps.LatLng(location.lat, location.long));
+                });
             }
         });
     }
@@ -246,7 +268,7 @@ export class TravelListComponent implements OnInit {
         this.position = { lat: event.lat, lng: event.lng };
         this.mapZoom = 9;
         this.myMap.triggerResize(true);
-        // this.myMap.fitBounds();
+        this.latlngBounds = <LatLngBounds>event.viewport;
 
         if (this.mapSearchString.length > 0) { // set mapSearchMode to true, to calculate distances of each travel to the desired departure
             this.mapSearchMode = true;

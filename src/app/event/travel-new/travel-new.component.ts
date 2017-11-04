@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
+    HttpClient
+} from '@angular/common/http';
+import {
     trigger,
     state,
     style,
@@ -61,13 +64,16 @@ export class TravelNewComponent implements OnInit {
     submissionSucceed: boolean;
     distanceObject: any;
     distance: number;
+    mapStyles: any[];
+    latlngBounds: any;
 
     constructor(
         private _fb: FormBuilder,
         private _eventRepository: EventRepository,
         private _dateAdapter: DateAdapter<NativeDateAdapter>,
         private _GoogleMapsAPIWrapper: GoogleMapsAPIWrapper,
-        private _loader: MapsAPILoader
+        private _loader: MapsAPILoader,
+        private _http: HttpClient
     ) {
         _dateAdapter.setLocale('de-DE');
     }
@@ -137,6 +143,11 @@ export class TravelNewComponent implements OnInit {
                     description: ''
                 })
             ])
+        });
+
+        this._http.get('assets/mapstyles/mapstyles.json')
+            .subscribe((data) => {
+                this.mapStyles = <any[]>data;
         });
 
         this.debounceValidation(
@@ -422,6 +433,7 @@ export class TravelNewComponent implements OnInit {
             );
             const destination = new google.maps.LatLng(50.7035559, 7.047089);
             const service = new google.maps.DistanceMatrixService();
+
             service.getDistanceMatrix(
                 {
                     origins: [origin],
