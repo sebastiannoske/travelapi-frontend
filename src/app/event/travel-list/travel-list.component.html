@@ -1,4 +1,5 @@
-<div *eventAssign="let travelsFiltered be travels | filter:textFilter:destinationFilter:transportationMeanFilter | filterCurrentDetails:currentDetailsTravelId:detailsRequestedFromMapDetails" style="overflow: hidden">
+<div *eventAssign="let travelsFiltered be travels | filter:textFilter:destinationFilter:transportationMeanFilter | filterCurrentDetails:currentDetailsTravelId:detailsRequestedFromMapDetails"
+  style="overflow: hidden">
 
   <div class="select-destination" *ngIf='destinations && destinations.length > 1'>
     <div class="row">
@@ -30,8 +31,8 @@
       <div>
         <agm-map [latitude]="position.lat" [longitude]="position.lng" [styles]="mapStyles" [fitBounds]='latlngBounds'>
           <agm-marker-cluster [imagePath]="'https://googlemaps.github.io/js-marker-clusterer/images/m'">
-            <agm-marker *ngFor='let travel of ( travelsFiltered | northToSouth )' [latitude]="travel.lat" [longitude]="travel.long" [iconUrl]='"./assets/images/icons/pin_" + travel.transportation_mean.id + ".png"'
-              (markerClick)="showMarkerDetails(travel)"></agm-marker>
+            <agm-marker #filteredMarkers *ngFor='let travel of ( travelsFiltered | northToSouth )' [latitude]="travel.lat" [longitude]="travel.long"
+              [iconUrl]='"./assets/images/icons/pin_" + travel.transportation_mean.id + ".png"' (markerClick)="showMarkerDetails(travel)"></agm-marker>
           </agm-marker-cluster>
           <agm-circle *ngIf='mapSearchMode' [latitude]="position.lat" [longitude]="position.lng" [circleDraggable]="false" [editable]="false"
             [radius]="100000" [fillColor]="'#0099ff'" [fillOpacity]=".15"></agm-circle>
@@ -206,7 +207,7 @@
             </div>
           </div>
           <br/>
-          
+
           <div class="row">
             <div class="col-3">
               <span>Von</span>

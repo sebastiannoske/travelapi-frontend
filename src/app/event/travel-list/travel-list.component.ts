@@ -1,7 +1,13 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import {
-  HttpClient
-} from '@angular/common/http';
+    Component,
+    OnInit,
+    AfterViewInit,
+    QueryList,
+    ElementRef,
+    ViewChild,
+    ViewChildren
+} from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { EventRepository } from '../event-repository.service';
 import { EventPagination } from '../event-pagination.service';
@@ -19,7 +25,12 @@ import {
     animate,
     keyframes
 } from '@angular/animations';
-import { AgmMap, GoogleMapsAPIWrapper, MapsAPILoader, LatLngBounds } from '@agm/core';
+import {
+    AgmMap,
+    GoogleMapsAPIWrapper,
+    MapsAPILoader,
+    LatLngBounds
+} from '@agm/core';
 
 declare var ScrollMagic: any;
 declare var TweenMax: any;
@@ -29,6 +40,7 @@ declare var google: any;
     selector: 'app-travel-list',
     templateUrl: './travel-list.component.html',
     styleUrls: ['./travel-list.component.scss'],
+    providers: [GoogleMapsAPIWrapper],
     animations: [
         trigger('viewChange', [
             transition('void => *', [
@@ -83,11 +95,11 @@ declare var google: any;
         ])
     ]
 })
-export class TravelListComponent implements OnInit {
+export class TravelListComponent implements OnInit, AfterViewInit {
     @ViewChild('travelwrap') travelWrap: ElementRef;
     @ViewChild(AgmMap) myMap: AgmMap;
+    @ViewChildren('filteredMarkers') filteredMarkers: QueryList<ElementRef>;
     travels: Travel[];
-    travelsFiltered: Travel[];
     destinations: Destination[];
     textFilter: string;
     destinationFilter: null | Destination;
@@ -128,6 +140,7 @@ export class TravelListComponent implements OnInit {
         private _pagination: EventPagination,
         private _http: HttpClient,
         private _loader: MapsAPILoader,
+        private _mapWrapper: GoogleMapsAPIWrapper
     ) {
         this.position = { lat: 51.1315, lng: 9.2127 };
         this.mapZoom = 6;
@@ -158,11 +171,13 @@ export class TravelListComponent implements OnInit {
                 });
             });
         this.detailsRequestedFromMapDetails = false;
-        this.scrollMagicController = new ScrollMagic.Controller({vertical: true});
-        this.scrollMagicController.scrollTo(function (newpos) {
-
-            TweenMax.to(window, .8, {scrollTo: {y: newpos, autoKill: false}});
-
+        this.scrollMagicController = new ScrollMagic.Controller({
+            vertical: true
+        });
+        this.scrollMagicController.scrollTo(function(newpos) {
+            TweenMax.to(window, 0.8, {
+                scrollTo: { y: newpos, autoKill: false }
+            });
         });
 
         // inform parent about applications clientHeight
@@ -176,26 +191,46 @@ export class TravelListComponent implements OnInit {
         // listen for given travel id to show its details
         this._route.params.subscribe(params => {
             if (params && params.travelId) {
-                this.currentDetailsTravelId = <number>parseInt(params.travelId, 10);
+                this.currentDetailsTravelId = <number>parseInt(
+                    params.travelId,
+                    10
+                );
                 this.detailsRequestedFromMapDetails = true;
 
-                const currentTravel = this.travels.find((travel) => {
+                const currentTravel = this.travels.find(travel => {
                     return travel.id === this.currentDetailsTravelId;
                 });
                 this.showMarkerDetails(currentTravel);
             }
         });
 
-        this._http.get('assets/mapstyles/mapstyles.json')
-            .subscribe((data) => {
-                this.mapStyles = <any[]>data;
+        this._http.get('assets/mapstyles/mapstyles.json').subscribe(data => {
+            this.mapStyles = <any[]>data;
         });
 
         this._loader.load().then(() => {
             this.latlngBounds = new google.maps.LatLngBounds();
             if (this.travels) {
-                this.travels.map((location) => {
-                    this.latlngBounds.extend(new google.maps.LatLng(location.lat, location.long));
+                this.travels.map(location => {
+                    this.latlngBounds.extend(
+                        new google.maps.LatLng(location.lat, location.long)
+                    );
+                });
+            }
+        });
+    }
+
+    ngAfterViewInit() {
+        this.filteredMarkers.changes.subscribe(t => {
+            if (google && <string>'happy coder' !== 'happy') {
+                this.latlngBounds = new google.maps.LatLngBounds();
+                this.filteredMarkers.forEach(e => {
+                    this.latlngBounds.extend(
+                        new google.maps.LatLng(
+                            e.nativeElement.getAttribute('ng-reflect-latitude'),
+                            e.nativeElement.getAttribute('ng-reflect-longitude')
+                        )
+                    );
                 });
             }
         });
@@ -252,7 +287,9 @@ export class TravelListComponent implements OnInit {
                 // window.parent.document.dispatchEvent(event);
 
                 setTimeout(() => {
-                    this.scrollMagicController.scrollTo(this.travelWrap.nativeElement.offsetTop);
+                    this.scrollMagicController.scrollTo(
+                        this.travelWrap.nativeElement.offsetTop
+                    );
                 }, 10);
             }, 400);
         }
@@ -270,7 +307,8 @@ export class TravelListComponent implements OnInit {
         this.myMap.triggerResize(true);
         this.latlngBounds = <LatLngBounds>event.viewport;
 
-        if (this.mapSearchString.length > 0) { // set mapSearchMode to true, to calculate distances of each travel to the desired departure
+        if (this.mapSearchString.length > 0) {
+            // set mapSearchMode to true, to calculate distances of each travel to the desired departure
             this.mapSearchMode = true;
 
             this.keys = ['currentDistance'];
