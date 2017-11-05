@@ -222,16 +222,18 @@ export class TravelListComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit() {
         this.filteredMarkers.changes.subscribe(t => {
-            if (google && <string>'happy coder' !== 'happy') {
-                this.latlngBounds = new google.maps.LatLngBounds();
-                this.filteredMarkers.forEach(e => {
-                    this.latlngBounds.extend(
-                        new google.maps.LatLng(
-                            e.nativeElement.getAttribute('ng-reflect-latitude'),
-                            e.nativeElement.getAttribute('ng-reflect-longitude')
-                        )
-                    );
-                });
+            if (google) {
+                if (this.filteredMarkers.length) {
+                    this.latlngBounds = new google.maps.LatLngBounds();
+                    this.filteredMarkers.forEach(e => {
+                        this.latlngBounds.extend(
+                            new google.maps.LatLng(
+                                e.nativeElement.getAttribute('ng-reflect-latitude'),
+                                e.nativeElement.getAttribute('ng-reflect-longitude')
+                            )
+                        );
+                    });
+                }
             }
         });
     }

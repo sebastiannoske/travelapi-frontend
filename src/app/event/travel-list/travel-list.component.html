@@ -1,4 +1,4 @@
-<div *eventAssign="let travelsFiltered be travels | filter:textFilter:destinationFilter:transportationMeanFilter | filterCurrentDetails:currentDetailsTravelId:detailsRequestedFromMapDetails"
+<div *eventAssign="let travelsFiltered be travels | calculateDistance:mapSearchMode:position | filter:textFilter:destinationFilter:transportationMeanFilter | filterCurrentDetails:currentDetailsTravelId:detailsRequestedFromMapDetails"
   style="overflow: hidden">
 
   <div class="select-destination" *ngIf='destinations && destinations.length > 1'>
