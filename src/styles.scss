@@ -58,13 +58,23 @@ button.dropdown-toggle {
     .sb-wrapper {
         height: 44px;
         width: 44px;
+        min-width: 44px;
+        border-radius: 50%;
+        overflow: hidden;
+        box-shadow: 0 2px 0px rgba(165, 165, 165, 0.5);
+
+        &:hover {
+            box-shadow: 0 3px 7px var(--bg-shadow);
+        }
     }
 
     .sb-icon {
-        border-radius: 50%;
-        overflow: hidden;
         // color: #fff;
         transition: .15s ease color;
+
+        i {
+            font-size: 24px;
+        }
     }
 
     &:hover {
