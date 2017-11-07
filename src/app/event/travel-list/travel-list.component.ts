@@ -212,9 +212,6 @@ export class TravelListComponent implements OnInit, AfterViewInit {
             this.latlngBounds = new google.maps.LatLngBounds();
             if (this.travels) {
                 this.travels.map(location => {
-                    console.log(location.lat);
-                    console.log(location.long);
-                    console.log('ypoooooooo');
                     this.latlngBounds.extend(
                         new google.maps.LatLng(location.lat, location.long)
                     );
