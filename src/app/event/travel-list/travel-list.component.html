@@ -67,13 +67,6 @@
           </div>
 
           <div class="row">
-            <div class="col-12">
-              <share-button [theme]="'modern-dark'" [button]="'twitter'" [size]="1" [url]='currentUrl'></share-button>
-              <share-button [theme]="'modern-dark'" [button]="'facebook'" [size]="1" [url]='currentUrl'></share-button>
-              <share-button [theme]="'modern-dark'" [button]="'pinterest'" [size]="1" [url]='currentUrl'></share-button>
-            </div>
-          </div>
-          <div class="row">
             <div class="col-4">
               <span>Abfahrt</span>
             </div>
@@ -193,14 +186,7 @@
       </div>
       <div *ngIf='currentDetailsTravelId === travel.id' class="details-wrap" [@viewChange]='true'>
         <section>
-          <div class="row">
-            <div class="col-12">
-              <share-button [theme]="'modern-dark'" [button]="'twitter'" [size]="1" [url]='currentUrl'></share-button>
-              <share-button [theme]="'modern-dark'" [button]="'facebook'" [size]="1" [url]='currentUrl'></share-button>
-              <share-button [theme]="'modern-dark'" [button]="'pinterest'" [size]="1" [url]='currentUrl'></share-button>
-            </div>
-          </div>
-
+         
           <div class="row">
             <div class="col-md-12">
               <h4>Details zur Fahrt</h4>
@@ -277,6 +263,19 @@
             </div>
             <div class="col-9">
               <span>{{travel.contact.organisation}}</span>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="row">
+            <div class="col-4">
+              <h4>Fahrt teilen</h4>
+            </div>
+            <div class="col-8">
+              <share-button [theme]="'modern-dark'" [button]="'twitter'" [size]="1" [url]='currentUrl'></share-button>
+              <share-button [theme]="'modern-dark'" [button]="'facebook'" [size]="1" [url]='currentUrl'></share-button>
+              <share-button [theme]="'modern-dark'" [button]="'pinterest'" [size]="1" [url]='currentUrl'></share-button>
             </div>
           </div>
         </section>
