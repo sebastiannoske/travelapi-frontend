@@ -212,6 +212,9 @@ export class TravelListComponent implements OnInit, AfterViewInit {
             this.latlngBounds = new google.maps.LatLngBounds();
             if (this.travels) {
                 this.travels.map(location => {
+                    console.log(location.lat);
+                    console.log(location.long);
+                    console.log('ypoooooooo');
                     this.latlngBounds.extend(
                         new google.maps.LatLng(location.lat, location.long)
                     );
@@ -228,8 +231,8 @@ export class TravelListComponent implements OnInit, AfterViewInit {
                     this.filteredMarkers.forEach(e => {
                         this.latlngBounds.extend(
                             new google.maps.LatLng(
-                                e.nativeElement.getAttribute('ng-reflect-latitude'),
-                                e.nativeElement.getAttribute('ng-reflect-longitude')
+                                e.nativeElement.getAttribute('latitude'),
+                                e.nativeElement.getAttribute('longitude')
                             )
                         );
                     });
@@ -304,17 +307,19 @@ export class TravelListComponent implements OnInit, AfterViewInit {
     }
 
     googlePlacesAddressHandler(event: any): void {
-        this.position = { lat: event.lat, lng: event.lng };
-        this.mapZoom = 9;
-        this.myMap.triggerResize(true);
-        this.latlngBounds = <LatLngBounds>event.viewport;
+        if (event && event.viewport) {
+            this.position = { lat: event.lat, lng: event.lng };
+            this.mapZoom = 9;
+            this.myMap.triggerResize(true);
+            this.latlngBounds = <LatLngBounds>event.viewport;
 
-        if (this.mapSearchString.length > 0) {
-            // set mapSearchMode to true, to calculate distances of each travel to the desired departure
-            this.mapSearchMode = true;
+            if (this.mapSearchString.length > 0) {
+                // set mapSearchMode to true, to calculate distances of each travel to the desired departure
+                this.mapSearchMode = true;
 
-            this.keys = ['currentDistance'];
-            this.ascOrder = true;
+                this.keys = ['currentDistance'];
+                this.ascOrder = true;
+            }
         }
     }
 }
