@@ -85,8 +85,10 @@
         width: 100%;
 
         .nav-item {
-            &:not(:first-child) {
-                margin-left: 8px;
+            @media ( min-width: 576px ) {
+                &:not(:first-child) {
+                    margin-left: 8px;
+                }
             }
             float: left;
             max-height: 62px;
@@ -94,7 +96,7 @@
             .nav-link {
                 background-color: #4A4A4A;
                 color: #fff;
-                transition: .15s ease color, .15s ease background-color;
+                transition: .15s ease color, .15s ease background-color, .15s ease transform;
                 text-align: center;
                 border: 1px solid #979797;
                 border-bottom: 1px solid #4A4A4A;
@@ -104,12 +106,18 @@
                 line-height: 21px;
                 font-weight: 400;
                 font-family: 'Raleway', sans-serif;
-                font-weight: 700;
-                padding: 20px 15px;
+                font-weight: 500;
+                padding: 20px 15px 25px;
                 width: auto;
+                transform: translateY(0);
+
+                &:not(.active):hover {
+                    background-color: rgb(95, 95, 95);
+                    transform: translateY(-5px);
+                }
 
                 @media ( min-width: 650px ) {
-                    padding: 20px 25px;
+                    padding: 20px 25px 25px;
                 }
 
                 @media ( min-width: 850px ) {
@@ -136,6 +144,7 @@
                     color: #4A4A4A;
                     border-bottom: 1px solid #F4F4F4;
                     position: relative;
+                    cursor: default;
 
                     .badge {
                         background-color: #4A4A4A;

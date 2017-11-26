@@ -66,6 +66,7 @@ export class TravelNewComponent implements OnInit {
     distance: number;
     mapStyles: any[];
     latlngBounds: any;
+    headlines: any;
 
     constructor(
         private _fb: FormBuilder,
@@ -94,6 +95,13 @@ export class TravelNewComponent implements OnInit {
             4: 'Fahrrad',
             5: 'Fußgänger',
             6: 'Sonstige'
+        };
+        this.headlines = {
+            1: 'Account für die Mitfahrbörse anlegen.',
+            2: 'Kontaktdaten hinterlegen.',
+            3: 'Abfahrtsort auswählen.',
+            4: 'Mitfahrgelegenheit anbieten',
+            5: 'Zusammenfassung'
         };
         this.distance = 0;
         this.distanceObject = null;

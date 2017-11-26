@@ -9,7 +9,6 @@
     .travel-header-wrap {
         background-color: #fff;
         padding-top: 50px;
-        margin-top: 20px;
     }
 
     .row.table-head {
@@ -75,34 +74,51 @@
 
     #search-in-map-wrap {
         position: absolute;
-        width: 100%;
+        width: calc(100% - 56px);
         left: 0;
         top: 15px;
+        padding-left: 15px;
+        padding-right: 15px;
 
-        @media ( min-width: 550px ) {
-            width: 70%;
+        @media ( min-width: 992px ) {
+            padding-left: 0;
+            padding-right: 0;
         }
 
-        @media ( min-width: 750px ) {
+        @media ( min-width: 550px ) {
             width: 50%;
         }
 
+        @media ( min-width: 750px ) {
+            width: 344px;
+        }
+
         @media ( min-width: 992px ) {
-            width: 35%;
+            width: 40%;
             left: 15px;
         }
 
         .custom-input-wrap {
             position: relative;
+            
+            .input-group-addon {
+                width: 48px;
 
-            .input-group-addon {    
                 i {
                     font-size: 1em;
+                    color: #9B9B9B;
                 }
             }
 
+            .form-control {
+                max-width: calc( 100vw - 149px);
+                width: calc( 100vw - 149px);
+            }
+
             #clear-search {
-                display: inline-block;
+                display: block;
+                position: absolute;
+                top: 0;
                 background-color: #fff;
                 border: 1px solid #ced4da;
                 border-left: none;
@@ -112,11 +128,14 @@
                 text-align: center;
                 line-height: 54px;
                 cursor: pointer;
-                transition: .15s ease background-color, .3s ease transform;
-                transform: translateX(-100%);
+                transition: .15s ease background-color, .3s ease transform, .3s ease box-shadow;
+                transform: translateX(0);
+                box-shadow: 0 2px 4px 0 rgba(0,0,0,0);
+                right: 0;
 
                 &.show {
-                    transform: translateX(0);
+                    transform: translateX(56px);
+                    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
                 }
 
                 i {
@@ -144,14 +163,21 @@
         }
     }
 
-    .custom-input-wrap {
-        padding-left: 15px;
-        padding-right: 15px;
-
-        @media ( min-width: 992px ) {
-            padding-left: 0;
-            padding-right: 0;
+    #filter-table-wrap {
+        @media ( min-width: 768px ) {
+            display: flex;
+            justify-content: flex-end;
         }
+    }
+
+    #filter-table {
+        @media ( min-width: 768px ) {
+            max-width: 310px;
+        }
+    }
+
+    .custom-input-wrap {
+        box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
 
         .input-group-addon {
             background-color: #fff;
@@ -206,6 +232,20 @@
         }
     }
 
+    @media (min-width: 576px) {
+        .col-sm-20, .col-20 {
+            position: relative;
+            width: 100%;
+            min-height: 1px;
+            padding-right: 15px;
+            padding-left: 15px;
+            -webkit-box-flex: 0 !important;
+            -ms-flex: 0 0 20% !important;
+            flex: 0 0 20% !important;
+            max-width: 20% !important;
+        }
+    }
+
     #current-travel-details {
         display: block;
         z-index: 999;
@@ -252,6 +292,8 @@
 
         .btn-close-wrap {
             text-align: right;
+            position: relative;
+            margin-bottom: 10px;
 
             a {
                 display: inline-block;
@@ -320,8 +362,9 @@
             border-top: 1px solid rgba(219,219,219,1);
 
             &:hover, &.show-details {
-                background-color: rgba(219,219,219,1) !important;
+                background-color: rgba(227,227,227,1) !important;
             }
+
         }
 
         &:last-child > .row {
@@ -372,7 +415,7 @@
             }
 
             .close-botton-wrap {
-                padding: 35px 0 70px;
+                padding: 50px 0;
                 text-align: right;
             }
         }
@@ -382,6 +425,7 @@
         display: block;
         padding: 50px 0;
         text-align: center;
+        background-color: #fff;
 
         ul {
             display: inline-block;
@@ -402,7 +446,7 @@
                     cursor: pointer;
                     background-color: #fff;
                     color: #4A4A4A;
-                    padding: 9px 15px 14px;
+                    padding: 12px 15px 11px;
                     transition: .15s ease all;
 
                     i {

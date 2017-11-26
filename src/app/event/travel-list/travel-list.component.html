@@ -29,7 +29,7 @@
   <div class="map-wrap">
     <div>
       <div>
-        <agm-map [latitude]="position.lat" [longitude]="position.lng" [styles]="mapStyles" [fitBounds]='latlngBounds'>
+        <agm-map [latitude]="position.lat" [longitude]="position.lng" [styles]="mapStyles" [fitBounds]='latlngBounds' maxZoom='18'>
           <agm-marker-cluster [imagePath]="'https://googlemaps.github.io/js-marker-clusterer/images/m'">
             <agm-marker #filteredMarkers *ngFor='let travel of ( travelsFiltered | northToSouth )' [latitude]="travel.lat" [longitude]="travel.long"
               [iconUrl]='"./assets/images/icons/pin_" + travel.transportation_mean.id + ".png"' (markerClick)="showMarkerDetails(travel)" [attr.latitude]='travel.lat' [attr.longitude]='travel.long'></agm-marker>
@@ -112,8 +112,8 @@
     </div>
   </div>
 
-  <div class="row padding-lr">
-    <div class="col-md-8">
+  <div class="row padding">
+    <div class="col-md-6">
       <div class="btn-toolbar travel-filter-icons">
         <div class="step-nav-wrap mr-2" role="group" aria-label="First group">
           <button type="button" *ngFor='let filter of transportationMeanDisplay' [class.active-filter]='-1 !== transportationMeanFilter.indexOf(filter.id)'
@@ -123,12 +123,14 @@
         </div>
       </div>
     </div>
-    <div class="col-md-4 right-align">
-      <div class="input-group padding-right custom-input-wrap">
-        <div class="input-group-addon">
-          <i class="icon-icon-filter"></i>
+    <div class="col-md-6 right-align">
+      <div id="filter-table-wrap">
+        <div class="input-group padding-right custom-input-wrap" id="filter-table">
+          <div class="input-group-addon">
+            <i class="icon-icon-filter"></i>
+          </div>
+          <input type="text" [(ngModel)]="textFilter" class="form-control" placeholder="Tabelle individuell filtern">
         </div>
-        <input type="text" [(ngModel)]="textFilter" class="form-control" placeholder="Tabelle individuell filtern">
       </div>
     </div>
   </div>
@@ -136,31 +138,31 @@
   <div class="travel-wrap" #travelwrap>
     <div class="travel-header-wrap">
       <div class="row table-head">
-        <div class="col-2 d-none d-sm-block">
+        <div class="col-20 d-none d-sm-block">
           <span>Plz</span>
           <a role="button" (click)='keys = ["postcode"]; ascOrder = !ascOrder'>
             <i class="icon-sort"></i>
           </a>
         </div>
-        <div class="col-4 col-sm-3">
+        <div class="col-4 col-sm-20">
           <span>Abfahrtsort</span>
           <a role="button" (click)='keys = ["city"]; ascOrder = !ascOrder'>
             <i class="icon-sort"></i>
           </a>
         </div>
-        <div class="col-4 col-sm-2">
+        <div class="col-4 col-sm-20">
           <span>Verkehrsmittel</span>
           <a role="button" (click)='keys = ["transportation_mean", "name"]; ascOrder = !ascOrder'>
             <i class="icon-sort"></i>
           </a>
         </div>
-        <div class="col-4 col-sm-3">
+        <div class="col-4 col-sm-20">
           <span>Aktionsort</span>
           <a role="button" (click)='keys = ["destination", "name"]; ascOrder = !ascOrder'>
             <i class="icon-sort"></i>
           </a>
         </div>
-        <div class="col-2 d-none d-sm-block">
+        <div class="col-20 d-none d-sm-block">
           <span>Entfernung</span>
           <a role="button" (click)='keys = ["currentDistance"]; ascOrder = !ascOrder'>
             <i class="icon-sort"></i>
@@ -172,12 +174,12 @@
     <div *ngFor="let travel of travelsFiltered | calculateDistance:mapSearchMode:position | eventsSort:keys:ascOrder | filterCurrentDetails:currentDetailsTravelId:detailsRequestedFromMapDetails | pagination:pager"
       class="travel-row-wrap">
       <div class="row" [class.show-details]='currentDetailsTravelId === travel.id' (click)='(currentDetailsTravelId === travel.id) ? currentDetailsTravelId = 0 : currentDetailsTravelId = travel.id; detailsRequestedFromMapDetails = false; setCurrentShareUrl(travel.id)'>
-        <div class="col-2 d-none d-sm-block">{{travel.postcode}}</div>
-        <div class="col-4 col-sm-3">{{travel.city}}</div>
-        <div class="col-4 col-sm-2">
+        <div class="col-20 d-none d-sm-block">{{travel.postcode}}</div>
+        <div class="col-4 col-sm-20">{{travel.city}}</div>
+        <div class="col-4 col-sm-20">
           <i [class]='setTransportationMeanClassIcon(travel.transportation_mean.id)'></i>&nbsp;&nbsp;{{travel.transportation_mean.name}}</div>
-        <div class="col-4 col-sm-3">{{travel.destination.name}}</div>
-        <div class="col-2 d-none d-sm-block">
+        <div class="col-4 col-sm-20">{{travel.destination.name}}</div>
+        <div class="col-20 d-none d-sm-block">
           <span *ngIf='travel.currentDistance >= 0; else unknownDistance'>{{travel.currentDistance/1000 | number:'1.1-1'}} km</span>
           <ng-template #unknownDistance>
             -
@@ -269,10 +271,16 @@
 
         <section>
           <div class="row">
-            <div class="col-4">
+            <div class="col-md-12">
               <h4>Fahrt teilen</h4>
             </div>
-            <div class="col-8">
+          </div>
+          <br/>
+          <div class="row">
+            <div class="col-3">
+              <span>Plattformen</span>
+            </div>
+            <div class="col-9">
               <share-button [theme]="'modern-dark'" [button]="'twitter'" [size]="1" [url]='currentUrl'></share-button>
               <share-button [theme]="'modern-dark'" [button]="'facebook'" [size]="1" [url]='currentUrl'></share-button>
               <share-button [theme]="'modern-dark'" [button]="'pinterest'" [size]="1" [url]='currentUrl'></share-button>
@@ -288,31 +296,31 @@
 
       </div>
     </div>
-
-    <div *ngIf="travelsFiltered.length === 0" class="alert alert-danger" role="alert">
-      Keine Fahrten gefunden
-    </div>
-    <nav class="pagination-wrap">
-      <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-        <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
-          <a class="page-link icon-jump" (click)="setPage(1)">
-            <i class="icon-angle-double-left"></i>
-          </a>
-        </li>
-        <!-- <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
-          <a class="page-link" (click)="setPage(pager.currentPage - 1)">Previous</a>
-        </li> -->
-        <li *ngFor="let page of pager.pages" class="page-item" [ngClass]="{active:pager.currentPage === page}">
-          <a class="page-link" (click)="setPage(page)">{{page}}</a>
-        </li>
-        <!-- <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-          <a class="page-link" (click)="setPage(pager.currentPage + 1)">Next</a>
-        </li> -->
-        <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-          <a class="page-link icon-jump" (click)="setPage(pager.totalPages)">
-            <i class="icon-angle-double-right"></i>
-          </a>
-        </li>
-      </ul>
-    </nav>
   </div>
+
+  <div *ngIf="travelsFiltered.length === 0" class="alert alert-danger" role="alert">
+    Keine Fahrten gefunden
+  </div>
+  <nav class="pagination-wrap">
+    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+      <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+        <a class="page-link icon-jump" (click)="setPage(1)">
+          <i class="icon-angle-double-left"></i>
+        </a>
+      </li>
+      <!-- <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+        <a class="page-link" (click)="setPage(pager.currentPage - 1)">Previous</a>
+      </li> -->
+      <li *ngFor="let page of pager.pages" class="page-item" [ngClass]="{active:pager.currentPage === page}">
+        <a class="page-link" (click)="setPage(page)">{{page}}</a>
+      </li>
+      <!-- <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+        <a class="page-link" (click)="setPage(pager.currentPage + 1)">Next</a>
+      </li> -->
+      <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+        <a class="page-link icon-jump" (click)="setPage(pager.totalPages)">
+          <i class="icon-angle-double-right"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>

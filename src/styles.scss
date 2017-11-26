@@ -8,16 +8,70 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500');
 @import url('https://fonts.googleapis.com/css?family=Raleway:500,700,800,900');
 
-body {
-    font-family: 'Roboto', sans-serif;
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #9B9B9B !important;
+}
+::-moz-placeholder { /* Firefox 19+ */
+    color: #9B9B9B !important;
+}
+:-ms-input-placeholder { /* IE 10+ */
+    color: #9B9B9B !important;
+}
+:-moz-placeholder { /* Firefox 18- */
+    color: #9B9B9B !important;
 }
 
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+}
+
+input {
+    -webkit-appearance: none !important;
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
+}
+
+button::-moz-focus-inner, button::-moz-focus-inner {
+    border: 0;
+}
+
+select, textarea, input, select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    box-shadow: none;
+    outline: none;
+    border: 0;    
+}
+
+.input-group-addon {
+    border-radius: 0 !important;
+}
+
+select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #000;
+}
+
+:focus {outline:none;}
+::-moz-focus-inner {border:0;}
+
 .btn-black {
-    padding: 9px 17px;
+    padding: 9px 17px 7px;
     background-color: #000;
     color: #fff !important;
     text-transform: uppercase;
     border: 4px solid #000;
+    border-radius: 0;
+    box-shadow: none !important;
     display: inline-block;
     transition: .15s ease color, .15s ease background-color;
     cursor: pointer;
@@ -33,6 +87,50 @@ body {
         background-color: #fff;
         color: #000 !important;   
     }
+}
+
+.mat-focused .mat-form-field-placeholder {
+    color: #000 !important;
+}
+
+.mat-form-field-placeholder-wrapper {
+    transform: translateY(-6px);
+    transition: .4s cubic-bezier(.25,.8,.25,1) transform;
+}
+
+.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-placeholder-wrapper {
+    transform: translateY(0);
+}
+
+.mat-form-field-ripple {
+    background-color: #000 !important;
+}
+
+.mat-form-field-invalid .mat-form-field-ripple {
+    background-color: #C21C34 !important;
+}
+
+.mat-form-field-invalid .mat-form-field-placeholder {
+    color: #C21C34 !important;
+}
+
+.mat-focused .mat-form-field-underline .mat-form-field-ripple {
+    height: 3px !important;
+}
+
+.pagination, .page-item:first-child .page-link, .page-item:last-child .page-link {
+    border-radius: 0 !important;
+}
+
+select.form-control {
+    background-color: #f7f7f7 !important;
+    border-radius: 0 !important;
+    border: none !important;
+    -webkit-appearance: none !important;
+    box-shadow: none !important;
+    height: 60px !important;
+    border-bottom: 1px solid rgba(0,0,0,.42) !important;
+    padding: 13px 0.75rem 0 !important;
 }
 
 button.dropdown-toggle {
@@ -64,7 +162,7 @@ button.dropdown-toggle {
         box-shadow: 0 2px 0px rgba(165, 165, 165, 0.5);
 
         &:hover {
-            box-shadow: 0 3px 7px var(--bg-shadow);
+            box-shadow: 0 3px 7px rgba(0,0,0,.5) !important;
         }
     }
 
@@ -86,9 +184,10 @@ button.dropdown-toggle {
     }
 }
 
-.padding-lr {
-    padding-left: 15px;
-    padding-right: 15px;
+.padding {
+    padding: 15px;
+    border-top: 1px solid #CCCCCC;
+    border-bottom: 1px solid #CCCCCC;
 }
 
 .mat-form-field {
@@ -130,18 +229,17 @@ button.dropdown-toggle {
     position: relative;
     width: 100%;
     padding-top: 140%;
-    margin-bottom: 20px;
 
     @media ( min-width: 450px ) {
-        padding-top: 100%;
+        padding-top: 90%;
     }
 
     @media ( min-width: 550px ) {
-        padding-top: 80%;
+        padding-top: 70%;
     }
 
     @media ( min-width: 700px ) {
-        padding-top: 70%;
+        padding-top: 60%;
     }
 
     @media ( min-width: 992px ) {
@@ -202,12 +300,18 @@ button.dropdown-toggle {
             height: 44px;
 
             &:not(:last-child) {
-                margin-right: 20px;
+                margin-right: 12px;
             }
 
             & > i {
                 font-size: 18px;
                 left: 0;
+            }
+        }
+
+        @media ( min-width: 825px ) {
+            &:not(:last-child) {
+                margin-right: 20px;
             }
         }
 

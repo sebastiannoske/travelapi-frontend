@@ -5,6 +5,7 @@
       <button *ngFor="let page of steps.indices; let index=index" (click)="steps.current=index; this.submissionSucceed=false;"
         type="button" [disabled]="((index < steps.indices.length-1 && !travelForm.get('steps').at(index).valid) && index != steps.current)||(index===steps.indices.length-1 && !travelForm.valid)"
         [ngClass]="{'active':steps.current===index}" class="btn active">{{page}}</button>
+        <span class="current-label d-none d-md-inline-block">{{headlines[steps.current]}}</span>
     </div>
     <!-- <div class="btn-group" role="group" aria-label="Second group">
       <button type="button" class="btn" (click)="populateTestData()">Insert Test Data</button>
@@ -12,7 +13,7 @@
 
   </div>
 
-  <div *ngIf='!submissionSucceed' formArrayName="steps" id="steps-wrap" [class.bg-grey]='steps.current > 0'>
+  <div *ngIf='!submissionSucceed' formArrayName="steps" id="steps-wrap">
 
     <!-- FormArray Step 0 -->
     <div [formGroupName]="0" *ngIf="steps.current===0" class="slide-wrap" [@viewChange]="slide">
@@ -43,7 +44,8 @@
     <!-- FormArray Step 1 -->
     <div [formGroupName]="1" *ngIf="steps.current===1" class="slide-wrap" [@viewChange]="slide">
       <span class="step-indicator">Schritt {{steps.current + 1}}</span>
-      <h3>Account für die Mitfahrbörse anlegen.</h3>
+      <h3>{{headlines[steps.current]}}</h3>
+      <br/>
       <p>Die hier angegebenen Daten werden nicht veröffentlich.</p>
       <br/>
       <br/>
@@ -93,7 +95,8 @@
     <!-- FormArray Step 2 -->
     <div [formGroupName]="2" *ngIf="steps.current===2" class="slide-wrap" [@viewChange]="slide">
       <span class="step-indicator">Schritt {{steps.current + 1}}</span>
-      <h3>Kontaktdaten hinterlegen.</h3>
+      <h3>{{headlines[steps.current]}}</h3>
+      <br/>
       <p>Die hier angegebenen Daten werden veröffentlich und sind frei einsehbar.</p>
       <br/>
       <br/>
@@ -130,7 +133,8 @@
     <!-- FormArray Step 3 -->
     <div [formGroupName]="3" *ngIf="steps.current===3" class="slide-wrap" [@viewChange]="slide">
       <span class="step-indicator">Schritt {{steps.current + 1}}</span>
-      <h3>Abfahrtsort auswählen</h3>
+      <h3>{{headlines[steps.current]}}</h3>
+      <br/>
       <p>Bitte geben Sie den Abfahrtsort an und prüfen Sie, ob dieser auf der Karte richtig angezeigt wird.</p>
       <br/>
       <br/>
@@ -176,15 +180,13 @@
         </div>
       </div>
 
-
-
-
     </div>
 
     <!-- FormArray Step 4 -->
     <div [formGroupName]="4" *ngIf="steps.current===4" class="slide-wrap" [@viewChange]="slide">
       <span class="step-indicator">Schritt {{steps.current + 1}}</span>
-      <h3>Mitfahrgelegenheit anbieten</h3>
+      <h3>{{headlines[steps.current]}}</h3>
+      <br/>
       <p>Diese Daten werden in der Mitfahrzentrale veröffentlicht.</p>
       <br/>
       <br/>
@@ -207,23 +209,17 @@
           </mat-form-field>
 
           <div class="row destination-time">
-            <div class="col-4">
+            <div class="col-6">
               <select class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.4.departureHour'))}" formControlName="departureHour">
                 <option value=null disabled selected hidden>Abfahrt Stunden *</option>
                 <option *ngFor="let hour of departureHours" value="{{hour}}">{{hour}}</option>
               </select>
             </div>
-            <div class="col-1 centerd">
-              <span>:</span>
-            </div>
-            <div class="col-4">
+            <div class="col-6">
               <select class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.4.departureMinute'))}" formControlName="departureMinute">
                 <option value=null disabled selected hidden>Abfahrt Minuten *</option>
                 <option *ngFor="let minute of departureMinutes" value="{{minute}}">{{minute}}</option>
               </select>
-            </div>
-            <div class="col-1 centerd">
-              <span>Uhr</span>
             </div>
           </div>
 
@@ -243,7 +239,7 @@
 
     <div *ngIf="steps.current===5" class="slide-wrap" [@viewChange]="slide">
       <span class="step-indicator">Schritt {{steps.current + 1}}</span>
-      <h3>Zusammenfassung</h3>
+      <h3>{{headlines[steps.current]}}</h3>
       <br/>
       <p>Bitte überprüfen Sie noch einmal Ihre Daten.</p>
       <br/>

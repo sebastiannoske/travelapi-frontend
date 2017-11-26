@@ -129,6 +129,7 @@ export class TravelListComponent implements OnInit, AfterViewInit {
     currentUrl: string;
     mapStyles: any[];
     latlngBounds: LatLngBounds;
+    lastFilteredMarkerLength: number;
 
     public get pager(): EventPager {
         return this._pagination.pager;
@@ -144,6 +145,7 @@ export class TravelListComponent implements OnInit, AfterViewInit {
     ) {
         this.position = { lat: 51.1315, lng: 9.2127 };
         this.mapZoom = 6;
+        this.lastFilteredMarkerLength = 0;
     }
 
     ngOnInit() {
@@ -223,8 +225,10 @@ export class TravelListComponent implements OnInit, AfterViewInit {
     ngAfterViewInit() {
         this.filteredMarkers.changes.subscribe(t => {
             if (google) {
-                if (this.filteredMarkers.length) {
+                if (this.filteredMarkers.length && this.lastFilteredMarkerLength !== this.filteredMarkers.length) {
+                    this.lastFilteredMarkerLength = this.filteredMarkers.length;
                     this.latlngBounds = new google.maps.LatLngBounds();
+
                     this.filteredMarkers.forEach(e => {
                         this.latlngBounds.extend(
                             new google.maps.LatLng(
