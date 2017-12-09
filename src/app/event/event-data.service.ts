@@ -14,7 +14,7 @@ import { TravelSubmission } from './classes/_index';
 
 @Injectable()
 export class EventDataService {
-    private _eventsUrl = 'https://mfz.g20-protestwelle.de/api';
+    private _eventsUrl = 'https://mfz.wir-haben-es-satt.de/api';
     private _headers: HttpHeaders;
 
     constructor(private _http: HttpClient) {
@@ -25,7 +25,7 @@ export class EventDataService {
         return new HttpHeaders()
             .set(
                 'Authorization',
-                'Bearer sUrv1fKJWWEsTMgoVTkOZc1bVQkiDj9tWlqN4jSBPrGxRKkb3tFSCMqH3mlE'
+                'Bearer xFhQsoqlboBFAX7ENajMJaMkKjS53X8MirvuIbUOg35J8DKT3bQe3Kr5wue5'
             )
             .append('Content-Type', 'application/json')
             .append('Accept', 'application/json');
