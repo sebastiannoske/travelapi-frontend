@@ -143,7 +143,7 @@
       
       <p class="has-padding">Bitte überprüfen Sie, ob die Ortsangaben stimmen.</p>
       <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-7 address-fields-wrap" [class.disabled-form-fields]='!travelForm.get("steps.3").valid'>
           <mat-form-field>
             <input matInput class="form-control" type="text" placeholder="Strasse *" formControlName="streetAddress" />
           </mat-form-field>
@@ -222,9 +222,11 @@
       <h3>{{headlines[steps.current]}}</h3>
       <p>Bitte überprüfen Sie noch einmal Ihre Daten.</p>
       <br/>
+      <br/>
 
       <div class="section-wrap">
         <h4>Accountdaten</h4>
+        <br/>
 
         <div class="row">
           <div class="col-4">
@@ -283,6 +285,7 @@
 
       <div class="section-wrap">
         <h4>Kontaktdaten</h4>
+        <br/>
 
         <div class="row">
           <div class="col-4">
@@ -323,6 +326,7 @@
 
       <div class="section-wrap">
         <h4>Mitfahrgelegenheit</h4>
+        <br/>
 
         <div class="row">
           <div class="col-4">
@@ -372,6 +376,7 @@
 
       <div class="section-wrap">
         <h4>Abfahrtsort</h4>
+        <br/>
 
         <div class="row">
           <div class="col-4">
@@ -430,8 +435,9 @@
       </div>
 
       <div class="section-wrap">
-        <h4>Abschicken.</h4>
+        <h3>Abschicken.</h3>
         <br/>
+
         <p>Sind alle Angaben korrekt? Dann können Sie jetzt Ihr Gesuch/Angebot aufgeben.</p>
 
         <div class="next-button-wrap">

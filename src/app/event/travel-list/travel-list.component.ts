@@ -31,6 +31,7 @@ import {
     MapsAPILoader,
     LatLngBounds
 } from '@agm/core';
+import { ClusterStyle } from '@agm/js-marker-clusterer/services/google-clusterer-types';
 
 declare var ScrollMagic: any;
 declare var TweenMax: any;
@@ -129,6 +130,7 @@ export class TravelListComponent implements OnInit, AfterViewInit {
     currentUrl: string;
     mapStyles: any[];
     latlngBounds: LatLngBounds;
+    markerClusterStyles: ClusterStyle[];
     lastFilteredMarkerLength: number;
 
     public get pager(): EventPager {
@@ -146,6 +148,19 @@ export class TravelListComponent implements OnInit, AfterViewInit {
         this.position = { lat: 51.1315, lng: 9.2127 };
         this.mapZoom = 6;
         this.lastFilteredMarkerLength = 0;
+
+        const temp = {
+            url: './assets/images/icons/cluster-marker.png',
+            height: 75,
+            width: 75,
+            textColor: '#fff',
+            textSize: 12,
+            backgroundPosition: 'center center'
+        };
+
+        this.markerClusterStyles = [
+            temp, temp, temp
+        ];
     }
 
     ngOnInit() {

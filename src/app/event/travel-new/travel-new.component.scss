@@ -12,6 +12,16 @@
         padding: 150px 60px;
     }
     
+    .address-fields-wrap {
+        opacity: 1;
+        transform: .25s ease opacity;
+
+        &.disabled-form-fields {
+            pointer-events: none;
+            opacity: .5;
+        }
+    }
+    
     #steps-wrap {
         padding: 60px 15px 50px;
         
