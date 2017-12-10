@@ -283,7 +283,10 @@ export class TravelNewComponent implements OnInit {
         });
     }
 
-    proceed(currentSlide: number): boolean {
+    proceed(event: any, currentSlide: number): boolean {
+        if (event.clientX === 0 && event.clientY === 0) {
+            return false;
+        }
         const formStep = <FormGroup>this.travelForm.get(
             `steps.${currentSlide}`
         );

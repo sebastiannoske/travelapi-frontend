@@ -90,7 +90,7 @@ select:-moz-focusring {
 }
 
 .mat-focused .mat-form-field-placeholder {
-    color: #000 !important;
+    color: rgba(0,0,0,.54) !important;
 }
 
 .mat-form-field-placeholder-wrapper {
@@ -108,6 +108,7 @@ select:-moz-focusring {
 
 .mat-form-field-invalid .mat-form-field-ripple {
     background-color: #C21C34 !important;
+    height: 3px !important;
 }
 
 .mat-form-field-invalid .mat-form-field-placeholder {
@@ -131,6 +132,16 @@ select.form-control {
     height: 60px !important;
     border-bottom: 1px solid rgba(0,0,0,.42) !important;
     padding: 13px 0.75rem 0 !important;
+}
+
+textarea.form-control {
+    border: none !important;
+    -webkit-appearance: none !important;
+    box-shadow: none !important;
+}
+
+.input-group .form-control {
+    border-radius: 0 !important;
 }
 
 button.dropdown-toggle {

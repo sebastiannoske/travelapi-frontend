@@ -36,7 +36,7 @@
         zum Ziel. Schauen Sie bitte vorher, ob es bereits passende Angebote oder Gesuche gibt.</p>
 
       <div class="next-button-wrap">
-        <button class="btn btn-black" (click)="proceed(steps.current);" [ngClass]="{'is-disabled':!travelForm.get('steps.0').valid}">Weiter</button>
+        <button class="btn btn-black" (click)="proceed($event, steps.current);" [ngClass]="{'is-disabled':!travelForm.get('steps.0').valid}">Weiter</button>
       </div>
 
     </div>
@@ -45,9 +45,7 @@
     <div [formGroupName]="1" *ngIf="steps.current===1" class="slide-wrap" [@viewChange]="slide">
       <span class="step-indicator">Schritt {{steps.current + 1}}</span>
       <h3>{{headlines[steps.current]}}</h3>
-      <br/>
-      <p>Die hier angegebenen Daten werden nicht veröffentlich.</p>
-      <br/>
+      <p class="has-padding">Die hier angegebenen Daten werden nicht veröffentlich.</p>
       <br/>
 
       <div class="row">
@@ -86,7 +84,7 @@
         </div>
         <div class="col-md-5">
           <div class="next-button-wrap align-bottom">
-            <button class="btn btn-black" (click)="proceed(steps.current)" [ngClass]="{'is-disabled':!travelForm.get('steps.1').valid}">Weiter</button>
+            <button class="btn btn-black" (click)="proceed($event, steps.current)" [ngClass]="{'is-disabled':!travelForm.get('steps.1').valid}">Weiter</button>
           </div>
         </div>
       </div>
@@ -96,10 +94,8 @@
     <div [formGroupName]="2" *ngIf="steps.current===2" class="slide-wrap" [@viewChange]="slide">
       <span class="step-indicator">Schritt {{steps.current + 1}}</span>
       <h3>{{headlines[steps.current]}}</h3>
-      <br/>
-      <p>Die hier angegebenen Daten werden veröffentlich und sind frei einsehbar.</p>
-      <br/>
-      <br/>
+      <p class="has-padding">Die hier angegebenen Daten werden veröffentlich und sind frei einsehbar.</p>
+      <br/> 
 
       <div class="row">
         <div class="col-md-7">
@@ -124,7 +120,7 @@
         </div>
         <div class="col-md-5">
           <div class="next-button-wrap align-bottom">
-            <button class="btn btn-black" (click)="proceed(steps.current)" [ngClass]="{'is-disabled':!travelForm.get('steps.2').valid}">Weiter</button>
+            <button class="btn btn-black" (click)="proceed($event, steps.current)" [ngClass]="{'is-disabled':!travelForm.get('steps.2').valid}">Weiter</button>
           </div>
         </div>
       </div>
@@ -134,11 +130,9 @@
     <div [formGroupName]="3" *ngIf="steps.current===3" class="slide-wrap" [@viewChange]="slide">
       <span class="step-indicator">Schritt {{steps.current + 1}}</span>
       <h3>{{headlines[steps.current]}}</h3>
+      <p class="has-padding">Bitte geben Sie den Abfahrtsort an und prüfen Sie, ob dieser auf der Karte richtig angezeigt wird.</p>
       <br/>
-      <p>Bitte geben Sie den Abfahrtsort an und prüfen Sie, ob dieser auf der Karte richtig angezeigt wird.</p>
-      <br/>
-      <br/>
-
+      
       <div class="map-wrap">
         <div>
           <agm-map [latitude]="position.lat" [longitude]="position.lng" [zoom]="mapZoom" [styles]="mapStyles">
@@ -156,7 +150,8 @@
           </div>
         </div>
       </div>
-
+      
+      <p class="has-padding">Bitte überprüfen Sie, ob die Ortsangaben stimmen.</p>
       <div class="row">
         <div class="col-md-7">
           <mat-form-field>
@@ -175,7 +170,7 @@
 
         <div class="col-md-5">
           <div class="next-button-wrap align-bottom">
-            <button class="btn btn-black" (click)="proceed(steps.current)" [ngClass]="{'is-disabled':!travelForm.get('steps.3').valid}">Weiter</button>
+            <button class="btn btn-black" (click)="proceed($event, steps.current)" [ngClass]="{'is-disabled':!travelForm.get('steps.3').valid}">Weiter</button>
           </div>
         </div>
       </div>
@@ -186,9 +181,7 @@
     <div [formGroupName]="4" *ngIf="steps.current===4" class="slide-wrap" [@viewChange]="slide">
       <span class="step-indicator">Schritt {{steps.current + 1}}</span>
       <h3>{{headlines[steps.current]}}</h3>
-      <br/>
-      <p>Diese Daten werden in der Mitfahrzentrale veröffentlicht.</p>
-      <br/>
+      <p class="has-padding">Diese Daten werden in der Mitfahrzentrale veröffentlicht.</p>
       <br/>
 
       <div class="row">
@@ -197,6 +190,7 @@
             <option value=null disabled selected hidden>Ziel *</option>
             <option *ngFor="let destination of destinations" value="{{destination.id}}">{{destination.name}}</option>
           </select>
+
           <select class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.4.transportationMeanId'))}" formControlName="transportationMeanId">
             <option value=null disabled selected hidden>Verkehrsmittel *</option>
             <option *ngFor="let transportationMean of transportationMeans" value="{{transportationMean.id}}">{{transportationMean.name}}</option>
@@ -224,13 +218,13 @@
           </div>
 
           <mat-form-field>
-            <textarea matInput class="form-control" rows="4" placeholder="Beschreibung" formControlName="description"></textarea>
+            <textarea matInput class="form-control" matTextareaAutosize matAutosizeMinRows="4" placeholder="Beschreibung" formControlName="description"></textarea>
           </mat-form-field>
         </div>
 
         <div class="col-md-5">
           <div class="next-button-wrap align-bottom">
-            <button class="btn btn-black" (click)="proceed(steps.current); getDistance()" [ngClass]="{'is-disabled':!travelForm.get('steps.4').valid}">Weiter</button>
+            <button class="btn btn-black" (click)="proceed($event, steps.current); getDistance()" [ngClass]="{'is-disabled':!travelForm.get('steps.4').valid}">Weiter</button>
           </div>
         </div>
       </div>
@@ -240,9 +234,7 @@
     <div *ngIf="steps.current===5" class="slide-wrap" [@viewChange]="slide">
       <span class="step-indicator">Schritt {{steps.current + 1}}</span>
       <h3>{{headlines[steps.current]}}</h3>
-      <br/>
       <p>Bitte überprüfen Sie noch einmal Ihre Daten.</p>
-      <br/>
       <br/>
 
       <div class="section-wrap">
@@ -470,9 +462,6 @@
   <div *ngIf='submissionSucceed' class="confirmation-screen" [@viewChange]="slide">
     <span class="step-indicator">Zusammenfassung</span>
     <h3>Ihre Eintrag wurde hinterlegt.</h3>
-    <br/>
-    <br/>
-
-    <p>Danke, wir haben ihren Eintrag entgegen genommen, bitte prüfen Sie nun ihre Mails..</p>
+    <p class="has-padding">Danke, wir haben ihren Eintrag entgegen genommen, bitte prüfen Sie nun ihre Mails..</p>
   </div>
 </form>
