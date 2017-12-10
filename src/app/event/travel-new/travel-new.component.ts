@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {
-    HttpClient
-} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {
     trigger,
     state,
@@ -121,8 +119,20 @@ export class TravelNewComponent implements OnInit {
                     userPhoneNumber: ['', Validators.required],
                     userEmail: this._fb.group(
                         {
-                            email: ['', Validators.email],
-                            confirmEmail: ['', Validators.email]
+                            email: [
+                                '',
+                                {
+                                    updateOn: 'blur',
+                                    validators: [Validators.email]
+                                }
+                            ],
+                            confirmEmail: [
+                                '',
+                                {
+                                    updateOn: 'blur',
+                                    validators: [Validators.email]
+                                }
+                            ]
                         },
                         { validator: this.emailMatcher }
                     )
@@ -132,7 +142,10 @@ export class TravelNewComponent implements OnInit {
                     contactName: ['', Validators.required],
                     travelContact: this._fb.group({
                         phoneNumber: ['', Validators.required],
-                        contactEmail: ['', Validators.email]
+                        contactEmail: [
+                            '',
+                            { updateOn: 'blur', validators: [Validators.email] }
+                        ]
                     })
                 }),
                 this._fb.group({
@@ -153,15 +166,14 @@ export class TravelNewComponent implements OnInit {
             ])
         });
 
-        this._http.get('assets/mapstyles/mapstyles.json')
-            .subscribe((data) => {
-                this.mapStyles = <any[]>data;
+        this._http.get('assets/mapstyles/mapstyles.json').subscribe(data => {
+            this.mapStyles = <any[]>data;
         });
 
-        this.debounceValidation(
-            this.travelForm.get('steps.1.userEmail.email'),
-            this.travelForm.get('steps.2.travelContact.contactEmail')
-        );
+        // this.debounceValidation(
+        //     this.travelForm.get('steps.1.userEmail.email'),
+        //     this.travelForm.get('steps.2.travelContact.contactEmail')
+        // );
 
         this.validateTravelContact(
             this.travelForm.get('steps.2.travelContact')
@@ -326,6 +338,7 @@ export class TravelNewComponent implements OnInit {
         if (emailControl.value === confirmControl.value) {
             return null;
         }
+
         return { match: true };
     }
 
@@ -402,8 +415,9 @@ export class TravelNewComponent implements OnInit {
         this.travelForm
             .get('steps.3.streetAddress')
             .patchValue(
-                `${event.addressFields.street} ${event.addressFields
-                    .streetNumber}`
+                `${event.addressFields.street} ${
+                    event.addressFields.streetNumber
+                }`
             );
         this.travelForm
             .get('steps.3.postcode')

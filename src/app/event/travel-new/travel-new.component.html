@@ -5,7 +5,7 @@
       <button *ngFor="let page of steps.indices; let index=index" (click)="steps.current=index; this.submissionSucceed=false;"
         type="button" [disabled]="((index < steps.indices.length-1 && !travelForm.get('steps').at(index).valid) && index != steps.current)||(index===steps.indices.length-1 && !travelForm.valid)"
         [ngClass]="{'active':steps.current===index}" class="btn active">{{page}}</button>
-        <span class="current-label d-none d-md-inline-block">{{headlines[steps.current]}}</span>
+      <span class="current-label d-none d-md-inline-block">{{headlines[steps.current]}}</span>
     </div>
     <!-- <div class="btn-group" role="group" aria-label="Second group">
       <button type="button" class="btn" (click)="populateTestData()">Insert Test Data</button>
@@ -53,33 +53,27 @@
       <div class="row">
         <div class="col-md-7">
           <mat-form-field>
-            <input matInput class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.1.userName'))}" type="text"
-              placeholder="Name *" formControlName="userName" />
+            <input matInput class="form-control" type="text" placeholder="Name *" formControlName="userName" />
           </mat-form-field>
           <mat-form-field>
-            <input matInput class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.1.userAddress'))}" type="text"
-              placeholder="Strasse *" formControlName="userAddress" />
+            <input matInput class="form-control" type="text" placeholder="Strasse *" formControlName="userAddress" />
           </mat-form-field>
           <mat-form-field>
-            <input matInput class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.1.userPostCode'))}" type="text"
-              placeholder="Postleitzahl *" formControlName="userPostCode" />
+            <input matInput class="form-control" type="text" placeholder="Postleitzahl *" formControlName="userPostCode" />
           </mat-form-field>
           <mat-form-field>
-            <input matInput class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.1.userCity'))}" type="text"
-              placeholder="Ort *" formControlName="userCity" />
+            <input matInput class="form-control" type="text" placeholder="Ort *" formControlName="userCity" />
           </mat-form-field>
           <mat-form-field>
-            <input matInput class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.1.userPhoneNumber'))}" type="text"
-              placeholder="Telefon *" formControlName="userPhoneNumber" />
+            <input matInput class="form-control" type="text" placeholder="Telefon *" formControlName="userPhoneNumber" />
           </mat-form-field>
-          <div formGroupName="userEmail">
+          <div formGroupName="userEmail" [ngClass]="{'has-error': travelForm.get('steps.1.userEmail').errors }">
             <mat-form-field>
-              <input matInput class="form-control" [ngClass]="{'is-invalid':travelForm.get('steps.1.userEmail.email').validDebounced}"
-                type="email" placeholder="Email *" formControlName="email" />
+              <input matInput class="form-control" type="email" placeholder="Email *" formControlName="email" />
             </mat-form-field>
             <mat-form-field>
-              <input matInput class="form-control" [ngClass]="{'is-invalid':travelForm.get('steps.1.userEmail').errors||validate(travelForm.get('steps.1.userEmail.confirmEmail'))}"
-                type="email" placeholder="Emailadresse wiederholen *" formControlName="confirmEmail" />
+              <input matInput class="form-control" type="email" placeholder="Emailadresse wiederholen *" formControlName="confirmEmail"
+              />
             </mat-form-field>
 
           </div>
@@ -104,21 +98,17 @@
       <div class="row">
         <div class="col-md-7">
           <mat-form-field>
-            <input matInput class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.2.organisation'))}" type="text"
-              placeholder="Organisation" formControlName="organisation" />
+            <input matInput class="form-control" type="text" placeholder="Organisation" formControlName="organisation" />
           </mat-form-field>
           <mat-form-field>
-            <input matInput class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.2.contactName'))}" type="text"
-              placeholder="Name *" formControlName="contactName" />
+            <input matInput class="form-control" type="text" placeholder="Name *" formControlName="contactName" />
           </mat-form-field>
           <div formGroupName="travelContact">
             <mat-form-field>
-              <input matInput class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.2.travelContact'))}" type="text"
-                placeholder="Telefon *" formControlName="phoneNumber" />
+              <input matInput class="form-control" type="text" placeholder="Telefon *" formControlName="phoneNumber" />
             </mat-form-field>
             <mat-form-field>
-              <input matInput class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.2.travelContact'))}" type="email"
-                placeholder="Email *" formControlName="contactEmail" />
+              <input matInput class="form-control" type="email" placeholder="Email *" formControlName="contactEmail" />
             </mat-form-field>
           </div>
         </div>
@@ -160,16 +150,13 @@
       <div class="row">
         <div class="col-md-7">
           <mat-form-field>
-            <input matInput class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.3.streetAddress'))}" type="text"
-              placeholder="Strasse *" formControlName="streetAddress" />
+            <input matInput class="form-control" type="text" placeholder="Strasse *" formControlName="streetAddress" />
           </mat-form-field>
           <mat-form-field>
-            <input matInput class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.3.postcode'))}" type="text"
-              placeholder="Postleitzahl *" formControlName="postcode" />
+            <input matInput class="form-control" type="text" placeholder="Postleitzahl *" formControlName="postcode" />
           </mat-form-field>
           <mat-form-field>
-            <input matInput class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.3.city'))}" type="text" placeholder="Ort *"
-              formControlName="city" />
+            <input matInput class="form-control" type="text" placeholder="Ort *" formControlName="city" />
           </mat-form-field>
         </div>
 
@@ -193,30 +180,30 @@
 
       <div class="row">
         <div class="col-md-7">
-          <select class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.4.destinationId'))}" formControlName="destinationId">
+          <select class="form-control" formControlName="destinationId">
             <option value=null disabled selected hidden>Ziel *</option>
             <option *ngFor="let destination of destinations" value="{{destination.id}}">{{destination.name}}</option>
           </select>
-          <select class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.4.transportationMeanId'))}" formControlName="transportationMeanId">
+          <select class="form-control" formControlName="transportationMeanId">
             <option value=null disabled selected hidden>Verkehrsmittel *</option>
             <option *ngFor="let transportationMean of transportationMeans" value="{{transportationMean.id}}">{{transportationMean.name}}</option>
           </select>
 
           <mat-form-field>
-            <input matInput [matDatepicker]="myDatepicker" [ngClass]="{'is-invalid':validate(travelForm.get('steps.4.departureDate'))}"
-              placeholder="Abfahrt *" formControlName="departureDate" #datePickerTrigger (focus)="myDatepicker.open(); datePickerTrigger.blur()">
+            <input matInput [matDatepicker]="myDatepicker" placeholder="Abfahrt *" formControlName="departureDate" #datePickerTrigger
+              (focus)="myDatepicker.open(); datePickerTrigger.blur()">
             <mat-datepicker #myDatepicker></mat-datepicker>
           </mat-form-field>
 
           <div class="row destination-time">
             <div class="col-6">
-              <select class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.4.departureHour'))}" formControlName="departureHour">
+              <select class="form-control" formControlName="departureHour">
                 <option value=null disabled selected hidden>Abfahrt Stunden *</option>
                 <option *ngFor="let hour of departureHours" value="{{hour}}">{{hour}}</option>
               </select>
             </div>
             <div class="col-6">
-              <select class="form-control" [ngClass]="{'is-invalid':validate(travelForm.get('steps.4.departureMinute'))}" formControlName="departureMinute">
+              <select class="form-control" formControlName="departureMinute">
                 <option value=null disabled selected hidden>Abfahrt Minuten *</option>
                 <option *ngFor="let minute of departureMinutes" value="{{minute}}">{{minute}}</option>
               </select>
