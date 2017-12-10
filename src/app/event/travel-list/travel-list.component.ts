@@ -125,6 +125,7 @@ export class TravelListComponent implements OnInit, AfterViewInit {
     detailsRequestedFromMapDetails: boolean;
     position: any;
     mapZoom: number;
+    usePanning: boolean;
     mapSearchString: string;
     mapSearchMode: boolean;
     currentUrl: string;
@@ -148,6 +149,7 @@ export class TravelListComponent implements OnInit, AfterViewInit {
         this.position = { lat: 51.1315, lng: 9.2127 };
         this.mapZoom = 6;
         this.lastFilteredMarkerLength = 0;
+        this.usePanning = false;
 
         const temp = {
             url: './assets/images/icons/cluster-marker.png',
@@ -279,6 +281,11 @@ export class TravelListComponent implements OnInit, AfterViewInit {
     }
 
     public showMarkerDetails(travel: Travel) {
+
+        if (!this.usePanning) {
+            this.usePanning = true;
+        }
+
         this.currentMapDetails = travel;
         this.currentUrl = window.location.href;
 

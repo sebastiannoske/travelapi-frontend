@@ -29,7 +29,7 @@
   <div class="map-wrap">
     <div>
       <div>
-        <agm-map [latitude]="position.lat" [longitude]="position.lng" [styles]="mapStyles" [fitBounds]='latlngBounds' maxZoom='18'>
+        <agm-map [latitude]="position.lat" [longitude]="position.lng" [usePanning]='usePanning' [styles]="mapStyles" [fitBounds]='latlngBounds' maxZoom='18'>
           <agm-marker-cluster [styles]='markerClusterStyles'>
             <agm-marker #filteredMarkers *ngFor='let travel of ( travelsFiltered | northToSouth )' [latitude]="travel.lat" [longitude]="travel.long"
               [iconUrl]='"./assets/images/icons/pin_" + travel.transportation_mean.id + ".png"' (markerClick)="showMarkerDetails(travel); position.lat = travel.lat; position.lng = travel.long" [attr.latitude]='travel.lat' [attr.longitude]='travel.long'></agm-marker>
