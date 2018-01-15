@@ -14,7 +14,7 @@ import { TravelSubmission } from './classes/_index';
 
 @Injectable()
 export class EventDataService {
-    private _eventsUrl = 'https://mfz.wir-haben-es-satt.de/api';
+    private _eventsUrl = 'https://travel-api.dev/api';
     private _headers: HttpHeaders;
 
     constructor(private _http: HttpClient) {
@@ -32,14 +32,14 @@ export class EventDataService {
     }
 
     public fetchEvent(id: number): Observable<Event> {
-        const url = `${this._eventsUrl}/events/${id}/travel`;
+        const url = `${this._eventsUrl}/events/${id}`;
         // const url = '/assets/api/events/5.json';
         return this._http
             .get<EventRaw>(url, {
                 headers: this._headers
             })
             .map((event: EventRaw) => {
-                event.data.forEach(destination =>
+                event.data.destinations.forEach(destination =>
                     destination.travel.forEach(
                         travel =>
                             (travel.destination = {
@@ -50,6 +50,7 @@ export class EventDataService {
                             })
                     )
                 );
+
                 return event.data;
             })
             .catch(this.handleError);

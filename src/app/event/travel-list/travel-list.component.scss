@@ -98,7 +98,7 @@
         .custom-input-wrap {
             position: relative;
             
-            .input-group-addon {
+            .input-group-prepend {
                 width: 48px;
 
                 i {
@@ -108,12 +108,15 @@
             }
 
             .form-control {
-                width: calc( 100vw - 149px);
+                width: calc( 100% - 149px);
+                z-index: 2;
+                position: relative;
             }
 
             #clear-search {
                 display: block;
                 position: absolute;
+                z-index: 1;
                 top: 0;
                 background-color: #fff;
                 border: 1px solid #ced4da;
@@ -175,7 +178,7 @@
     .custom-input-wrap {
         box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
 
-        .input-group-addon {
+        .input-group-prepend {
             background-color: #fff;
 
             i {

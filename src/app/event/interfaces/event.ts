@@ -1,2 +1,8 @@
 import { Destination } from './_index';
-export type Event = Destination[];
+export interface Event {
+    campaignText: string;
+    destinations: Destination[];
+    id: number;
+    imagePath: string;
+    name: string;
+}

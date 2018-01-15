@@ -52,8 +52,11 @@ select, textarea, input, select {
     border: 0;    
 }
 
-.input-group-addon {
+.input-group-prepend {
     border-radius: 0 !important;
+    border: 1px solid #ced4da !important;
+    width: 48px !important;
+    padding-left: 15px !important;
 }
 
 select:-moz-focusring {
@@ -131,7 +134,7 @@ select.form-control {
     box-shadow: none !important;
     height: 60px !important;
     border-bottom: 1px solid rgba(0,0,0,.42) !important;
-    padding: 13px 0.75rem 0 !important;
+    padding: 6px 0.75rem 0 !important;
 }
 
 textarea.form-control {

@@ -26,11 +26,13 @@ export class EventRepository {
     public get eventHead(): EventHead {
         return {
             offers_total: this.offers.length,
-            requests_total: this.requests.length
+            requests_total: this.requests.length,
+            imagePath: this._event.imagePath,
+            campaignText: this._event.campaignText
         };
     }
     public get travels(): Travel[] {
-        return this._event
+        return this._event.destinations
             .map(destination => destination.travel)
             .reduce((travels, current) => travels.concat(current));
     }
@@ -47,7 +49,7 @@ export class EventRepository {
                 _.isEqual
             );
         }
-        return this._event.map(destination => {
+        return this._event.destinations.map(destination => {
             return {
                 date: destination.date,
                 event_id: destination.event_id,

@@ -46,7 +46,7 @@
 
         <div id="search-in-map-wrap">
           <div class="input-group custom-input-wrap">
-            <div class="input-group-addon">
+            <div class="input-group-prepend">
               <i class="icon-search"></i>
             </div>
             <input appGoogleAutoComplete (notifyForAddressData)='googlePlacesAddressHandler($event)' class='form-control form-inline focus'
@@ -126,7 +126,7 @@
     <div class="col-md-6 right-align">
       <div id="filter-table-wrap">
         <div class="input-group padding-right custom-input-wrap" id="filter-table">
-          <div class="input-group-addon">
+          <div class="input-group-prepend">
             <i class="icon-icon-filter"></i>
           </div>
           <input type="text" [(ngModel)]="textFilter" class="form-control" placeholder="Tabelle individuell filtern">

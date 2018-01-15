@@ -96,7 +96,7 @@
                 padding-right: 0;
             }
     
-            .input-group-addon {
+            .input-group-prepend{
                 background-color: #fff;
     
                 i {
@@ -121,6 +121,10 @@
 
     input.form-control {
         width: 100%;
+    }
+
+    #search-in-map-wrap input.form-control {
+        width: calc( 100% - 49px );
     }
 
     input.form-control:focus {
