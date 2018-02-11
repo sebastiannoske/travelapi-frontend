@@ -17,7 +17,6 @@
             <li role="menuitem">
               <a class="dropdown-item" (click)="destinationFilter=null">Alle</a>
             </li>
-            <li class="divider dropdown-divider"></li>
             <li *ngFor="let destination of destinations" role="menuitem">
               <a class="dropdown-item" (click)="destinationFilter=destination">{{destination.name}}</a>
             </li>

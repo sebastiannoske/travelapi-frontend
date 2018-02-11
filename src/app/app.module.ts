@@ -18,7 +18,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { EventPaginationPipe } from './event/event-pagination.pipe';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { EventAssignDirective } from './event/event-assign.directive';
-import { MatNativeDateModule, MatDatepickerModule, MatInputModule } from '@angular/material';
+import { MatNativeDateModule, MatDatepickerModule, MatInputModule, MatSelectModule } from '@angular/material';
 import { MomentModule } from 'angular2-moment';
 // maps stuff
 import { AgmCoreModule } from '@agm/core';
@@ -60,6 +60,7 @@ import { ShareButtonModule } from 'ngx-sharebuttons';
         MatNativeDateModule,
         MatDatepickerModule,
         MatInputModule,
+        MatSelectModule,
         MomentModule,
         Ng4GeoautocompleteModule.forRoot(),
         AgmCoreModule.forRoot({

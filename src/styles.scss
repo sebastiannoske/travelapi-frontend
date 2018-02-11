@@ -154,12 +154,13 @@ button.dropdown-toggle {
     box-shadow: none !important;
     padding: 13px 20px;
 
+    @media (min-width: 1200px) {
+        text-align: right;
+        min-width: 240px;
+    }
+
     span.caret {
         margin-left: 30px;
-        
-        @media (min-width: 1200px) {
-            margin-left: 130px;
-        }
     }
 }
 
@@ -195,6 +196,27 @@ button.dropdown-toggle {
         // .sb-icon {
         //     color: #000;
         // }
+    }
+}
+
+.dropdown-divider {
+    margin: 0;
+}
+
+.dropdown-menu {
+    min-width: 80%;
+    padding: 0;
+    margin: 0;
+
+    li {
+        a {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+    
+        &:not(:first-child) {
+            border-top: 1px solid #e9ecef !important;
+        }
     }
 }
 
