@@ -8,6 +8,14 @@ import {
     ViewChildren
 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {
+    FormGroup,
+    FormControl,
+    FormArray,
+    FormBuilder,
+    Validators,
+    AbstractControl
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { EventRepository } from '../event-repository.service';
 import { EventPagination } from '../event-pagination.service';
@@ -133,6 +141,7 @@ export class TravelListComponent implements OnInit, AfterViewInit {
     latlngBounds: LatLngBounds;
     markerClusterStyles: ClusterStyle[];
     lastFilteredMarkerLength: number;
+    contactForm: FormGroup;
 
     public get pager(): EventPager {
         return this._pagination.pager;
@@ -144,7 +153,8 @@ export class TravelListComponent implements OnInit, AfterViewInit {
         private _pagination: EventPagination,
         private _http: HttpClient,
         private _loader: MapsAPILoader,
-        private _mapWrapper: GoogleMapsAPIWrapper
+        private _mapWrapper: GoogleMapsAPIWrapper,
+        private _fb: FormBuilder
     ) {
         this.position = { lat: 51.1315, lng: 9.2127 };
         this.mapZoom = 6;
@@ -198,6 +208,17 @@ export class TravelListComponent implements OnInit, AfterViewInit {
                 scrollTo: { y: newpos, autoKill: false }
             });
         });
+        this.contactForm = this._fb.group({
+            contactId: '',
+            email: [
+                '',
+                {
+                    updateOn: 'blur',
+                    validators: [Validators.email]
+                }
+            ],
+            description: ['', Validators.required]
+        });
 
         // inform parent about applications clientHeight
         // setTimeout(() => {
@@ -229,7 +250,8 @@ export class TravelListComponent implements OnInit, AfterViewInit {
 
         this._loader.load().then(() => {
             this.latlngBounds = new google.maps.LatLngBounds();
-            if (this.travels) {
+
+            if (this.travels && this.travels.length) {
                 this.travels.map(location => {
                     this.latlngBounds.extend(
                         new google.maps.LatLng(location.lat, location.long)
@@ -257,6 +279,20 @@ export class TravelListComponent implements OnInit, AfterViewInit {
                 }
             }
         });
+    }
+
+    public contact(): void {
+        if (this.contactForm.valid) {
+            const travelFormData = this.contactForm.value;
+
+            this._eventRepository
+                .addContactSubmission(travelFormData)
+                .subscribe(response => {
+                    if (response.status === 'success') {
+                        this.contactForm.reset();
+                    }
+                });
+        }
     }
 
     public setTransportationMeanClassIcon(id: number) {
@@ -313,6 +349,9 @@ export class TravelListComponent implements OnInit, AfterViewInit {
                 //     height: document.body.clientHeight, jumpTo: this.travelWrap.nativeElement.offsetTop
                 // }});
                 // window.parent.document.dispatchEvent(event);
+                // <any>window.parentIFrame.scrollToOffset(this.travelWrap.nativeElement.offsetTop);
+                console.log(window);
+                debugger;
 
                 setTimeout(() => {
                     this.scrollMagicController.scrollTo(

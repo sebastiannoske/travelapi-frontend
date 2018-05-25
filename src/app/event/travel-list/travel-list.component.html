@@ -28,10 +28,12 @@
   <div class="map-wrap">
     <div>
       <div>
-        <agm-map [latitude]="position.lat" [longitude]="position.lng" [usePanning]='usePanning' [styles]="mapStyles" [fitBounds]='latlngBounds' maxZoom='18'>
+        <agm-map [latitude]="position.lat" [longitude]="position.lng" [usePanning]='usePanning' [styles]="mapStyles" [fitBounds]='latlngBounds'
+          maxZoom='18'>
           <agm-marker-cluster [styles]='markerClusterStyles'>
             <agm-marker #filteredMarkers *ngFor='let travel of ( travelsFiltered | northToSouth )' [latitude]="travel.lat" [longitude]="travel.long"
-              [iconUrl]='"./assets/images/icons/pin_" + travel.transportation_mean.id + ".png"' (markerClick)="showMarkerDetails(travel); position.lat = travel.lat; position.lng = travel.long" [attr.latitude]='travel.lat' [attr.longitude]='travel.long'></agm-marker>
+              [iconUrl]='"./assets/images/icons/pin_" + travel.transportation_mean.id + ".png"' (markerClick)="showMarkerDetails(travel); position.lat = travel.lat; position.lng = travel.long"
+              [attr.latitude]='travel.lat' [attr.longitude]='travel.long'></agm-marker>
           </agm-marker-cluster>
           <agm-circle *ngIf='mapSearchMode' [latitude]="position.lat" [longitude]="position.lng" [circleDraggable]="false" [editable]="false"
             [radius]="100000" [fillColor]="'#0099ff'" [fillOpacity]=".15"></agm-circle>
@@ -187,7 +189,7 @@
       </div>
       <div *ngIf='currentDetailsTravelId === travel.id' class="details-wrap" [@viewChange]='true'>
         <section>
-         
+
           <div class="row">
             <div class="col-md-12">
               <h4>Details zur Fahrt</h4>
@@ -236,7 +238,10 @@
               <span>Beschreibung</span>
             </div>
             <div class="col-9">
-              <span>{{travel.description}}</span>
+              <span *ngIf='travel.description && travel.description.length > 2; else noDescription'>{{travel.description}}</span>
+              <ng-template #noDescription>
+                <span>Keine weiteren Angaben vorhanden</span>
+              </ng-template>
             </div>
           </div>
         </section>
@@ -266,6 +271,38 @@
               <span>{{travel.contact.organisation}}</span>
             </div>
           </div>
+
+          <br/><br/>
+          <form (ngSubmit)="contact()" [formGroup]="contactForm">
+            <div class="row">
+              <div class="col-3">
+                <span>Kontaktieren</span>
+              </div>
+              <div class="col-9">
+                <div class="row">
+                  <input type="hidden" formControlName='contactId' [(ngModel)]='travel.contact.id'>
+                  <div class="col-8">
+                    <mat-form-field>
+                      <input matInput class="form-control" type="text" placeholder="email *" formControlName="email"/>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row same-height">
+                  <div class="col-8">
+                    <mat-form-field>
+                      <textarea matInput class="form-control" matTextareaAutosize matAutosizeMinRows="4" placeholder="Beschreibung" formControlName="description"></textarea>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-4">
+                    <button style='position:absolute;bottom:1.25em;right:0;' class="btn btn-black" type="submit" [disabled]="!contactForm.valid">
+                      <span>Abschicken</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+
         </section>
 
         <section>

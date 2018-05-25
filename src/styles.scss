@@ -92,6 +92,11 @@ select:-moz-focusring {
     }
 }
 
+.same-height {
+    display: flex;
+    align-items: stretch;
+}
+
 .mat-focused .mat-form-field-placeholder {
     color: rgba(0,0,0,.54) !important;
 }

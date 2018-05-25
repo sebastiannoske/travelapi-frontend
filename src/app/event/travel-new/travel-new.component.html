@@ -53,7 +53,7 @@
           <mat-form-field>
             <input matInput class="form-control" type="text" placeholder="Name *" formControlName="userName" />
           </mat-form-field>
-          <mat-form-field>
+          <!-- <mat-form-field>
             <input matInput class="form-control" type="text" placeholder="Strasse *" formControlName="userAddress" />
           </mat-form-field>
           <mat-form-field>
@@ -64,7 +64,7 @@
           </mat-form-field>
           <mat-form-field>
             <input matInput class="form-control" type="text" placeholder="Telefon *" formControlName="userPhoneNumber" />
-          </mat-form-field>
+          </mat-form-field> -->
           <div formGroupName="userEmail" [ngClass]="{'has-error': travelForm.get('steps.1.userEmail').errors }">
             <mat-form-field>
               <input matInput class="form-control" type="email" placeholder="Email *" formControlName="email" />
@@ -88,7 +88,7 @@
     <div [formGroupName]="2" *ngIf="steps.current===2" class="slide-wrap" [@viewChange]="slide">
       <span class="step-indicator">Schritt {{steps.current + 1}}</span>
       <h3>{{headlines[steps.current]}}</h3>
-      <p class="has-padding">Die hier angegebenen Daten werden veröffentlich und sind frei einsehbar.</p>
+      <p class="has-padding">Der hier eingegebene Name wird veröffentlicht - bitte denk dir entweder einen aus oder nimm maximal deinen Vornamen. Die Emailadresse wird nicht öffentlich dargestellt und muss korrekt sein - wir leiten dir die Anfragen automatisch an diese Mailadresse zu.</p>
       <br/> 
 
       <div class="row">
@@ -100,9 +100,9 @@
             <input matInput class="form-control" type="text" placeholder="Name *" formControlName="contactName" />
           </mat-form-field>
           <div formGroupName="travelContact">
-            <mat-form-field>
-              <input matInput class="form-control" type="text" placeholder="Telefon *" formControlName="phoneNumber" />
-            </mat-form-field>
+            <!-- <mat-form-field>
+              <input matInput class="form-control" type="text" placeholder="Telefon" formControlName="phoneNumber" />
+            </mat-form-field> -->
             <mat-form-field>
               <input matInput class="form-control" type="email" placeholder="Email *" formControlName="contactEmail" />
             </mat-form-field>
@@ -120,7 +120,7 @@
     <div [formGroupName]="3" *ngIf="steps.current===3" class="slide-wrap" [@viewChange]="slide">
       <span class="step-indicator">Schritt {{steps.current + 1}}</span>
       <h3>{{headlines[steps.current]}}</h3>
-      <p class="has-padding">Bitte geben Sie den Abfahrtsort an und prüfen Sie, ob dieser auf der Karte richtig angezeigt wird.</p>
+      <p class="has-padding">Bitte geben Sie den Abfahrtsort an und prüfen Sie, ob dieser auf der Karte richtig angezeigt wird. Gegebenenfalls können Sie die Position des Pins durch Drag&Drop selbst korrigieren</p>
       <br/>
       
       <div class="map-wrap">
@@ -201,7 +201,7 @@
             </div>
             <div class="col-6">              
               <mat-form-field>
-								<mat-select placeholder="Abfahrt Stunden" [(value)]='departureMinute' [required]='true' formControlName="departureMinute">
+								<mat-select placeholder="Abfahrt Minuten" [(value)]='departureMinute' [required]='true' formControlName="departureMinute">
 									<mat-option *ngFor='let minute of departureMinutes' value="{{minute}}">{{minute}}</mat-option>
 								</mat-select>
 							</mat-form-field>
@@ -251,7 +251,7 @@
           </div>
         </div>
 
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-4">
             <span>Postleitzahl</span>
           </div>
@@ -285,7 +285,7 @@
           <div class="col-8">
             <span>{{ travelForm.value.steps[1].userPhoneNumber }}</span>
           </div>
-        </div>
+        </div> -->
       </div>
 
       <div class="section-wrap">
@@ -315,7 +315,7 @@
             <span>Email</span>
           </div>
           <div class="col-8">
-            <span>{{ travelForm.value.steps[2].contactEmail }}</span>
+            <span>{{ travelForm.value.steps[2].travelContact.contactEmail }}</span>
           </div>
         </div>
 
@@ -324,7 +324,7 @@
             <span>Telefon</span>
           </div>
           <div class="col-8">
-            <span>{{ travelForm.value.steps[2].phoneNumber }}</span>
+            <span>{{ travelForm.value.steps[2].travelContact.phoneNumber }}</span>
           </div>
         </div>
       </div>

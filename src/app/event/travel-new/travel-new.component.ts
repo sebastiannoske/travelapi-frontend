@@ -113,10 +113,10 @@ export class TravelNewComponent implements OnInit {
                 }),
                 this._fb.group({
                     userName: ['', Validators.required],
-                    userAddress: ['', Validators.required],
+                    /* userAddress: ['', Validators.required],
                     userPostCode: ['', Validators.required],
                     userCity: ['', Validators.required],
-                    userPhoneNumber: ['', Validators.required],
+                    userPhoneNumber: ['', Validators.required], */
                     userEmail: this._fb.group(
                         {
                             email: [
@@ -156,7 +156,7 @@ export class TravelNewComponent implements OnInit {
                     long: null
                 }),
                 this._fb.group({
-                    destinationId: [null, Validators.required],
+                    destinationId: ['1', Validators.required],
                     transportationMeanId: [null, Validators.required],
                     departureDate: ['', Validators.required],
                     departureHour: [null, Validators.required],
@@ -238,10 +238,11 @@ export class TravelNewComponent implements OnInit {
         if (this.travelForm.valid) {
             this.inProgress = true;
             const travelFormData = this.travelForm.value.steps;
+
             this.travel = new TravelSubmission(
                 {
                     city: travelFormData[3].city,
-                    contactEmail: travelFormData[2].contactEmail,
+                    contactEmail: travelFormData[2].travelContact.contactEmail,
                     contactName: travelFormData[2].contactName,
                     cost: 0,
                     departureTime: this.convertDatetime(
@@ -255,7 +256,7 @@ export class TravelNewComponent implements OnInit {
                     long: travelFormData[3].long,
                     distance: this.distance,
                     organisation: travelFormData[2].organisation,
-                    phoneNumber: travelFormData[2].phoneNumber,
+                    phoneNumber: travelFormData[2].travelContact.phoneNumber,
                     passenger: 1,
                     postcode: travelFormData[3].postcode,
                     streetAddress: travelFormData[3].streetAddress,

@@ -96,4 +96,8 @@ export class EventRepository {
     public addSubmission(travelSubmission: TravelSubmission): Observable<any> {
         return this._eventDataService.submitTravel(travelSubmission);
     }
+
+    public addContactSubmission(formData: any): Observable<any> {
+        return this._eventDataService.submitContact(formData);
+    }
 }

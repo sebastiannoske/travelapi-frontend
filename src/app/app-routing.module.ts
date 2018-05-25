@@ -47,6 +47,7 @@ import { TravelNewComponent } from './event/travel-new/travel-new.component';
                     }
                 ]
             },
+            { path: '', redirectTo: '1', pathMatch: 'full' }, // TODO
             { path: '**', component: PageNotFoundComponent }
         ])
     ],

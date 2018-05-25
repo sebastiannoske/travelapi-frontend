@@ -14,7 +14,7 @@ import { TravelSubmission } from './classes/_index';
 
 @Injectable()
 export class EventDataService {
-    private _eventsUrl = 'http://travel-api.test/api';
+    private _eventsUrl = 'https://api.lesscars.io/api'; // 'http://travel-api.test/api';
     private _headers: HttpHeaders;
 
     constructor(private _http: HttpClient) {
@@ -76,6 +76,18 @@ export class EventDataService {
 
         return this._http
             .post(url, travelSubmission.submitData, {
+                headers: this._headers
+            })
+            .do(data => console.log('createTravel: ' + JSON.stringify(data)))
+            .catch(this.handleError);
+    }
+
+    public submitContact(formData: any): Observable<any> {
+        const url = `${this
+            ._eventsUrl}/sendmail`;
+
+        return this._http
+            .post(url, formData, {
                 headers: this._headers
             })
             .do(data => console.log('createTravel: ' + JSON.stringify(data)))
