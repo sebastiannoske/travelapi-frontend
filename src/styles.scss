@@ -24,6 +24,7 @@
 body {
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
+    background: black !important; // TODO
 }
 
 input {
@@ -95,6 +96,14 @@ select:-moz-focusring {
 .same-height {
     display: flex;
     align-items: stretch;
+}
+
+input, textarea, select, button {
+    &:focus {
+        outline: none !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
 }
 
 .mat-focused .mat-form-field-placeholder {
@@ -268,7 +277,8 @@ button.dropdown-toggle {
 .container {
     
     & > div {
-        background-color: #F4F4F4;
+        // background-color: #F4F4F4; // TODO
+        background-color: transparent;
     }
 
     @media ( max-width: 992px ) {

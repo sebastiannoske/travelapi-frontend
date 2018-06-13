@@ -19,7 +19,7 @@
 
     .nav-wrap {
         position: relative;
-        background-color: #fff;
+        // background-color: #fff; // TODO
     }
 
     #mobile-menu {
@@ -128,12 +128,12 @@
                 }
 
                 .badge {
-                    width: 20px;
-                    height: 20px;
-                    border-radius: 10px;
-                    font-size: 7px;
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 15px;
+                    font-size: 13px;
                     vertical-align: middle;
-                    line-height: 20px;
+                    line-height: 30px;
                     text-align: center;
                     padding: 0;
                     margin-left: 10px;

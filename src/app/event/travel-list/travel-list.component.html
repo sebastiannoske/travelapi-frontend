@@ -294,8 +294,9 @@
                     </mat-form-field>
                   </div>
                   <div class="col-4">
-                    <button style='position:absolute;bottom:1.25em;right:0;' class="btn btn-black" type="submit" [disabled]="!contactForm.valid">
-                      <span>Abschicken</span>
+                    <button style='position:absolute;bottom:1.25em;right:0;min-width:140px;' class="btn btn-black" type="submit" [disabled]="!contactForm.valid">
+                      <span *ngIf='formState === "waiting" || formState === "sending"'>Abschicken</span>
+                      <span *ngIf='formState === "succeed"'><img style="height:18px" src="/fusion18/assets/images/checkmark.svg"></span>
                     </button>
                   </div>
                 </div>
@@ -305,7 +306,7 @@
 
         </section>
 
-        <section>
+        <!-- <section>
           <div class="row">
             <div class="col-md-12">
               <h4>Fahrt teilen</h4>
@@ -322,7 +323,7 @@
               <share-button [theme]="'modern-dark'" [button]="'pinterest'" [size]="1" [url]='currentUrl'></share-button>
             </div>
           </div>
-        </section>
+        </section> -->
 
         <div class="close-botton-wrap">
 

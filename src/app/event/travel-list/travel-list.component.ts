@@ -142,6 +142,7 @@ export class TravelListComponent implements OnInit, AfterViewInit {
     markerClusterStyles: ClusterStyle[];
     lastFilteredMarkerLength: number;
     contactForm: FormGroup;
+    formState: string;
 
     public get pager(): EventPager {
         return this._pagination.pager;
@@ -160,6 +161,7 @@ export class TravelListComponent implements OnInit, AfterViewInit {
         this.mapZoom = 6;
         this.lastFilteredMarkerLength = 0;
         this.usePanning = false;
+        this.formState = 'waiting';
 
         const temp = {
             url: './assets/images/icons/cluster-marker.png',
@@ -282,14 +284,21 @@ export class TravelListComponent implements OnInit, AfterViewInit {
     }
 
     public contact(): void {
-        if (this.contactForm.valid) {
+        if (this.contactForm.valid && this.formState === 'waiting') {
             const travelFormData = this.contactForm.value;
+            this.formState = 'sending';
 
             this._eventRepository
                 .addContactSubmission(travelFormData)
                 .subscribe(response => {
                     if (response.status === 'success') {
+                        // Wir haben deine Anfrage gesendet.
                         this.contactForm.reset();
+                        this.formState = 'succeed';
+
+                        setTimeout(() => {
+                            this.formState = 'waiting';
+                        }, 3000);
                     }
                 });
         }
