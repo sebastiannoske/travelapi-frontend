@@ -283,7 +283,7 @@ export class TravelListComponent implements OnInit, AfterViewInit {
         });
     }
 
-    public contact(): void {
+    public contact(travel: Travel): void {
         if (this.contactForm.valid && this.formState === 'waiting') {
             const travelFormData = this.contactForm.value;
             this.formState = 'sending';
@@ -294,6 +294,7 @@ export class TravelListComponent implements OnInit, AfterViewInit {
                     if (response.status === 'success') {
                         // Wir haben deine Anfrage gesendet.
                         this.contactForm.reset();
+                        travel.mailSend = true;
                         this.formState = 'succeed';
 
                         setTimeout(() => {

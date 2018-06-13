@@ -174,7 +174,7 @@
 
     <div *ngFor="let travel of travelsFiltered | calculateDistance:mapSearchMode:position | eventsSort:keys:ascOrder | filterCurrentDetails:currentDetailsTravelId:detailsRequestedFromMapDetails | pagination:pager"
       class="travel-row-wrap">
-      <div class="row" [class.show-details]='currentDetailsTravelId === travel.id' (click)='(currentDetailsTravelId === travel.id) ? currentDetailsTravelId = 0 : currentDetailsTravelId = travel.id; detailsRequestedFromMapDetails = false; setCurrentShareUrl(travel.id)'>
+      <div class="row" [class.show-details]='currentDetailsTravelId === travel.id' (click)='(currentDetailsTravelId === travel.id) ? currentDetailsTravelId = 0 : currentDetailsTravelId = travel.id; detailsRequestedFromMapDetails = false; setCurrentShareUrl(travel.id); travel.mailSend = false;'>
         <div class="col-20 d-none d-sm-block">{{travel.postcode}}</div>
         <div class="col-4 col-sm-20">{{travel.city}}</div>
         <div class="col-4 col-sm-20">
@@ -273,12 +273,12 @@
           </div>
 
           <br/><br/>
-          <form (ngSubmit)="contact()" [formGroup]="contactForm">
+          <form (ngSubmit)="contact(travel)" [formGroup]="contactForm">
             <div class="row">
               <div class="col-3">
                 <span>Kontaktieren</span>
               </div>
-              <div class="col-9">
+              <div class="col-9" *ngIf='!travel.mailSend'>
                 <div class="row">
                   <input type="hidden" formControlName='contactId' [(ngModel)]='travel.contact.id'>
                   <div class="col-8">
@@ -295,11 +295,16 @@
                   </div>
                   <div class="col-4">
                     <button style='position:absolute;bottom:1.25em;right:0;min-width:140px;' class="btn btn-black" type="submit" [disabled]="!contactForm.valid">
-                      <span *ngIf='formState === "waiting" || formState === "sending"'>Abschicken</span>
-                      <span *ngIf='formState === "succeed"'><img style="height:18px" src="/fusion18/assets/images/checkmark.svg"></span>
+                      <span>Abschicken</span>
+                      <!-- <span *ngIf='formState === "waiting" || formState === "sending"'>Abschicken</span>
+                      <span *ngIf='formState === "succeed"'><img style="height:18px" src="/fusion18/assets/images/checkmark.svg"></span> -->
                     </button>
                   </div>
                 </div>
+              </div>
+
+              <div class="col-9" *ngIf='travel.mailSend'>
+                <p><img style="height:18px" src="/fusion18/assets/images/checkmark.svg"> Wir haben deine Anfrage gesendet.</p>
               </div>
             </div>
           </form>

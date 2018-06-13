@@ -16,6 +16,7 @@ export interface Travel {
     url_token: string;
     destination?: Destination;
     description?: string;
+    mailSend?: boolean;
     distance: number; // distance to destination via google maps distance matrix
     currentDistance?: number; // current distance between two geoloactions, when a user searches for travel in his perimeter
 }
