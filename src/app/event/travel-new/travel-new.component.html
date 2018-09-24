@@ -85,7 +85,7 @@
     <div [formGroupName]="2" *ngIf="steps.current===2" class="slide-wrap" [@viewChange]="slide">
       <span class="step-indicator">Schritt {{steps.current + 1}}</span>
       <h3>{{headlines[steps.current]}}</h3>
-      <p class="has-padding">Der hier eingegebene Name wird veröffentlicht - bitte denk dir entweder einen aus oder nimm maximal deinen Vornamen. Die Emailadresse wird nicht öffentlich dargestellt und muss korrekt sein - wir leiten dir die Anfragen automatisch an diese Mailadresse zu.</p>
+      <p class="has-padding">Der hier eingegebene Name wird veröffentlicht, ebenso die Telefonnummer, falls Du eine angeben möchtest. Die E-Mailadresse wird nicht öffentlich dargestellt, muss aber korrekt sein - Anfragen zu Deinem Eintrag werden automatisch an diese E-Mailadresse zugestellt. Optional kannst Du auch eine Telefonnummer angeben, die benfalls veröffentlicht wird.</p>
       <br/> 
 
       <div class="row">
@@ -97,9 +97,9 @@
             <input matInput class="form-control" type="text" placeholder="Name *" formControlName="contactName" />
           </mat-form-field>
           <div formGroupName="travelContact">
-            <!-- <mat-form-field>
+            <mat-form-field>
               <input matInput class="form-control" type="text" placeholder="Telefon" formControlName="phoneNumber" />
-            </mat-form-field> -->
+            </mat-form-field>
             <mat-form-field>
               <input matInput class="form-control" type="email" placeholder="Email *" formControlName="contactEmail" />
             </mat-form-field>
@@ -117,7 +117,7 @@
     <div [formGroupName]="3" *ngIf="steps.current===3" class="slide-wrap" [@viewChange]="slide">
       <span class="step-indicator">Schritt {{steps.current + 1}}</span>
       <h3>{{headlines[steps.current]}}</h3>
-      <p class="has-padding">Bitte geben Sie den Abfahrtsort an und prüfen Sie, ob dieser auf der Karte richtig angezeigt wird. Gegebenenfalls können Sie die Position des Pins durch Drag&Drop selbst korrigieren</p>
+      <p class="has-padding">Bitte gebe den Abfahrtsort an und prüfe, ob dieser auf der Karte richtig angezeigt wird. Gegebenenfalls kannst Du die Position des Pins durch Drag&Drop selbst korrigieren</p>
       <br/>
       
       <div class="map-wrap">
@@ -138,7 +138,7 @@
         </div>
       </div>
       
-      <p class="has-padding">Bitte überprüfen Sie, ob die Ortsangaben stimmen.</p>
+      <p class="has-padding">Bitte überprüfe noch einmal Deine Daten.</p>
       <div class="row">
         <div class="col-md-7 address-fields-wrap" [class.disabled-form-fields]='!travelForm.get("steps.3").valid'>
           <mat-form-field>
@@ -222,7 +222,7 @@
     <div *ngIf="steps.current===5" class="slide-wrap" [@viewChange]="slide">
       <span class="step-indicator">Schritt {{steps.current + 1}}</span>
       <h3>{{headlines[steps.current]}}</h3>
-      <p>Bitte überprüfen Sie noch einmal Ihre Daten.</p>
+      <p>Bitte überprüfe noch einmal Deine Daten.</p>
       <br/>
       <br/>
 
@@ -440,7 +440,7 @@
         <h3>Abschicken.</h3>
         <br/>
 
-        <p>Sind alle Angaben korrekt? Dann können Sie jetzt Ihr Gesuch/Angebot aufgeben.</p>
+        <p>Sind alle Angaben korrekt? Dann kannst Du jetzt dein Gesuch/Angebot aufgeben.</p>
 
         <div class="next-button-wrap">
           <button class="btn btn-black" type="submit" [disabled]="!travelForm.valid || inProgress">
@@ -455,7 +455,7 @@
 
   <div *ngIf='submissionSucceed' class="confirmation-screen" [@viewChange]="slide">
     <span class="step-indicator">Zusammenfassung</span>
-    <h3>Ihre Eintrag wurde hinterlegt.</h3>
-    <p class="has-padding">Danke, wir haben ihren Eintrag entgegen genommen, bitte prüfen Sie nun ihre Mails..</p>
+    <h3>Dein Eintrag wurde hinterlegt.</h3>
+    <p class="has-padding">Danke, wir haben deinen Eintrag entgegen genommen, bitte prüfe nun deine Mails..</p>
   </div>
 </form>

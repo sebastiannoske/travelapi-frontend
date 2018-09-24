@@ -2,7 +2,7 @@
 
   <div class="intro-wrap">
     <div class="row">
-      <div *ngIf='this.eventHead.campaignText && this.eventHead.campaignText.length' class="col-md-8">{{this.eventHead.campaignText}}</div>
+      <div *ngIf='this.eventHead.campaignText && this.eventHead.campaignText.length' class="col-md-8" [innerHtml]='this.eventHead.campaignText'></div>
       <div *ngIf='this.eventHead.imagePath && this.eventHead.imagePath.length' class="col-md-4 right-align"><img style="width:169px" [src]='this.eventHead.imagePath'/></div>
     </div>
   </div>
