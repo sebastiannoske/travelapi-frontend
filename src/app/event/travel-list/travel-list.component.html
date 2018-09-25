@@ -288,23 +288,23 @@
                   </div>
                 </div>
                 <div class="row same-height">
-                  <div class="col-8">
+                  <div class="col-12 col-md-8">
                     <mat-form-field>
                       <textarea matInput class="form-control" matTextareaAutosize matAutosizeMinRows="4" placeholder="Beschreibung" formControlName="description"></textarea>
                     </mat-form-field>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-md-4">
                     <button style='position:absolute;bottom:1.25em;right:0;min-width:140px;' class="btn btn-black" type="submit" [disabled]="!contactForm.valid">
                       <span>Abschicken</span>
                       <!-- <span *ngIf='formState === "waiting" || formState === "sending"'>Abschicken</span>
-                      <span *ngIf='formState === "succeed"'><img style="height:18px" src="/fusion18/assets/images/checkmark.svg"></span> -->
+                      <span *ngIf='formState === "succeed"'><img style="height:18px" src="/hambi/assets/images/checkmark.svg"></span> -->
                     </button>
                   </div>
                 </div>
               </div>
 
               <div class="col-9" *ngIf='travel.mailSend'>
-                <p><img style="height:18px" src="/fusion18/assets/images/checkmark.svg"> Wir haben deine Anfrage gesendet.</p>
+                <p><img style="height:18px" src="/hambi/assets/images/checkmark.svg"> Wir haben deine Anfrage gesendet.</p>
               </div>
             </div>
           </form>
