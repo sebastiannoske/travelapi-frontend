@@ -231,7 +231,7 @@ export class TravelNewComponent implements OnInit {
         return moment(this.travelForm.value.steps[4].departureDate)
             .add(this.travelForm.value.steps[4].departureHour, 'hours')
             .add(this.travelForm.value.steps[4].departureMinute, 'minutes')
-            .format('YYYY-MM-DD hh:mm:ss');
+            .format('YYYY-MM-DD H:mm:ss');
     }
 
     save(): void {

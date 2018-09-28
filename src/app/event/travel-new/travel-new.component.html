@@ -140,7 +140,7 @@
       
       <p class="has-padding">Bitte überprüfe noch einmal Deine Daten.</p>
       <div class="row">
-        <div class="col-md-7 address-fields-wrap" [class.disabled-form-fields]='!travelForm.get("steps.3").valid'>
+        <div class="col-md-7 address-fields-wrap" [class.disabled-form-fields]='!(travelForm.get("steps.3.streetAddress").value && travelForm.get("steps.3.city").value)'>
           <mat-form-field>
             <input matInput class="form-control" type="text" placeholder="Strasse *" formControlName="streetAddress" />
           </mat-form-field>
@@ -362,7 +362,7 @@
             <span>ungefähre Abfahrtszeit</span>
           </div>
           <div class="col-8">
-            <span>{{ getDepartureTime() | amParse:'YYYY-MM-DD hh:mm:ss' | amDateFormat:'D.MMMM YYYY, H:mm' }}</span>
+            <span>{{ getDepartureTime() | amParse:'YYYY-MM-DD hh:mm:ss' | amDateFormat:'D.MMMM YYYY, H:mm' }} Uhr</span>
           </div>
         </div>
 

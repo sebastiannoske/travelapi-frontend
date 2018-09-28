@@ -117,7 +117,7 @@ export class TravelListComponent implements OnInit, AfterViewInit {
     transportationMeanFilter: number[];
     transportationMeanDisplay: Array<
         TransportationMean & { iconClass: string }
-    >;
+        >;
     currentMapDetails: Travel;
     transportationMeanIcons: string[] = [
         'icon-directions-car',
@@ -194,10 +194,10 @@ export class TravelListComponent implements OnInit, AfterViewInit {
                 return Object.assign(transportationMean, {
                     iconClass:
                         transportationMean.id - 1 in
-                        this.transportationMeanIcons
+                            this.transportationMeanIcons
                             ? this.transportationMeanIcons[
-                                  transportationMean.id - 1
-                              ]
+                            transportationMean.id - 1
+                            ]
                             : ''
                 });
             });
@@ -205,7 +205,7 @@ export class TravelListComponent implements OnInit, AfterViewInit {
         this.scrollMagicController = new ScrollMagic.Controller({
             vertical: true
         });
-        this.scrollMagicController.scrollTo(function(newpos) {
+        this.scrollMagicController.scrollTo(function (newpos) {
             TweenMax.to(window, 0.8, {
                 scrollTo: { y: newpos, autoKill: false }
             });
@@ -253,11 +253,29 @@ export class TravelListComponent implements OnInit, AfterViewInit {
         this._loader.load().then(() => {
             this.latlngBounds = new google.maps.LatLngBounds();
 
+            let lastLat = 0;
+            let lastLong = 0;
+
             if (this.travels && this.travels.length) {
-                this.travels.map(location => {
+                this.travels.forEach(location => {
                     this.latlngBounds.extend(
-                        new google.maps.LatLng(location.lat, location.long)
+                        new google.maps.LatLng(
+                            location.lat,
+                            location.long
+                        )
                     );
+
+                    if (lastLat !== location.lat && lastLong !== location.long) {
+                        lastLat = location.lat;
+                        lastLong = location.long;
+                    } else {
+                        const phi = (Math.random() * 360) * (Math.PI / 180);
+                        const x = Math.cos(phi) / 3000;
+                        const y = Math.sin(phi) / 1500;
+
+                        location.lat = location.lat + x;
+                        location.long = location.long + y;
+                    }
                 });
             }
         });
@@ -360,8 +378,8 @@ export class TravelListComponent implements OnInit, AfterViewInit {
                 // }});
                 // window.parent.document.dispatchEvent(event);
                 // <any>window.parentIFrame.scrollToOffset(this.travelWrap.nativeElement.offsetTop);
-                console.log(window);
-                debugger;
+                // console.log(window);
+                // debugger;
 
                 setTimeout(() => {
                     this.scrollMagicController.scrollTo(

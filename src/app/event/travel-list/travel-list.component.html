@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-md-8">
         <p>Diese Demonstration findet in mehreren Städten statt.
-          <br/> Bitte wähle Dein genaues Ziel aus dem rechts stehenden Feld aus.</p>
+          <br /> Bitte wähle Dein genaues Ziel aus dem rechts stehenden Feld aus.</p>
       </div>
       <div class="col-md-4 right-align">
         <div class="btn-group" dropdown>
@@ -28,15 +28,24 @@
   <div class="map-wrap">
     <div>
       <div>
-        <agm-map [latitude]="position.lat" [longitude]="position.lng" [usePanning]='usePanning' [styles]="mapStyles" [fitBounds]='latlngBounds'
-          maxZoom='18'>
+        <agm-map [latitude]="position.lat" [longitude]="position.lng" [usePanning]='usePanning' [styles]="mapStyles"
+          [fitBounds]='latlngBounds' maxZoom='18'>
           <agm-marker-cluster [styles]='markerClusterStyles'>
-            <agm-marker #filteredMarkers *ngFor='let travel of ( travelsFiltered | northToSouth )' [latitude]="travel.lat" [longitude]="travel.long"
-              [iconUrl]='"./assets/images/icons/pin_" + travel.transportation_mean.id + ".png"' (markerClick)="showMarkerDetails(travel); position.lat = travel.lat; position.lng = travel.long"
-              [attr.latitude]='travel.lat' [attr.longitude]='travel.long'></agm-marker>
+            <ng-container *ngFor='let travel of ( travelsFiltered | northToSouth )'>
+              <agm-marker #filteredMarkers [latitude]="travel.lat" [longitude]="travel.long" [iconUrl]='"./assets/images/icons/pin_" + travel.transportation_mean.id + ".png"'
+                (markerClick)="showMarkerDetails(travel); position.lat = travel.lat; position.lng = travel.long"
+                [attr.latitude]='travel.lat' [attr.longitude]='travel.long'></agm-marker>
+              <ng-container *ngIf='travel.stopover.length'>
+                <ng-container *ngFor='let stopover of travel.stopover'>
+                  <agm-marker #filteredMarkers [latitude]="stopover.lat" [longitude]="stopover.long" [iconUrl]='"./assets/images/icons/pin_" + travel.transportation_mean.id + ".png"'
+                    (markerClick)="showMarkerDetails(travel); position.lat = stopover.lat; position.lng = stopover.long"
+                    [attr.latitude]='stopover.lat' [attr.longitude]='stopover.long'></agm-marker>
+                </ng-container>
+              </ng-container>
+            </ng-container>
           </agm-marker-cluster>
-          <agm-circle *ngIf='mapSearchMode' [latitude]="position.lat" [longitude]="position.lng" [circleDraggable]="false" [editable]="false"
-            [radius]="100000" [fillColor]="'#0099ff'" [fillOpacity]=".15"></agm-circle>
+          <agm-circle *ngIf='mapSearchMode' [latitude]="position.lat" [longitude]="position.lng" [circleDraggable]="false"
+            [editable]="false" [radius]="100000" [fillColor]="'#0099ff'" [fillOpacity]=".15"></agm-circle>
 
           <!-- [strokeWeight]="1"
             [strokePosition]="'CENTER'"
@@ -51,8 +60,7 @@
               <i class="icon-search"></i>
             </div>
             <input appGoogleAutoComplete (notifyForAddressData)='googlePlacesAddressHandler($event)' class='form-control form-inline focus'
-              type="search" placeholder="Abfahrtsort eingeben" [(ngModel)]="mapSearchString" (change)='onMapSearchStringChange()'
-            />
+              type="search" placeholder="Abfahrtsort eingeben" [(ngModel)]="mapSearchString" (change)='onMapSearchStringChange()' />
             <a role="button" id='clear-search' [class.show]='this.mapSearchMode' (click)='mapSearchString=""; this.mapSearchMode=false'>
               <i class="icon-close"></i>
             </a>
@@ -62,7 +70,7 @@
         <div id="current-travel-details" *ngIf='currentMapDetails' [@showDeatilsWrapTrigger]='true'>
 
           <div class="btn-close-wrap">
-            <a role="button" (click)='currentMapDetails = null'>
+            <a role="button" (click)='currentMapDetails = null; detailsRequestedFromMapDetails = false; currentDetailsTravelId = null;'>
               <i class="icon-close"></i>
             </a>
           </div>
@@ -72,7 +80,8 @@
               <span>Abfahrt</span>
             </div>
             <div class="col-8">
-              <span>{{currentMapDetails.departure_time | amParse:'YYYY-MM-DD hh:mm:ss' | amDateFormat:'DD.MM.YY, HH:mm'}} Uhr</span>
+              <span>{{currentMapDetails.departure_time | amParse:'YYYY-MM-DD hh:mm:ss' | amDateFormat:'DD.MM.YY,
+                HH:mm'}} Uhr</span>
             </div>
           </div>
 
@@ -92,7 +101,8 @@
               <span>Nach</span>
             </div>
             <div class="col-8">
-              <span>{{currentMapDetails.destination.name}} ({{currentMapDetails.destination.date | amParse:'YYYY-MM-DD' | amDateFormat:'DD.MM.YYYY'}})</span>
+              <span>{{currentMapDetails.destination.name}} ({{currentMapDetails.destination.date | amParse:'YYYY-MM-DD'
+                | amDateFormat:'DD.MM.YYYY'}})</span>
             </div>
           </div>
 
@@ -106,7 +116,8 @@
           </div>
 
           <div class="btn-show-details-wrap">
-            <button class="btn btn-black" (click)='detailsRequestedFromMapDetails = true;showMarkerFullDetails();'>Details und Kontaktinfos</button>
+            <button class="btn btn-black" (click)='detailsRequestedFromMapDetails = true;showMarkerFullDetails();'>Details
+              und Kontaktinfos</button>
           </div>
         </div>
       </div>
@@ -181,7 +192,8 @@
           <i [class]='setTransportationMeanClassIcon(travel.transportation_mean.id)'></i>&nbsp;&nbsp;{{travel.transportation_mean.name}}</div>
         <div class="col-4 col-sm-20">{{travel.destination.name}}</div>
         <div class="col-20 d-none d-sm-block">
-          <span *ngIf='travel.currentDistance >= 0; else unknownDistance'>{{travel.currentDistance/1000 | number:'1.1-1'}} km</span>
+          <span *ngIf='travel.currentDistance >= 0; else unknownDistance'>{{travel.currentDistance/1000 |
+            number:'1.1-1'}} km</span>
           <ng-template #unknownDistance>
             -
           </ng-template>
@@ -195,7 +207,7 @@
               <h4>Details zur Fahrt</h4>
             </div>
           </div>
-          <br/>
+          <br />
 
           <div class="row">
             <div class="col-3">
@@ -211,7 +223,8 @@
               <span>Nach</span>
             </div>
             <div class="col-9">
-              <span>{{travel.destination.name}} ({{travel.destination.date | amParse:'YYYY-MM-DD' | amDateFormat:'DD.MM.YYYY'}})</span>
+              <span>{{travel.destination.name}} ({{travel.destination.date | amParse:'YYYY-MM-DD' |
+                amDateFormat:'DD.MM.YYYY'}})</span>
             </div>
           </div>
 
@@ -244,6 +257,19 @@
               </ng-template>
             </div>
           </div>
+
+          <div class="row stop-overs" *ngIf='travel.stopover && travel.stopover.length'>
+            <div class="col-3">
+              <span>Zwischenstopps</span>
+            </div>
+            <div class="col-9">
+              <ul>
+                <li *ngFor='let stopover of travel.stopover; let i = index'>{{stopover.postcode}} {{stopover.city}} -
+                  {{stopover.street_address}}</li>
+              </ul>
+            </div>
+          </div>
+
         </section>
 
         <section>
@@ -252,7 +278,7 @@
               <h4>Kontaktdetails</h4>
             </div>
           </div>
-          <br/>
+          <br />
 
           <div class="row">
             <div class="col-3">
@@ -272,29 +298,31 @@
             </div>
           </div>
 
-          <br/><br/>
+          <br /><br />
           <form (ngSubmit)="contact(travel)" [formGroup]="contactForm">
             <div class="row">
               <div class="col-3">
-                <span>Kontaktieren</span>
+                <span style="font-weight: bold;">Kontaktieren</span>
               </div>
               <div class="col-9" *ngIf='!travel.mailSend'>
                 <div class="row">
                   <input type="hidden" formControlName='contactId' [(ngModel)]='travel.contact.id'>
-                  <div class="col-8">
+                  <div class="col-12 col-md-8">
                     <mat-form-field>
-                      <input matInput class="form-control" type="text" placeholder="email *" formControlName="email"/>
+                      <input matInput class="form-control" type="text" placeholder="Deine E-Mailadresse *"
+                        formControlName="email" />
                     </mat-form-field>
                   </div>
                 </div>
                 <div class="row same-height">
                   <div class="col-12 col-md-8">
                     <mat-form-field>
-                      <textarea matInput class="form-control" matTextareaAutosize matAutosizeMinRows="4" placeholder="Beschreibung" formControlName="description"></textarea>
+                      <textarea matInput class="form-control" matTextareaAutosize matAutosizeMinRows="4" placeholder="Deine Nachricht"
+                        formControlName="description"></textarea>
                     </mat-form-field>
                   </div>
-                  <div class="col-12 col-md-4">
-                    <button style='position:absolute;bottom:1.25em;right:0;min-width:140px;' class="btn btn-black" type="submit" [disabled]="!contactForm.valid">
+                  <div class="col-12 col-md-4 contact-btn-wrap">
+                    <button class="btn btn-black" type="submit" [disabled]="!contactForm.valid">
                       <span>Abschicken</span>
                       <!-- <span *ngIf='formState === "waiting" || formState === "sending"'>Abschicken</span>
                       <span *ngIf='formState === "succeed"'><img style="height:18px" src="/hambi/assets/images/checkmark.svg"></span> -->

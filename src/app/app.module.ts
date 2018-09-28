@@ -64,7 +64,7 @@ import { ShareButtonModule } from 'ngx-sharebuttons';
         MomentModule,
         Ng4GeoautocompleteModule.forRoot(),
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyDS1rNqI3ZCpJu0fd8Rkyo5SAi8EPIna5g',
+            apiKey: 'AIzaSyA9XnE7sObsw-I0PAKdL7-XTsN7MD5mvQ0',
             libraries: ['places']
         }),
         AgmJsMarkerClustererModule,
