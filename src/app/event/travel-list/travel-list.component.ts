@@ -265,13 +265,15 @@ export class TravelListComponent implements OnInit, AfterViewInit {
                         )
                     );
 
-                    if (lastLat !== location.lat && lastLong !== location.long) {
+                    const distance = this.calcCrow(lastLat, lastLong, location.lat, location.long);
+
+                    if (distance > 20) {
                         lastLat = location.lat;
                         lastLong = location.long;
                     } else {
                         const phi = (Math.random() * 360) * (Math.PI / 180);
-                        const x = Math.cos(phi) / 3000;
-                        const y = Math.sin(phi) / 1500;
+                        const x = Math.cos(phi) / 2000;
+                        const y = Math.sin(phi) / 1000;
 
                         location.lat = location.lat + x;
                         location.long = location.long + y;
@@ -299,6 +301,25 @@ export class TravelListComponent implements OnInit, AfterViewInit {
                 }
             }
         });
+    }
+
+    private calcCrow(lat1, lon1, lat2, lon2) {
+      const r = 6371000; // m
+      const dLat = this.toRad(lat2 - lat1);
+      const dLon = this.toRad(lon2 - lon1);
+      lat1 = this.toRad(lat1);
+      lat2 = this.toRad(lat2);
+
+      const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      const d = r * c;
+      return d;
+    }
+
+    // Converts numeric degrees to radians
+    private toRad(value: number): number {
+        return value * Math.PI / 180;
     }
 
     public contact(travel: Travel): void {
@@ -381,9 +402,16 @@ export class TravelListComponent implements OnInit, AfterViewInit {
                 // console.log(window);
                 // debugger;
 
+
+                if (window['parentIFrame']) {
+                    window['parentIFrame'].sendMessage({
+                        'scrollTo': this.travelWrap.nativeElement.getBoundingClientRect().top
+                    });
+                }
+
                 setTimeout(() => {
                     this.scrollMagicController.scrollTo(
-                        this.travelWrap.nativeElement.offsetTop
+                        this.travelWrap.nativeElement.getBoundingClientRect().top
                     );
                 }, 10);
             }, 400);
