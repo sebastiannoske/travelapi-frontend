@@ -43,12 +43,12 @@ export class EventRepository {
         return this.travels.filter(travel => travel.offer);
     }
     public getDestinations(travels?: Travel[]): Destination[] {
-        if (travels) {
-            return _.uniqWith(
-                travels.map(travel => travel.destination),
-                _.isEqual
-            );
-        }
+        // if (travels) { // KAT
+        //     return _.uniqWith(
+        //         travels.map(travel => travel.destination),
+        //         _.isEqual
+        //     );
+        // }
         return this._event.destinations.map(destination => {
             return {
                 date: destination.date,
