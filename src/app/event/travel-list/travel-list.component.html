@@ -32,16 +32,30 @@
           [fitBounds]='latlngBounds' maxZoom='18'>
           <agm-marker-cluster [styles]='markerClusterStyles'>
             <ng-container *ngFor='let travel of ( travelsFiltered | northToSouth )'>
-              <agm-marker #filteredMarkers [latitude]="travel.lat" [longitude]="travel.long" [iconUrl]='"./assets/images/icons/pin_" + travel.transportation_mean.id + ".png"'
-                (markerClick)="showMarkerDetails(travel); position.lat = travel.lat; position.lng = travel.long"
-                [attr.latitude]='travel.lat' [attr.longitude]='travel.long'></agm-marker>
-              <ng-container *ngIf='travel.stopover.length'>
-                <ng-container *ngFor='let stopover of travel.stopover'>
-                  <agm-marker #filteredMarkers [latitude]="stopover.lat" [longitude]="stopover.long" [iconUrl]='"./assets/images/icons/pin_" + travel.transportation_mean.id + ".png"'
-                    (markerClick)="showMarkerDetails(travel); position.lat = stopover.lat; position.lng = stopover.long"
-                    [attr.latitude]='stopover.lat' [attr.longitude]='stopover.long'></agm-marker>
+              <ng-container *ngIf='travel.destination.id === 1'>
+                <agm-marker #filteredMarkers [latitude]="travel.lat" [longitude]="travel.long" [iconUrl]='"./assets/images/icons/pin_" + travel.transportation_mean.id + "_a.png"'
+                  (markerClick)="showMarkerDetails(travel); position.lat = travel.lat; position.lng = travel.long"
+                  [attr.latitude]='travel.lat' [attr.longitude]='travel.long'></agm-marker>
+                <ng-container *ngIf='travel.stopover.length'>
+                  <ng-container *ngFor='let stopover of travel.stopover'>
+                    <agm-marker #filteredMarkers [latitude]="stopover.lat" [longitude]="stopover.long" [iconUrl]='"./assets/images/icons/pin_" + travel.transportation_mean.id + "_a.png"'
+                      (markerClick)="showMarkerDetails(travel); position.lat = stopover.lat; position.lng = stopover.long"
+                      [attr.latitude]='stopover.lat' [attr.longitude]='stopover.long'></agm-marker>
+                  </ng-container>
                 </ng-container>
               </ng-container>
+              <ng-container *ngIf='travel.destination.id === 2'>
+                  <agm-marker #filteredMarkers [latitude]="travel.lat" [longitude]="travel.long" [iconUrl]='"./assets/images/icons/pin_" + travel.transportation_mean.id + ".png"'
+                    (markerClick)="showMarkerDetails(travel); position.lat = travel.lat; position.lng = travel.long"
+                    [attr.latitude]='travel.lat' [attr.longitude]='travel.long'></agm-marker>
+                  <ng-container *ngIf='travel.stopover.length'>
+                    <ng-container *ngFor='let stopover of travel.stopover'>
+                      <agm-marker #filteredMarkers [latitude]="stopover.lat" [longitude]="stopover.long" [iconUrl]='"./assets/images/icons/pin_" + travel.transportation_mean.id + ".png"'
+                        (markerClick)="showMarkerDetails(travel); position.lat = stopover.lat; position.lng = stopover.long"
+                        [attr.latitude]='stopover.lat' [attr.longitude]='stopover.long'></agm-marker>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
             </ng-container>
           </agm-marker-cluster>
           <agm-circle *ngIf='mapSearchMode' [latitude]="position.lat" [longitude]="position.lng" [circleDraggable]="false"
@@ -305,6 +319,9 @@
                 <span style="font-weight: bold;">Kontaktieren</span>
               </div>
               <div class="col-9" *ngIf='!travel.mailSend'>
+
+                <p>Deine Nachricht wird direkt an den Anbietenden verschickt. Wir speichern Sie nicht. Bitte beachte unsere <a href="https://lesscars.io/datenschutz.html" target="_blank">Datenschutzerklärung</a>.</p>
+
                 <div class="row">
                   <input type="hidden" formControlName='contactId' [(ngModel)]='travel.contact.id'>
                   <div class="col-12 col-md-8">

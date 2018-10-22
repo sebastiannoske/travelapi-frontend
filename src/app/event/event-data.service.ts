@@ -14,8 +14,8 @@ import { TravelSubmission } from './classes/_index';
 
 @Injectable()
 export class EventDataService {
-    private _eventsUrl = 'https://api2.lesscars.io/api';
-    // 'https://mfzapi.bassliner.org/api'; // 'http://travel-api.test/api'; // api.lesscars.io
+    private _eventsUrl = 'http://travel-api.test/api';
+    // 'https://mfzapi.bassliner.org/api'; // 'http://travel-api.test/api'; // 'https://api2.lesscars.io/api'
     private _headers: HttpHeaders;
 
     constructor(private _http: HttpClient) {
