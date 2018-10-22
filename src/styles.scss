@@ -98,6 +98,11 @@ select:-moz-focusring {
     align-items: stretch;
 }
 
+.flex-center {
+    display: flex;
+    align-items: center;
+}
+
 input, textarea, select, button {
     &:focus {
         outline: none !important;

@@ -109,7 +109,8 @@ export class TravelNewComponent implements OnInit {
                     travelType: [
                         <'offer' | 'request'>'offer',
                         Validators.required
-                    ]
+                    ],
+                    destinationId: ['', Validators.required]
                 }),
                 this._fb.group({
                     userName: ['', Validators.required],
@@ -156,7 +157,6 @@ export class TravelNewComponent implements OnInit {
                     long: null
                 }),
                 this._fb.group({
-                    destinationId: ['1', Validators.required],
                     transportationMeanId: [null, Validators.required],
                     departureDate: ['', Validators.required],
                     departureHour: [null, Validators.required],
@@ -270,7 +270,7 @@ export class TravelNewComponent implements OnInit {
                     userPhoneNumber: travelFormData[1].userPhoneNumber,
                     userPostCode: travelFormData[1].userPostCode
                 },
-                travelFormData[4].destinationId
+                travelFormData[0].destinationId
             );
             this._eventRepository
                 .addSubmission(this.travel)
@@ -349,7 +349,7 @@ export class TravelNewComponent implements OnInit {
     populateTestData(): void {
         this.travelForm.setValue({
             steps: [
-                { travelType: 'offer' },
+                { travelType: 'offer', destinationId: this.destinations.find(() => true).id },
                 {
                     userName: 'John Doe',
                     userAddress: 'Am Kotti 0',
@@ -375,7 +375,6 @@ export class TravelNewComponent implements OnInit {
                     long: 9
                 },
                 {
-                    destinationId: this.destinations.find(() => true).id,
                     transportationMeanId: this.transportationMeans.find(
                         () => true
                     ).id,
