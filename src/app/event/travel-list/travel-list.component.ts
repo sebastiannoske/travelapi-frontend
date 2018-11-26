@@ -164,7 +164,7 @@ export class TravelListComponent implements OnInit, AfterViewInit {
         this.formState = 'waiting';
 
         const temp = {
-            url: './assets/images/icons/cluster-marker.png',
+            url: './assets/images/icons/cluster-marker_a_b.png',
             height: 75,
             width: 75,
             textColor: '#fff',
