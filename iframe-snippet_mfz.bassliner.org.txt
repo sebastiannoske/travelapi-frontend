@@ -1,0 +1,23 @@
+<style>#myframe{border:none;width:100%;min-height:100vh;}</style>
+<script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@14/dist/smooth-scroll.polyfills.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.6.1/iframeResizer.min.js" type="text/javascript"></script> <!-- script for resizing iframe -->
+
+<iframe id="myframe" src="https://mfz.bassliner.org/satt/1" name="myframe" scrolling="no" frameborder="no" align="center"></iframe>
+
+
+<script>iFrameResize({
+      log: false,
+      messageCallback: function (message) {
+        var el = document.getElementById('myframe');
+        var y = message.message.scrollTo;
+
+        while (el) {
+          y += el.offsetTop;
+          el = el.offsetParent;
+        }
+
+        var scroll = new SmoothScroll();
+        scroll.animateScroll( y );
+
+      }
+    }, '#myframe')</script>

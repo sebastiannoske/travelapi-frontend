@@ -110,7 +110,7 @@ export class TravelNewComponent implements OnInit {
                         <'offer' | 'request'>'offer',
                         Validators.required
                     ],
-                    destinationId: ['', Validators.required]
+                    destinationId: [1, Validators.required]
                 }),
                 this._fb.group({
                     userName: ['', Validators.required],
@@ -456,7 +456,7 @@ export class TravelNewComponent implements OnInit {
                 this.position.lat,
                 this.position.lng
             );
-            const destination = new google.maps.LatLng(50.7035559, 7.047089);
+            const destination = new google.maps.LatLng(52.5162746, 13.3755154);
             const service = new google.maps.DistanceMatrixService();
 
             service.getDistanceMatrix(
