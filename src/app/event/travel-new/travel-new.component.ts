@@ -98,7 +98,7 @@ export class TravelNewComponent implements OnInit {
             1: 'Account für die Mitfahrbörse anlegen.',
             2: 'Kontaktdaten hinterlegen.',
             3: 'Abfahrtsort auswählen.',
-            4: 'Mitfahrgelegenheit anbieten',
+            4: { offer: 'Mitfahrgelegenheit anbieten', request: 'Gesuch eintragen' },
             5: 'Zusammenfassung'
         };
         this.distance = 0;

@@ -28,7 +28,7 @@
   <div class="map-wrap">
     <div>
       <div>
-        <agm-map [latitude]="position.lat" [longitude]="position.lng" [usePanning]='usePanning' [styles]="mapStyles"
+        <agm-map [latitude]="position.lat" [longitude]="position.lng" [usePanning]='usePanning' [zoom]="mapZoom" [styles]="mapStyles"
           [fitBounds]='latlngBounds' maxZoom='18'>
           <agm-marker-cluster [styles]='markerClusterStyles'>
             <ng-container *ngFor='let travel of ( travelsFiltered | northToSouth )'>

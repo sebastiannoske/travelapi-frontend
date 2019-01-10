@@ -5,7 +5,16 @@
       <button *ngFor="let page of steps.indices; let index=index" (click)="steps.current=index; this.submissionSucceed=false;"
         type="button" [disabled]="((index < steps.indices.length-1 && !travelForm.get('steps').at(index).valid) && index != steps.current)||(index===steps.indices.length-1 && !travelForm.valid)"
         [ngClass]="{'active':steps.current===index}" class="btn active">{{page}}</button>
-      <span class="current-label d-none d-md-inline-block">{{headlines[steps.current]}}</span>
+      <ng-container *ngIf='steps.current !== 4; else specialHeadline'>
+        <span class="current-label d-none d-md-inline-block">{{headlines[steps.current]}}</span>
+      </ng-container>
+      <ng-template #specialHeadline>
+        <span *ngIf="travelForm.get('steps.0.travelType').value === 'offer'; else isrequestHl">{{headlines[steps.current].offer}}</span>
+        <ng-template #isrequestHl>
+          <span>{{headlines[steps.current].request}}</span>
+        </ng-template>
+      </ng-template>
+      
     </div>
     <!-- <div class="btn-group" role="group" aria-label="Second group">
       <button type="button" class="btn" (click)="populateTestData()">Insert Test Data</button>
@@ -181,7 +190,10 @@
     <!-- FormArray Step 4 -->
     <div [formGroupName]="4" *ngIf="steps.current===4" class="slide-wrap" [@viewChange]="slide">
       <span class="step-indicator">Schritt {{steps.current + 1}}</span>
-      <h3>{{headlines[steps.current]}}</h3>
+      <h3 *ngIf="travelForm.get('steps.0.travelType').value === 'offer'; else isrequest">{{headlines[steps.current].offer}}</h3>
+      <ng-template #isrequest>
+        <h3>{{headlines[steps.current].request}}</h3>
+      </ng-template>
       <p class="has-padding">Diese Daten werden in der Mitfahrzentrale veröffentlicht.</p>
       <br/>
 

@@ -251,12 +251,11 @@ export class TravelListComponent implements OnInit, AfterViewInit {
         });
 
         this._loader.load().then(() => {
-            this.latlngBounds = new google.maps.LatLngBounds();
-
-            let lastLat = 0;
-            let lastLong = 0;
-
             if (this.travels && this.travels.length) {
+                this.latlngBounds = new google.maps.LatLngBounds();
+                let lastLat = 0;
+                let lastLong = 0;
+
                 this.travels.forEach(location => {
                     this.latlngBounds.extend(
                         new google.maps.LatLng(
