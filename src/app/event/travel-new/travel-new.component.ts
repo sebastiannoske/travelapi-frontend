@@ -5,8 +5,7 @@ import {
     state,
     style,
     transition,
-    animate,
-    keyframes
+    animate
 } from '@angular/animations';
 import {
     FormGroup,
@@ -16,12 +15,13 @@ import {
     Validators,
     AbstractControl
 } from '@angular/forms';
-import 'rxjs/add/operator/debounceTime';
+
 import { EventRepository } from '../event-repository.service';
 import { TravelSubmission, FormViewState } from '../classes/_index';
 import { TransportationMean, Destination } from '../interfaces/_index';
 import { DateAdapter, NativeDateAdapter } from '@angular/material';
 import { AgmMap, GoogleMapsAPIWrapper, MapsAPILoader } from '@agm/core';
+import { debounceTime } from 'rxjs/operators';
 
 import * as moment from 'moment';
 declare var google: any;
@@ -35,12 +35,12 @@ declare var google: any;
         trigger('viewChange', [
             state('rightin', style({ transform: 'translateY(0)' })),
             transition('void => rightin', [
-                style({ transform: 'translateX(50px)', opacity: 0 }),
+                style({ transform: 'translateX(30px)', opacity: 0 }),
                 animate('.3s ease')
             ]),
             state('leftin', style({ transform: 'translateY(0)' })),
             transition('void => leftin', [
-                style({ transform: 'translateX(-50px)', opacity: 0 }),
+                style({ transform: 'translateX(-30px)', opacity: 0 }),
                 animate('.3s ease')
             ])
         ])
@@ -70,7 +70,6 @@ export class TravelNewComponent implements OnInit {
         private _fb: FormBuilder,
         private _eventRepository: EventRepository,
         private _dateAdapter: DateAdapter<NativeDateAdapter>,
-        private _GoogleMapsAPIWrapper: GoogleMapsAPIWrapper,
         private _loader: MapsAPILoader,
         private _http: HttpClient
     ) {
@@ -110,7 +109,7 @@ export class TravelNewComponent implements OnInit {
                         <'offer' | 'request'>'offer',
                         Validators.required
                     ],
-                    destinationId: [1, Validators.required]
+                    destinationId: ['', Validators.required]
                 }),
                 this._fb.group({
                     userName: ['', Validators.required],
@@ -182,24 +181,13 @@ export class TravelNewComponent implements OnInit {
         this.steps = new FormViewState(
             (<FormArray>this.travelForm.controls.steps).length
         );
-
-        // inform parent about applications clientHeight
-        // setTimeout(() => {
-        //     const event = new CustomEvent('setIframeHeight', {
-        //         detail: {
-        //             height: document.body.clientHeight,
-        //             jumpTo: 0
-        //         }
-        //     });
-        //     window.parent.document.dispatchEvent(event);
-        // }, 300);
     }
 
     debounceValidation(
         ...controls: Array<FormGroup | FormControl | AbstractControl>
     ): void {
         controls.forEach(control => {
-            control.valueChanges.debounceTime(1000).subscribe(() => {
+            control.valueChanges.pipe(debounceTime(1000)).subscribe(() => {
                 (<any>control).validDebounced = !control.valid;
             });
         });
@@ -456,7 +444,8 @@ export class TravelNewComponent implements OnInit {
                 this.position.lat,
                 this.position.lng
             );
-            const destination = new google.maps.LatLng(52.5162746, 13.3755154);
+            // const destination = new google.maps.LatLng(52.5162746, 13.3755154); // satt
+            const destination = new google.maps.LatLng(52.5284531, 13.3746955); // jugend klima demo
             const service = new google.maps.DistanceMatrixService();
 
             service.getDistanceMatrix(

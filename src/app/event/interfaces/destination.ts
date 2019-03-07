@@ -4,5 +4,6 @@ export interface Destination {
     date: string;
     event_id: number;
     name: string;
+    pin_color?: string;
     travel?: Travel[];
 }

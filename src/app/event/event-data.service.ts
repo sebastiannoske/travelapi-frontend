@@ -1,20 +1,22 @@
+
+import { throwError as observableThrowError, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import {
     HttpClient,
     HttpErrorResponse,
     HttpHeaders
 } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+
+
+
+
 import { Event, EventRaw } from './interfaces/_index';
 import { TravelSubmission } from './classes/_index';
 
 @Injectable()
 export class EventDataService {
-    private _eventsUrl = 'https://mfz.klima-kohle-demo.de/api';
+    private _eventsUrl = 'http://travel-api.test/api';
+    // 'https://mfz.klima-kohle-demo.de/api';
     // 'https://mfz.wir-haben-es-satt.de/api'; equeals: 'https://mfzapi.bassliner.org/api';
      // 'http://travel-api.test/api'; // 'https://api2.lesscars.io/api'
     private _headers: HttpHeaders;
@@ -48,6 +50,7 @@ export class EventDataService {
                                 date: destination.date,
                                 event_id: destination.event_id,
                                 id: destination.id,
+                                pin_color: destination.pin_color,
                                 name: destination.name
                             })
                     )
@@ -66,7 +69,7 @@ export class EventDataService {
             errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
         }
         console.error(errorMessage);
-        return Observable.throw(errorMessage);
+        return observableThrowError(errorMessage);
     }
 
     public submitTravel(travelSubmission: TravelSubmission): Observable<any> {

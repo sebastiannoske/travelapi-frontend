@@ -23,7 +23,6 @@ import { MomentModule } from 'angular2-moment';
 // maps stuff
 import { AgmCoreModule } from '@agm/core';
 import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
-import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
 import { GoogleAutoCompleteDirective } from './event/travel-new/google-auto-complete.directive';
 import { NorthToSouthPipe } from './north-to-south.pipe';
 // maps stuff end
@@ -62,7 +61,6 @@ import { ShareButtonModule } from 'ngx-sharebuttons';
         MatInputModule,
         MatSelectModule,
         MomentModule,
-        Ng4GeoautocompleteModule.forRoot(),
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyA9XnE7sObsw-I0PAKdL7-XTsN7MD5mvQ0',
             libraries: ['places']

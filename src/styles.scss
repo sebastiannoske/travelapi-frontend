@@ -1,5 +1,5 @@
 @import "variables";
-@import "/assets/fonts/fontello.css";
+@import "./assets/fonts/fontello.css";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import '~ngx-sharebuttons/styles/share-buttons';
@@ -166,6 +166,12 @@ textarea.form-control {
     border-radius: 0 !important;
 }
 
+.form-control {
+    height: auto !important;
+    box-shadow: none !important;
+    -webkit-appearance: none !important;
+}
+
 button.dropdown-toggle {
     background-color: #4A4A4A;
     border-radius: 0;
@@ -270,11 +276,11 @@ button.dropdown-toggle {
 .mat-form-field {
     width: 100% !important;
 
-    .mat-input-flex, .mat-input-element {
+    .mat-form-field-flex, .mat-input-element {
         background-color: rgba(247,247,247,1);
     }
 
-    .mat-input-flex {
+    .mat-form-field-flex {
         padding: 7px 15px;
     }
 }

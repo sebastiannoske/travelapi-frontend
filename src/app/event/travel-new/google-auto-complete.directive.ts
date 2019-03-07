@@ -24,7 +24,7 @@ export class GoogleAutoCompleteDirective implements OnInit {
             // location types.
             this.autocomplete = new google.maps.places.Autocomplete(
                 /** @type {!HTMLInputElement} */(this._elementRef.nativeElement),
-                {types: ['geocode']});
+                { types: ['geocode'] });
 
             this.componentForm = {
                 locality: 'long_name',

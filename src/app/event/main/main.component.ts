@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { EventHead } from '../interfaces/_index';
@@ -18,14 +18,4 @@ export class MainComponent implements OnInit {
     ngOnInit(): void {
         this.eventHead = this._route.snapshot.data['eventHead'];
     }
-
-    // @HostListener('window:resize', [])
-    // dispatchNewHeight() {
-    //     setTimeout(() => {
-    //         const event = new CustomEvent('setIframeHeight', { detail: {
-    //             height: document.body.clientHeight, jumpTo: 0
-    //         }});
-    //         window.parent.document.dispatchEvent(event);
-    //     }, 0);
-    // }
 }

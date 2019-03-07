@@ -28,45 +28,33 @@
   <div class="map-wrap">
     <div>
       <div>
-        <agm-map [latitude]="position.lat" [longitude]="position.lng" [usePanning]='usePanning' [zoom]="mapZoom" [styles]="mapStyles"
-          [fitBounds]='latlngBounds' maxZoom='18'>
-          <agm-marker-cluster [styles]='markerClusterStyles'>
-            <ng-container *ngFor='let travel of ( travelsFiltered | northToSouth )'>
-              <ng-container *ngIf='travel.destination.id === 1'>
-                <agm-marker #filteredMarkers [latitude]="travel.lat" [longitude]="travel.long" [iconUrl]='"./assets/images/icons/pin_" + travel.transportation_mean.id + "_a.png"'
+        <ng-container *ngIf='latlngBounds'>
+          <agm-map [latitude]="position.lat" [longitude]="position.lng" [usePanning]='usePanning' [zoom]="mapZoom" [styles]="mapStyles"
+            [fitBounds]='latlngBounds' maxZoom='18'>
+            <agm-marker-cluster [styles]='markerClusterStyles'>
+              <ng-container *ngFor='let travel of ( travelsFiltered | northToSouth )'>
+                <agm-marker #filteredMarkers [latitude]="travel.lat" [longitude]="travel.long" [iconUrl]='"./assets/images/icons/pin_" + travel.transportation_mean.id + "_"+ travel.destination.pin_color + ".svg"'
                   (markerClick)="showMarkerDetails(travel); position.lat = travel.lat; position.lng = travel.long"
                   [attr.latitude]='travel.lat' [attr.longitude]='travel.long'></agm-marker>
                 <ng-container *ngIf='travel.stopover.length'>
                   <ng-container *ngFor='let stopover of travel.stopover'>
-                    <agm-marker #filteredMarkers [latitude]="stopover.lat" [longitude]="stopover.long" [iconUrl]='"./assets/images/icons/pin_" + travel.transportation_mean.id + "_a.png"'
+                    <agm-marker #filteredMarkers [latitude]="stopover.lat" [longitude]="stopover.long" [iconUrl]='"./assets/images/icons/pin_" + travel.transportation_mean.id + "_"+ travel.destination.pin_color + ".svg"'
                       (markerClick)="showMarkerDetails(travel); position.lat = stopover.lat; position.lng = stopover.long"
                       [attr.latitude]='stopover.lat' [attr.longitude]='stopover.long'></agm-marker>
                   </ng-container>
                 </ng-container>
               </ng-container>
-              <ng-container *ngIf='travel.destination.id === 2'>
-                  <agm-marker #filteredMarkers [latitude]="travel.lat" [longitude]="travel.long" [iconUrl]='"./assets/images/icons/pin_" + travel.transportation_mean.id + "_b.png"'
-                    (markerClick)="showMarkerDetails(travel); position.lat = travel.lat; position.lng = travel.long"
-                    [attr.latitude]='travel.lat' [attr.longitude]='travel.long'></agm-marker>
-                  <ng-container *ngIf='travel.stopover.length'>
-                    <ng-container *ngFor='let stopover of travel.stopover'>
-                      <agm-marker #filteredMarkers [latitude]="stopover.lat" [longitude]="stopover.long" [iconUrl]='"./assets/images/icons/pin_" + travel.transportation_mean.id + "_b.png"'
-                        (markerClick)="showMarkerDetails(travel); position.lat = stopover.lat; position.lng = stopover.long"
-                        [attr.latitude]='stopover.lat' [attr.longitude]='stopover.long'></agm-marker>
-                    </ng-container>
-                  </ng-container>
-                </ng-container>
-            </ng-container>
-          </agm-marker-cluster>
-          <agm-circle *ngIf='mapSearchMode' [latitude]="position.lat" [longitude]="position.lng" [circleDraggable]="false"
-            [editable]="false" [radius]="100000" [fillColor]="'#0099ff'" [fillOpacity]=".15"></agm-circle>
+            </agm-marker-cluster>
+            <agm-circle *ngIf='mapSearchMode' [latitude]="position.lat" [longitude]="position.lng" [circleDraggable]="false"
+              [editable]="false" [radius]="100000" [fillColor]="'#0099ff'" [fillOpacity]=".15"></agm-circle>
 
-          <!-- [strokeWeight]="1"
-            [strokePosition]="'CENTER'"
-            [strokeColor]="'#000'"
-            [strokeOpacity]="1" -->
+            <!-- [strokeWeight]="1"
+              [strokePosition]="'CENTER'"
+              [strokeColor]="'#000'"
+              [strokeOpacity]="1" -->
 
-        </agm-map>
+          </agm-map>
+        </ng-container>
 
         <div id="search-in-map-wrap">
           <div class="input-group custom-input-wrap">

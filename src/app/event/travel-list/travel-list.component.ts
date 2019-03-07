@@ -10,11 +10,8 @@ import {
 import { HttpClient } from '@angular/common/http';
 import {
     FormGroup,
-    FormControl,
-    FormArray,
     FormBuilder,
-    Validators,
-    AbstractControl
+    Validators
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { EventRepository } from '../event-repository.service';
@@ -27,11 +24,9 @@ import {
 } from '../interfaces/_index';
 import {
     trigger,
-    state,
     style,
     transition,
-    animate,
-    keyframes
+    animate
 } from '@angular/animations';
 import {
     AgmMap,
@@ -54,14 +49,14 @@ declare var google: any;
         trigger('viewChange', [
             transition('void => *', [
                 style({
-                    transform: 'translateX(-15px) scale(.95)',
+                    transform: 'translateX(-30px)',
                     height: 0,
                     opacity: '0'
                 }),
                 animate(
                     '.4s ease',
                     style({
-                        transform: 'translateY(0) scale(1)',
+                        transform: 'translateX(0)',
                         height: '*',
                         opacity: '1'
                     })
@@ -73,33 +68,15 @@ declare var google: any;
                     style({
                         height: 0,
                         opacity: 0,
-                        transform: 'translateX(-15px) scale(.95)'
+                        transform: 'translateX(-15px)'
                     })
                 )
             ])
         ]),
         trigger('showDeatilsWrapTrigger', [
             transition('void => *', [
-                style({
-                    transform: 'translate3d(30px, -15px, 0) scale(.9)',
-                    opacity: '0'
-                }),
-                animate(
-                    '.3s ease',
-                    style({
-                        transform: 'translate3d(0, 0, 0) scale(1)',
-                        opacity: '1'
-                    })
-                )
-            ]),
-            transition('* => void', [
-                animate(
-                    '.3s ease',
-                    style({
-                        opacity: 0,
-                        transform: 'translate3d(30px, -15px, 0) scale(.9)'
-                    })
-                )
+                style({ transform: 'translateX(-30px)', opacity: 0 }),
+                animate('.3s ease')
             ])
         ])
     ]
@@ -154,7 +131,6 @@ export class TravelListComponent implements OnInit, AfterViewInit {
         private _pagination: EventPagination,
         private _http: HttpClient,
         private _loader: MapsAPILoader,
-        private _mapWrapper: GoogleMapsAPIWrapper,
         private _fb: FormBuilder
     ) {
         this.position = { lat: 51.1315, lng: 9.2127 };
@@ -164,7 +140,7 @@ export class TravelListComponent implements OnInit, AfterViewInit {
         this.formState = 'waiting';
 
         const temp = {
-            url: './assets/images/icons/cluster-marker_a_b.png',
+            url: './assets/images/icons/cluster-marker.png',
             height: 75,
             width: 75,
             textColor: '#fff',
@@ -221,14 +197,6 @@ export class TravelListComponent implements OnInit, AfterViewInit {
             ],
             description: ['', Validators.required]
         });
-
-        // inform parent about applications clientHeight
-        // setTimeout(() => {
-        //     const event = new CustomEvent('setIframeHeight', { detail: {
-        //         height: document.body.clientHeight, jumpTo: 0
-        //     }});
-        //     window.parent.document.dispatchEvent(event);
-        // }, 300);
 
         // listen for given travel id to show its details
         this._route.params.subscribe(params => {
@@ -386,22 +354,10 @@ export class TravelListComponent implements OnInit, AfterViewInit {
     }
 
     public showMarkerFullDetails() {
-        // this.currentDetailsTravelId =
-        // this.currentDetailsTravelId === this.currentMapDetails.id ? 0 : this.currentMapDetails.id;
         this.currentDetailsTravelId = this.currentMapDetails.id;
 
         if (this.currentDetailsTravelId > 0) {
             setTimeout(() => {
-                // inform parent about applications clientHeight
-                // const event = new CustomEvent('setIframeHeight', { detail: {
-                //     height: document.body.clientHeight, jumpTo: this.travelWrap.nativeElement.offsetTop
-                // }});
-                // window.parent.document.dispatchEvent(event);
-                // <any>window.parentIFrame.scrollToOffset(this.travelWrap.nativeElement.offsetTop);
-                // console.log(window);
-                // debugger;
-
-
                 if (window['parentIFrame']) {
                     window['parentIFrame'].sendMessage({
                         'scrollTo': this.travelWrap.nativeElement.getBoundingClientRect().top
@@ -428,6 +384,7 @@ export class TravelListComponent implements OnInit, AfterViewInit {
             this.position = { lat: event.lat, lng: event.lng };
             this.mapZoom = 9;
             this.myMap.triggerResize(true);
+            debugger;
             this.latlngBounds = <LatLngBounds>event.viewport;
 
             if (this.mapSearchString.length > 0) {
