@@ -6,4 +6,6 @@ export interface Destination {
     name: string;
     pin_color?: string;
     travel?: Travel[];
+    long?: number;
+    lat?: number;
 }

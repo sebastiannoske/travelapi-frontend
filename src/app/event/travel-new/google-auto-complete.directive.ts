@@ -93,10 +93,10 @@ export class GoogleAutoCompleteDirective implements OnInit {
 
         if (place.geometry) {
             this.notifyForAddressData.emit({
-            addressFields: addressFields,
-            lng: place.geometry.location.lng(),
-            lat: place.geometry.location.lat(),
-            viewport: place.geometry.viewport
+                addressFields: addressFields,
+                lng: place.geometry.location.lng(),
+                lat: place.geometry.location.lat(),
+                viewport: place.geometry.viewport
             });
         }
     }

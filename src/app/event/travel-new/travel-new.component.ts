@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {
     trigger,
@@ -70,6 +70,7 @@ export class TravelNewComponent implements OnInit {
         private _fb: FormBuilder,
         private _eventRepository: EventRepository,
         private _dateAdapter: DateAdapter<NativeDateAdapter>,
+        private _changeDetector: ChangeDetectorRef,
         private _loader: MapsAPILoader,
         private _http: HttpClient
     ) {
@@ -395,10 +396,6 @@ export class TravelNewComponent implements OnInit {
     }
 
     googlePlacesAddressHandler(event: any): void {
-        this.position = { lat: event.lat, lng: event.lng };
-        this.mapZoom = 16;
-        this.myMap.triggerResize(true);
-
         this.travelForm.get('steps.3.lat').patchValue(event.lat);
 
         this.travelForm.get('steps.3.long').patchValue(event.lng);
@@ -416,6 +413,13 @@ export class TravelNewComponent implements OnInit {
         this.travelForm
             .get('steps.3.city')
             .patchValue(event.addressFields.city);
+
+        this.position = { lat: event.lat, lng: event.lng };
+        this.mapZoom = 16;
+        setTimeout(() => {
+            this.myMap.triggerResize(true);
+        this._changeDetector.markForCheck();
+        }, 0);
     }
 
     getDistance() {
@@ -444,8 +448,20 @@ export class TravelNewComponent implements OnInit {
                 this.position.lat,
                 this.position.lng
             );
-            // const destination = new google.maps.LatLng(52.5162746, 13.3755154); // satt
-            const destination = new google.maps.LatLng(52.5284531, 13.3746955); // jugend klima demo
+
+            let destinationLat = 0;
+            let destinationLong = 0;
+            const selectedDestinationId = parseInt(travelFormData[0].destinationId, 10);
+
+            // find selected destination long and lat
+            this.destinations.forEach((currentDestination) => {
+                if (currentDestination.id === selectedDestinationId) {
+                    destinationLat = currentDestination.lat;
+                    destinationLong = currentDestination.long;
+                }
+            });
+
+            const destination = new google.maps.LatLng(destinationLat, destinationLong); // jugend klima demo
             const service = new google.maps.DistanceMatrixService();
 
             service.getDistanceMatrix(

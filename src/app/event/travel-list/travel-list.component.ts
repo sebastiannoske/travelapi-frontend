@@ -384,7 +384,6 @@ export class TravelListComponent implements OnInit, AfterViewInit {
             this.position = { lat: event.lat, lng: event.lng };
             this.mapZoom = 9;
             this.myMap.triggerResize(true);
-            debugger;
             this.latlngBounds = <LatLngBounds>event.viewport;
 
             if (this.mapSearchString.length > 0) {
