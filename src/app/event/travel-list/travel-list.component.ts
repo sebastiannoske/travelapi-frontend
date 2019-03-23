@@ -26,7 +26,9 @@ import {
     trigger,
     style,
     transition,
-    animate
+    animate,
+    keyframes,
+    state
 } from '@angular/animations';
 import {
     AgmMap,
@@ -48,18 +50,15 @@ declare var google: any;
     animations: [
         trigger('viewChange', [
             transition('void => *', [
-                style({
-                    transform: 'translateX(-30px)',
-                    height: 0,
-                    opacity: '0'
-                }),
-                animate(
-                    '.4s ease',
-                    style({
-                        transform: 'translateX(0)',
-                        height: '*',
-                        opacity: '1'
-                    })
+                state('*', style({
+                    height: '*', transform: 'translateX(0)', opacity: 1
+                })),
+                animate('.7s ease',
+                    keyframes([
+                        style({ height: '0', transform: 'translateX(-30px)', opacity: 0, offset: 0 }),
+                        style({ height: '*', transform: 'translateX(-30px)', opacity: 0, offset: .6 }),
+                        style({ height: '*', transform: 'translateX(0)', opacity: 1, offset: 1 })
+                    ])
                 )
             ]),
             transition('* => void', [
@@ -76,7 +75,7 @@ declare var google: any;
         trigger('showDeatilsWrapTrigger', [
             transition('void => *', [
                 style({ transform: 'translateX(-30px)', opacity: 0 }),
-                animate('.3s ease')
+                animate('300ms ease')
             ])
         ])
     ]

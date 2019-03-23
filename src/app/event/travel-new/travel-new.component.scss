@@ -153,8 +153,8 @@
         .form-check-label {
             font-size: 32px;
             line-height: 32px;
-            font-family: 'Raleway', sans-serif;
-            font-weight: 900;
+            font-family: 'fira-bold';
+            font-weight: normal;
             padding-left: 0;
         }
 
@@ -203,7 +203,7 @@
 
             & > div:first-child {
                 font-size: 10px;
-                font-weight: 300;
+                font-weight: normal;
 
                 @media ( min-width: 530px ) {
                     font-size: 12px;
@@ -247,20 +247,20 @@
     }
 
     span.step-indicator {
-        font-family: 'Raleway', sans-serif;
-        font-weight: 500;
+        font-family: 'fira-medium';
+        font-weight: normal;
         font-size: 24px;
     }
 
     h4 {
-        font-family: 'Raleway', sans-serif;
-        font-weight: 800;
+        font-family: 'fira-bold';
+        font-weight: normal;
         font-size: 24px;
     }
 
     h3 {    
-        font-family: 'Raleway', sans-serif;
-        font-weight: 800;
+        font-family: 'fira-bold';
+        font-weight: normal;
         font-size: 32px;
         margin-bottom: 10px;
     }

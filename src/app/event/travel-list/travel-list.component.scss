@@ -26,7 +26,7 @@
                 vertical-align: middle;
                 display: inline-block;
                 font-size: 10px;
-                font-weight: 300;
+                font-weight: normal;
                 line-height: 12px;
 
                 @media ( min-width: 400px ) {
@@ -297,7 +297,7 @@
             margin-top: 20px;
             text-align: right;
 
-            .btn-black {
+            .btn-blue {
                 font-size: 14px;
                 padding: 6px 12px 5px;
                 width: 100%;
@@ -397,14 +397,14 @@
             font-size: 14px;
 
             h4 {
-                font-family: 'Raleway', sans-serif;
-                font-weight: 800;
+                font-family: 'fira-bold';
+                font-weight: normal;
                 font-size: 24px;
             }
 
             .col-3 {
                 span {
-                    font-weight: 300;
+                    font-weight: normal;
                     font-size: 10px;
                 }
             }
@@ -439,7 +439,7 @@
             .contact-btn-wrap {
                 text-align: right;    
 
-                .btn-black {
+                .btn-blue {
                     position: relative;
                     display: inline-block;
                     min-width:140px;
@@ -450,7 +450,7 @@
                 .contact-btn-wrap {
                     text-align: left;
                     
-                    .btn-black {
+                    .btn-blue {
                         position: absolute;
                         bottom:1.25em;
                         right:0;
