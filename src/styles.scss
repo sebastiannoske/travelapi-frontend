@@ -8,22 +8,22 @@
 
 @font-face {
 	font-family: 'fira-regular';
-	src: url('/assets/fonts/fira-sans-v8-latin-regular.woff2') format('woff2'),
-		url('/assets/fonts/fira-sans-v8-latin-regular.woff') format('woff');
+	src: url('./assets/fonts/fira-sans-v8-latin-regular.woff2') format('woff2'),
+		url('./assets/fonts/fira-sans-v8-latin-regular.woff') format('woff');
 	font-style: normal;
 }
 
 @font-face {
 	font-family: 'fira-medium';
-	src: url('/assets/fonts/fira-sans-v8-latin-500.woff2') format('woff2'),
-		url('/assets/fonts/fira-sans-v8-latin-500.woff') format('woff');
+	src: url('./assets/fonts/fira-sans-v8-latin-500.woff2') format('woff2'),
+		url('./assets/fonts/fira-sans-v8-latin-500.woff') format('woff');
 	font-style: normal;
 }
 
 @font-face {
 	font-family: 'fira-bold';
-	src: url('/assets/fonts/fira-sans-v8-latin-700.woff2') format('woff2'),
-		url('/assets/fonts/fira-sans-v8-latin-700.woff') format('woff');
+	src: url('./assets/fonts/fira-sans-v8-latin-700.woff2') format('woff2'),
+		url('./assets/fonts/fira-sans-v8-latin-700.woff') format('woff');
 	font-style: normal;
 }
 
@@ -124,7 +124,7 @@ select:-moz-focusring {
 }
 
 input, textarea, select, button {
-    &:focus {
+    &:not(.btn-blue):focus {
         outline: none !important;
         border: none !important;
         box-shadow: none !important;

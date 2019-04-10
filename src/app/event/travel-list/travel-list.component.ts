@@ -5,6 +5,7 @@ import {
     QueryList,
     ElementRef,
     ViewChild,
+    HostListener,
     ViewChildren
 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -39,7 +40,7 @@ import {
 import { ClusterStyle } from '@agm/js-marker-clusterer/services/google-clusterer-types';
 
 declare var ScrollMagic: any;
-declare var TweenMax: any;
+declare var TweenLite: any;
 declare var google: any;
 
 @Component({
@@ -119,6 +120,7 @@ export class TravelListComponent implements OnInit, AfterViewInit {
     lastFilteredMarkerLength: number;
     contactForm: FormGroup;
     formState: string;
+    mobileView: boolean;
 
     public get pager(): EventPager {
         return this._pagination.pager;
@@ -137,6 +139,7 @@ export class TravelListComponent implements OnInit, AfterViewInit {
         this.lastFilteredMarkerLength = 0;
         this.usePanning = false;
         this.formState = 'waiting';
+        this.mobileView = false;
 
         const temp = {
             url: './assets/images/icons/cluster-marker.png',
@@ -181,7 +184,7 @@ export class TravelListComponent implements OnInit, AfterViewInit {
             vertical: true
         });
         this.scrollMagicController.scrollTo(function (newpos) {
-            TweenMax.to(window, 0.8, {
+            TweenLite.to(window, 0.8, {
                 scrollTo: { y: newpos, autoKill: false }
             });
         });
@@ -392,6 +395,15 @@ export class TravelListComponent implements OnInit, AfterViewInit {
                 this.keys = ['currentDistance'];
                 this.ascOrder = true;
             }
+        }
+    }
+
+    @HostListener('window:resize', [])
+    handleMobileMode() {
+        if (document.body.clientWidth > 768 && this.mobileView) {
+            this.mobileView = false;
+        } else if (document.body.clientWidth <= 768 && !this.mobileView) {
+            this.mobileView = true;
         }
     }
 }

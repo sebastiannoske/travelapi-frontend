@@ -30,7 +30,7 @@
       <div>
         <ng-container *ngIf='latlngBounds'>
           <agm-map [latitude]="position.lat" [longitude]="position.lng" [usePanning]='usePanning' [zoom]="mapZoom" [styles]="mapStyles"
-            [fitBounds]='latlngBounds' maxZoom='18'>
+            [fitBounds]='latlngBounds' maxZoom='18' [zoomControl]='!mobileView' [streetViewControl]='!mobileView'>
             <agm-marker-cluster [styles]='markerClusterStyles'>
               <ng-container *ngFor='let travel of ( travelsFiltered | northToSouth )'>
                 <agm-marker #filteredMarkers [latitude]="travel.lat" [longitude]="travel.long" [iconUrl]='"./assets/images/icons/pin_" + travel.transportation_mean.id + "_"+ travel.destination.pin_color + ".svg"'

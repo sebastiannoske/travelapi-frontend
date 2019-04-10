@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import * as _ from 'lodash';
 import { EventPager } from './interfaces/_index';
 
 @Injectable()
@@ -44,7 +43,11 @@ export class EventPagination {
         const endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1);
 
         // create an array of pages to ng-repeat in the pager control
-        const pages = _.range(startPage, endPage + 1);
+        // const pages = _.range(startPage, endPage + 1); loddash
+        const pages = [];
+        for (let i = startPage; i <= endPage; i++) {
+            pages.push(i);
+        }
 
         // return object with all pager properties required by the view
         this._pager = {

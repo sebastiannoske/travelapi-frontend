@@ -25,7 +25,7 @@
               "node_modules/snazzy-info-window/dist/snazzy-info-window.css"
             ],
             "scripts": [
-              "src/assets/scripts/parallax/TweenMax.min.js",
+              "src/assets/scripts/parallax/TweenLite.min.js",
               "src/assets/scripts/parallax/ScrollMagic.min.js",
               "src/assets/scripts/parallax/ScrollToPlugin.min.js",
               "src/assets/scripts/parallax/animation.gsap.min.js"
@@ -38,6 +38,7 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
+              "es5BrowserSupport": true,
               "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,

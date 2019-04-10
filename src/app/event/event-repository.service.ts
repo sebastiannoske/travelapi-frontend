@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import * as _ from 'lodash';
 
 import { EventDataService } from './event-data.service';
 
@@ -43,7 +42,7 @@ export class EventRepository {
         return this.travels.filter(travel => travel.offer);
     }
     public getDestinations(travels?: Travel[]): Destination[] {
-        // if (travels) { // KAT
+        // if (travels) { // KAT _ is lodash
         //     return _.uniqWith(
         //         travels.map(travel => travel.destination),
         //         _.isEqual
