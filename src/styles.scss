@@ -46,6 +46,10 @@ body {
     background: transparent !important; // TODO
 }
 
+body.modal-open {
+    overflow: hidden;
+}
+
 input {
     -webkit-appearance: none !important;
 }

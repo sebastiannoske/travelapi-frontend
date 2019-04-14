@@ -1,7 +1,7 @@
 <div *eventAssign="let travelsFiltered be travels | calculateDistance:mapSearchMode:position | filter:textFilter:destinationFilter:transportationMeanFilter | filterCurrentDetails:currentDetailsTravelId:detailsRequestedFromMapDetails"
   style="overflow: hidden">
 
-  <div class="select-destination" *ngIf='destinations && destinations.length > 1'>
+  <div class="select-destination" *ngIf='!mobileView && destinations && destinations.length > 1'>
     <div class="row">
       <div class="col-md-8">
         <p>Diese Demonstration findet in mehreren Städten statt.
@@ -122,22 +122,28 @@
               und Kontaktinfos</button>
           </div>
         </div>
+
+        <button *ngIf='mobileView' class="btn btn-blue map-filter-toggle" type="button" (click)='showMapFilterOverlay = true;'>
+          <span>Karte filtern</span>
+        </button>
       </div>
     </div>
   </div>
 
   <div class="row padding">
-    <div class="col-md-6">
-      <div class="btn-toolbar travel-filter-icons">
-        <div class="step-nav-wrap mr-2" role="group" aria-label="First group">
-          <button type="button" *ngFor='let filter of transportationMeanDisplay' [class.active-filter]='-1 !== transportationMeanFilter.indexOf(filter.id)'
-            class="btn" (click)='updateTransportationMeanFilter(filter.id)'>
-            <i [class]='filter.iconClass'></i>
-          </button>
+    <ng-container *ngIf='!mobileView'>
+      <div class="col-md-6">
+        <div class="btn-toolbar travel-filter-icons">
+          <div class="step-nav-wrap mr-2" role="group" aria-label="First group">
+            <button type="button" *ngFor='let filter of transportationMeanDisplay' [class.active-filter]='-1 !== transportationMeanFilter.indexOf(filter.id)'
+              class="btn" (click)='updateTransportationMeanFilter(filter.id)'>
+              <i [class]='filter.iconClass'></i>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-md-6 right-align">
+    </ng-container>
+    <div class="col-md-6">
       <div id="filter-table-wrap">
         <div class="input-group padding-right custom-input-wrap" id="filter-table">
           <div class="input-group-prepend">
@@ -399,3 +405,9 @@
       </li>
     </ul>
   </nav>
+
+  <ng-container *ngIf='mobileView && showMapFilterOverlay'>
+    <app-map-filter-overlay [destinations]='destinations' [destinationFilter]='destinationFilter' [transportationMeanDisplay]='transportationMeanDisplay' 
+      [transportationMeanFilter]='transportationMeanFilter' (updateTransportationMeanFilterEvent)='updateTransportationMeanFilterEventHandler($event)'
+      (updateDestinationFilterEvent)='updateDestinationFilterEventHandler($event)' (onCloseEvent)='showMapFilterOverlay = false'></app-map-filter-overlay>
+  </ng-container>

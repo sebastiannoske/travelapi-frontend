@@ -1,0 +1,27 @@
+<div class="map-filter-overlay-wrap">
+  <ng-container *ngIf='destinations && destinations.length > 1'>
+    <h4>Ziel auswählen</h4>
+    <div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" value="" id="radio-destination-all" name='dest' [checked]='!destinationFilter' (change)='updateDestinationFilter(null)'>
+          <label class="form-check-label" for="radio-destination-all">Alle</label>
+        </div>
+        <div class="form-check" *ngFor="let destination of destinations">
+          <input class="form-check-input" type="radio" value="" id="radio-destination-{{destination.id}}" name='dest' [checked]='destinationFilter && destinationFilter.name === destination.name' (change)='updateDestinationFilter(destination)'>
+          <label class="form-check-label" for="radio-destination-{{destination.id}}">{{destination.name}}</label>
+        </div>
+    </div>
+  </ng-container>
+  <h4>Verkehrsmittel auswählen</h4>
+  <h5>( Mehrfachauswahl möglich )</h5>
+  <div>
+      <div class="form-check" *ngFor="let filter of transportationMeanDisplay">
+        <input class="form-check-input" type="checkbox" value="" id="cb-mean-{{filter.id}}" (change)='updateTransportationMeanFilter(filter.id)' [checked]='-1 !== transportationMeanFilter.indexOf(filter.id)'>
+        <label class="form-check-label" for="cb-mean-{{filter.id}}"><i [class]='filter.iconClass'></i> {{filter.name}}</label>
+      </div>
+  </div>
+
+  <button class="btn btn-blue map-filter-toggle" type="button" (click)='close()'>
+    <span>Filter schließen</span>
+  </button>
+</div>

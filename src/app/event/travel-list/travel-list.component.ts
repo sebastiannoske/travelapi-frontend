@@ -250,6 +250,8 @@ export class TravelListComponent implements OnInit, AfterViewInit {
                 });
             }
         });
+
+        this.checkForMobileMode();
     }
 
     ngAfterViewInit() {
@@ -322,6 +324,14 @@ export class TravelListComponent implements OnInit, AfterViewInit {
             return;
         }
         this._pagination.setPager(this.pager.totalItems, page);
+    }
+
+    public updateDestinationFilterEventHandler(event: any) {
+        this.destinationFilter = event.destination;
+    }
+
+    public updateTransportationMeanFilterEventHandler(event: any) {
+        this.updateTransportationMeanFilter(event.filterId);
     }
 
     public updateTransportationMeanFilter(transportationMeanId: number) {
@@ -399,7 +409,7 @@ export class TravelListComponent implements OnInit, AfterViewInit {
     }
 
     @HostListener('window:resize', [])
-    handleMobileMode() {
+    checkForMobileMode() {
         if (document.body.clientWidth > 768 && this.mobileView) {
             this.mobileView = false;
         } else if (document.body.clientWidth <= 768 && !this.mobileView) {

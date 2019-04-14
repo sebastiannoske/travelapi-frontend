@@ -31,6 +31,7 @@ import { EventsSortPipe } from './event/events-sort.pipe';
 import { FilterCurrentDetailsPipe } from './event/filter-current-details.pipe';
 import { CalculateDistancePipe } from './event/calculate-distance.pipe';
 import { ShareButtonModule } from 'ngx-sharebuttons';
+import { MapFilterOverlayComponent } from './map-filter-overlay/map-filter-overlay.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { ShareButtonModule } from 'ngx-sharebuttons';
         NorthToSouthPipe,
         EventsSortPipe,
         FilterCurrentDetailsPipe,
-        CalculateDistancePipe
+        CalculateDistancePipe,
+        MapFilterOverlayComponent
     ],
     imports: [
         BrowserModule,

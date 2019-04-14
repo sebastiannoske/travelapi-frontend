@@ -1,0 +1,78 @@
+:host {
+    .map-filter-overlay-wrap {
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
+        color: #fff;
+        padding: 15px;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+
+        h4 {
+            font-family: 'fira-medium';
+            font-weight: normal;
+            font-size: 18px;
+        }
+
+        h5 {
+            font-family: 'fira-medium';
+            font-weight: normal;
+            font-size: 10px;
+        }
+
+        & > div {
+            padding: 15px 0 45px;
+        }
+
+        .map-filter-toggle {
+            width: 100%;
+        }
+
+        .form-check {
+            padding-left: 0;
+
+            .form-check-label {
+                font-family: 'fira-medium';
+                font-weight: normal;
+                font-size: 18px;
+                line-height: 44px;
+                font-weight: normal;
+            }
+    
+            label {
+                width: 100%;
+                border-bottom: 1px solid rgba(255,255,255,.5);
+
+                &:after {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    bottom: 12px;
+                    right: 0;
+                    width: 20px;
+                    height: 20px;
+                    background-color: #000;
+                    border: 2px solid #fff;
+                    box-shadow: inset 0 0 0 3px #000;
+                    transition: .15s ease all;
+                }
+            }
+    
+            input[type=checkbox], input[type=radio] {
+                display: none;
+    
+                &:checked + label {
+                    
+                    &:after {
+                        background-color: #fff;
+                    }
+                }
+            }
+    
+        }
+    }
+}
