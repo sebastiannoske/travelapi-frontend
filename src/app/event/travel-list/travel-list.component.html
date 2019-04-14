@@ -128,6 +128,12 @@
         </button>
       </div>
     </div>
+
+    <ng-container *ngIf='mobileView && showMapFilterOverlay'>
+      <app-map-filter-overlay [destinations]='destinations' [destinationFilter]='destinationFilter' [transportationMeanDisplay]='transportationMeanDisplay' 
+        [transportationMeanFilter]='transportationMeanFilter' (updateTransportationMeanFilterEvent)='updateTransportationMeanFilterEventHandler($event)'
+        (updateDestinationFilterEvent)='updateDestinationFilterEventHandler($event)' (onCloseEvent)='showMapFilterOverlay = false'></app-map-filter-overlay>
+    </ng-container>
   </div>
 
   <div class="row padding">
@@ -405,9 +411,3 @@
       </li>
     </ul>
   </nav>
-
-  <ng-container *ngIf='mobileView && showMapFilterOverlay'>
-    <app-map-filter-overlay [destinations]='destinations' [destinationFilter]='destinationFilter' [transportationMeanDisplay]='transportationMeanDisplay' 
-      [transportationMeanFilter]='transportationMeanFilter' (updateTransportationMeanFilterEvent)='updateTransportationMeanFilterEventHandler($event)'
-      (updateDestinationFilterEvent)='updateDestinationFilterEventHandler($event)' (onCloseEvent)='showMapFilterOverlay = false'></app-map-filter-overlay>
-  </ng-container>

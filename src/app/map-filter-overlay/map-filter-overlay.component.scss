@@ -1,14 +1,14 @@
 :host {
     .map-filter-overlay-wrap {
-        position: fixed;
+        position: absolute;
         z-index: 1000;
         top: 0;
         left: 0;
-        width: 100vw;
-        height: 100vh;
+        width: 100%;
+        height: 100%;
         background-color: #000;
         color: #fff;
-        padding: 15px;
+        padding: 15px 15px 75px;
         overflow: auto;
         -webkit-overflow-scrolling: touch;
 
@@ -26,6 +26,13 @@
 
         & > div {
             padding: 15px 0 45px;
+        }
+
+        #close-icon-wrap {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            padding: 5px;
         }
 
         .map-filter-toggle {

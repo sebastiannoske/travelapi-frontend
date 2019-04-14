@@ -46,10 +46,6 @@ body {
     background: transparent !important; // TODO
 }
 
-body.modal-open {
-    overflow: hidden;
-}
-
 input {
     -webkit-appearance: none !important;
 }
@@ -363,18 +359,22 @@ button.dropdown-toggle {
 .map-wrap {
     position: relative;
     width: 100%;
-    padding-top: 140%;
+    padding-top: 90vh;
 
     @media ( min-width: 450px ) {
-        padding-top: 90%;
+        padding-top: 150%;
     }
 
     @media ( min-width: 550px ) {
-        padding-top: 70%;
+        padding-top: 120%;
     }
 
     @media ( min-width: 700px ) {
-        padding-top: 60%;
+        padding-top: 90%;
+    }
+
+    @media ( min-width: 850px ) {
+        padding-top: 70%;
     }
 
     @media ( min-width: 992px ) {

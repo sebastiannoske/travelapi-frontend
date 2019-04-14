@@ -1,11 +1,11 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-map-filter-overlay',
   templateUrl: './map-filter-overlay.component.html',
   styleUrls: ['./map-filter-overlay.component.scss']
 })
-export class MapFilterOverlayComponent implements OnInit, OnDestroy {
+export class MapFilterOverlayComponent implements OnInit {
   @Input() destinations: any[];
   @Input() destinationFilter: any[];
   @Input() transportationMeanDisplay: any[];
@@ -16,14 +16,7 @@ export class MapFilterOverlayComponent implements OnInit, OnDestroy {
 
   constructor() { }
 
-  ngOnInit() {
-    console.log(this.destinationFilter);
-    document.body.classList.add('modal-open');
-  }
-
-  ngOnDestroy() {
-    document.body.classList.remove('modal-open');
-  }
+  ngOnInit() {}
 
   updateTransportationMeanFilter(filterId: number) {
     this.updateTransportationMeanFilterEvent.emit({ filterId: filterId });
