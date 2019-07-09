@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, ElementRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {
     trigger,
@@ -48,6 +48,7 @@ declare var google: any;
 })
 export class TravelNewComponent implements OnInit {
     @ViewChild(AgmMap) myMap: AgmMap;
+    @ViewChild('travelform') travelFormWrap: ElementRef;
     travel: TravelSubmission;
     travelForm: FormGroup;
     transportationMeans: TransportationMean[];
@@ -110,7 +111,7 @@ export class TravelNewComponent implements OnInit {
                         <'offer' | 'request'>'offer',
                         Validators.required
                     ],
-                    destinationId: ['', Validators.required]
+                    destinationId: ['1', Validators.required]
                 }),
                 this._fb.group({
                     userName: ['', Validators.required],
@@ -270,6 +271,7 @@ export class TravelNewComponent implements OnInit {
                         this.travelForm
                             .get('steps.0.travelType')
                             .patchValue('offer');
+                        this.scrollTopAfterNextStep();
                     }
                 });
         }
@@ -294,10 +296,21 @@ export class TravelNewComponent implements OnInit {
         );
         if (formStep.valid) {
             this.steps.next();
+            this.scrollTopAfterNextStep();
         } else {
             this.markFormGroupAsTouched(formStep);
         }
         return false;
+    }
+
+    private scrollTopAfterNextStep() {
+        setTimeout(() => {
+            if (window['parentIFrame']) {
+                window['parentIFrame'].sendMessage({
+                    'scrollTo': this.travelFormWrap.nativeElement.getBoundingClientRect().top - 150
+                });
+            }
+        }, 0);
     }
 
     getDepartureTime(): string {
