@@ -385,6 +385,20 @@ export class TravelListComponent implements OnInit, AfterViewInit {
         }
     }
 
+    public scrollToMap() {
+        setTimeout(() => {
+            if (window['parentIFrame']) {
+                window['parentIFrame'].sendMessage({
+                    'scrollTo': 0
+                });
+            }
+
+            setTimeout(() => {
+                this.scrollMagicController.scrollTo(0);
+            }, 10);
+        }, 400);
+    }
+
     onMapSearchStringChange() {
         if (this.mapSearchMode && this.mapSearchString.length === 0) {
             this.mapSearchMode = false;

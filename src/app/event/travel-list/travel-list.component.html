@@ -142,7 +142,7 @@
         <div class="btn-toolbar travel-filter-icons">
           <div class="step-nav-wrap mr-2" role="group" aria-label="First group">
             <button type="button" *ngFor='let filter of transportationMeanDisplay' [class.active-filter]='-1 !== transportationMeanFilter.indexOf(filter.id)'
-              class="btn" (click)='updateTransportationMeanFilter(filter.id)'>
+              class="btn map-filter-btn" (click)='updateTransportationMeanFilter(filter.id)'>
               <i [class]='filter.iconClass'></i>
             </button>
           </div>
@@ -324,7 +324,7 @@
 
                 <div class="row">
                   <input type="hidden" formControlName='contactId' [(ngModel)]='travel.contact.id'>
-                  <div class="col-12 col-md-8">
+                  <div class="col-12">
                     <mat-form-field>
                       <input matInput class="form-control" type="text" placeholder="Deine E-Mailadresse *"
                         formControlName="email" />
@@ -332,15 +332,15 @@
                   </div>
                 </div>
                 <div class="row same-height">
-                  <div class="col-12 col-md-8">
+                  <div class="col-12">
                     <mat-form-field>
                       <textarea matInput class="form-control" matTextareaAutosize matAutosizeMinRows="4" placeholder="Deine Nachricht"
                         formControlName="description"></textarea>
                     </mat-form-field>
                   </div>
-                  <div class="col-12 col-md-4 contact-btn-wrap">
+                  <div class="col-12 col-md-12 contact-btn-wrap">
                     <button class="btn btn-blue" type="submit" [disabled]="!contactForm.valid">
-                      <span>Abschicken</span>
+                      <span>Nachricht senden</span>
                       <!-- <span *ngIf='formState === "waiting" || formState === "sending"'>Abschicken</span>
                       <span *ngIf='formState === "succeed"'><img style="height:18px" src="/hambi/assets/images/checkmark.svg"></span> -->
                     </button>
@@ -378,6 +378,7 @@
         <div class="close-botton-wrap">
 
           <a role="button" class="btn-blue" (click)='currentDetailsTravelId = 0'>Schließen</a>
+          <a role="button" class="btn-blue" (click)='currentDetailsTravelId = 0; scrollToMap()' style="margin-left: 10px;">zur Karte</a>
 
         </div>
 

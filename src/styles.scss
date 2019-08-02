@@ -96,7 +96,7 @@ select:-moz-focusring {
     border-radius: 0;
     box-shadow: none !important;
     display: inline-block;
-    transition: .15s ease color, .15s ease background-color;
+    transition: .15s ease color, .15s ease background-color, .15s ease border-color;
     cursor: pointer;
     font-family: 'fira-medium';
     font-weight: normal;
@@ -105,6 +105,8 @@ select:-moz-focusring {
         cursor: default;
         pointer-events: none;
         opacity: 1;
+        background-color: rgb(216, 216, 216);
+        border: 4px solid rgb(216, 216, 216);
     }
 
     &:hover {
@@ -404,14 +406,33 @@ button.dropdown-toggle {
 
 .step-nav-wrap {
     & > .btn {
-        color: #fff;
-        background-color: #000;
+        color: #000;
+        background-color: #fff;
         box-shadow: 0 3px 5px 0px rgba(0, 0, 0, 0.1);
         cursor: pointer;
         border-radius: 20px;
         width: 40px;
         height: 40px;
-        transition: .15s ease color, .15s ease background-color;
+        transition: .15s ease color, .15s ease background-color, .15s ease border-color;
+        position: relative;
+
+        &.active {
+            background-color: #000;
+            color: #fff;
+        }
+
+        &:not(.active):not(.map-filter-btn):not(:disabled) {
+            &:after {
+                content: "";
+                position: absolute;
+                top: -1px;
+                right: -1px;
+                width: 12px;
+                height: 12px;
+                border-radius: 6px;
+                background-color: #7ED321;
+            }
+        }
 
         & > i {
             color: #000;
@@ -467,9 +488,9 @@ button.dropdown-toggle {
         }
 
         &:disabled {
-            color: #000;
+            color: #fff;
             opacity: 1;
-            background-color: #fff;
+            background-color: rgb(216, 216, 216);
             cursor: not-allowed;
         }
     }
